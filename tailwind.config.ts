@@ -14,6 +14,8 @@ const config: Config = {
       colors: {
         gradientPrimary: "#7B3EFF",
         gradientSecondary: "#BD5ED4",
+        primary: "#9E4FE9",
+        secondary: "#202020",
       },
     },
   },

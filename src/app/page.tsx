@@ -1,18 +1,25 @@
 import { UserProfileShowcase } from "@/widgets/userProfileShowcase";
 import { BottomNavigationBar } from "@/widgets/bottomNavigationBar";
 import { MainAppBar } from "@/widgets/mainAppBar";
+import Image from "next/image";
+import { Page } from "@/shared/ui/Page";
+import { Container } from "@/shared/ui/Container";
 
 export default function Home() {
 
   return (
-    <main className="w-screen h-screen bg-gradient-to-b from-[#FFFFFF] to-[#D8D0F9] pt-4 flex flex-col">
+    <Page className="flex flex-col">
 
-      <MainAppBar />
+      <Container>
+        <MainAppBar text="Search">
+          <Image src={'/icons/filter.svg'} width={28} height={26} alt="filter" />
+        </MainAppBar>
+      </Container>
 
       <UserProfileShowcase />
 
       <BottomNavigationBar />
 
-    </main>
+    </Page>
   );
 }
