@@ -9,7 +9,7 @@ interface Props {
 
 export const Page: React.FC<Props> = ({ className, disableHeightLimit = false, children }) => {
     return (
-        <div className={clsx('w-screen bg-gradient-to-b from-[#FFFFFF] to-[#D8D0F9]', className, {
+        <div className={clsx('w-screen bg-gradient-to-b from-[#FFFFFF] to-[#F5F4F9]', className, {
             'h-screen': !disableHeightLimit
         })}>{children}</div>
     )

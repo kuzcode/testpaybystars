@@ -5,7 +5,7 @@ import React from 'react'
 
 export const UserProfileShowcase = () => {
     return (
-        <Container className='mt-4 flex-1 h-full'>
+        <Container className='flex-1 h-full'>
             <div className="h-[85%] w-full relative">
                 <Image src={'/images/girl.png'} fill alt="girl" className="object-cover rounded-lg" loading="eager" />
             </div>
