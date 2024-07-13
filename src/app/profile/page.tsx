@@ -14,7 +14,7 @@ const COUNTRIES = ['Monkey', 'Elephant', 'Lion']
 
 const Profile = () => {
     return (
-        <Page>
+        <Page disableHeightLimit>
             <Container>
                 <MainAppBar text='Profile' />
 
