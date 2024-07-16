@@ -16,7 +16,9 @@ const Profile = () => {
     return (
         <Page disableHeightLimit>
             <Container>
-                <MainAppBar text='Profile' />
+                <MainAppBar text='Profile'>
+                    <GradientHotIcon text='4123' />
+                </MainAppBar>
 
                 <div className='space-y-3'>
                     <Card className='!pb-3'>

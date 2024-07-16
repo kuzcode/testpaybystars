@@ -7,16 +7,18 @@ import Image from 'next/image';
 import React from 'react'
 import { PeopleNearbyModal } from './ui/modals/peopleNearbyModal';
 import { AboutMatchModal } from './ui/modals/aboutMatchModal';
+import { HotScoreBadge } from '@/shared/ui/HotScoreBadge';
 
 const Search = () => {
     return (
         <Page className="flex flex-col !to-[#D8D0F9]">
 
-            <Container>
-                <MainAppBar text="Search">
-                    <Image src={'/icons/filter.svg'} width={28} height={26} alt="filter" />
-                </MainAppBar>
-            </Container>
+            <MainAppBar text="Search">
+                <Image src={'/icons/filter.svg'} width={28} height={26} alt="filter" />
+                <HotScoreBadge count={523} />
+            </MainAppBar>
+            {/* <Container> */}
+            {/* </Container> */}
 
             <UserProfileShowcase />
 

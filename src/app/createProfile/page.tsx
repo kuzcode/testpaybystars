@@ -2,6 +2,7 @@ import { Button } from '@/shared/ui/Button'
 import { Card } from '@/shared/ui/Card'
 import { Container } from '@/shared/ui/Container'
 import { Flex } from '@/shared/ui/Flex'
+import { GradientHotIcon } from '@/shared/ui/GradientHotIcon'
 import { Page } from '@/shared/ui/Page'
 import { MainAppBar } from '@/widgets/mainAppBar'
 import Image from 'next/image'
@@ -12,7 +13,9 @@ const CreateProfile = () => {
     return (
         <Page className='!to-[#F5F4F9]'>
             <Container>
-                <MainAppBar text='Create Profile' />
+                <MainAppBar text='Create Profile'>
+                    <GradientHotIcon text='4123' />
+                </MainAppBar>
 
                 <Card className='mt-8 !py-6'>
                     <h3 className='text-secondary font-bold text-[16px]'>About your soul mate</h3>

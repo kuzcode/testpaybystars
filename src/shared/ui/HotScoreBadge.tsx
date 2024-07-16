@@ -10,9 +10,11 @@ interface Props {
 
 export const HotScoreBadge: React.FC<Props> = ({ className, count }) => {
     return (
-        <Flex className={clsx("bg-gradient-to-tr from-gradientSecondary to-gradientPrimary h-[37px] px-3 gap-x-2 rounded-full", className)}>
+        <Flex className={clsx("bg-gradient-to-tr from-gradientSecondary to-gradientPrimary h-[34px] pl-3 pr-1.5 gap-x-0.5 rounded-full", className)}>
             <h3 className="text-white font-semibold text-[20px]">{count}</h3>
-            <Image src={'/icons/hotWhite.svg'} width={20} height={20} alt="hot" className="translate-y-0.5" />
+            <div className='w-[32px] h-[32px] relative'>
+                <Image src={'/icons/hotWhite.svg'} fill alt="hot" className="translate-y-0.5" />
+            </div>
         </Flex>
     )
 }
