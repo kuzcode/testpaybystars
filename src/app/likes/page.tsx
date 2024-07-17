@@ -1,18 +1,14 @@
-import { Card } from '@/shared/ui/Card'
 import { Container } from '@/shared/ui/Container'
 import { DismissibleCard } from '@/shared/ui/DismissibleCard'
-import { Flex } from '@/shared/ui/Flex'
-import { HotScoreBadge } from '@/shared/ui/HotScoreBadge'
-import { Page } from '@/shared/ui/Page'
 import { BottomNavigationBar } from '@/widgets/bottomNavigationBar'
 import { MainAppBar } from '@/widgets/mainAppBar'
-import clsx from 'clsx'
-import Image from 'next/image'
+import { Page } from '@/shared/ui/Page'
 import React from 'react'
 
 const Likes = () => {
     return (
         <Page disableHeightLimit className='!to-[#DDD7F7] !pb-[100px]'>
+
             <MainAppBar text='Your likes (24)' shadow />
             <Container className='!mt-4'>
                 <div className='space-y-2'>
