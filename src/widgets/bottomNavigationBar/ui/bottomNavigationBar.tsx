@@ -3,7 +3,7 @@
 import clsx from 'clsx'
 import React from 'react'
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Flex } from '@/shared/ui/Flex'
 import Image from 'next/image'
 
@@ -48,13 +48,16 @@ const navLinks = [
 
 export const BottomNavigationBar: React.FC<Props> = ({ className }) => {
     const pathname = usePathname()
+    const router = useRouter()
+
+    const goToPage = (page: string) => router.push(page)
 
     return (
         <Flex className={clsx("bg-white justify-around border border-[#DFDFDF] h-[85px] w-full rounded-t-[54px]", className)}>
             {navLinks.map((link, index) => {
                 const isActive = link.url === pathname
                 const iconUrl = isActive ? link.activeIcon : link.inactiveIcon
-                return <Link key={index} href={link.url}><Image src={iconUrl} width={link.width} height={link.height} alt={link.alt} /></Link>
+                return <button key={index} onClick={() => goToPage(link.url)} ><Image src={iconUrl} width={link.width} height={link.height} alt={link.alt} /></button>
             })}
         </Flex>
     )
