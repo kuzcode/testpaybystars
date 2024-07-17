@@ -13,9 +13,8 @@ const Search = () => {
     return (
         <Page className="flex flex-col !to-[#D8D0F9]">
 
-            <MainAppBar text="Search">
+            <MainAppBar text="Search" enableScore>
                 <Image src={'/icons/filter.svg'} width={28} height={26} alt="filter" />
-                <HotScoreBadge count={523} />
             </MainAppBar>
             {/* <Container> */}
             {/* </Container> */}

@@ -6,6 +6,7 @@ import { GradientHotIcon } from '@/shared/ui/GradientHotIcon'
 import { Page } from '@/shared/ui/Page'
 import { PointBadge } from '@/shared/ui/PointBadge'
 import { Step } from '@/shared/ui/Step'
+import { BottomNavigationBar } from '@/widgets/bottomNavigationBar'
 import { MainAppBar } from '@/widgets/mainAppBar'
 import Image from 'next/image'
 import React from 'react'
@@ -14,12 +15,11 @@ const COUNTRIES = ['Monkey', 'Elephant', 'Lion']
 
 const Profile = () => {
     return (
-        <Page disableHeightLimit>
-            <Container>
-                <MainAppBar text='Profile'>
-                    <GradientHotIcon text='4123' />
-                </MainAppBar>
+        <Page disableHeightLimit className='!pb-[100px]'>
 
+            <MainAppBar text='Profile' enableScore />
+
+            <Container>
                 <div className='space-y-3'>
                     <Card className='!pb-3'>
                         <Flex className='justify-between !items-start mb-4'>
@@ -64,6 +64,7 @@ const Profile = () => {
                             </Flex>
                             <h3 className='text-[#857889]'>Available for withdraw: 0 USDT</h3>
                             <Button text='Get Bonus' disabled className='mt-3' />
+                            <h3 className='text-[#857889] font-semibold text-center mt-6 mb-2 text-[19px]'>Disconnect Wallet</h3>
                         </div>
                     </Card>
 
@@ -85,6 +86,9 @@ const Profile = () => {
                 </div>
 
             </Container>
+
+            <BottomNavigationBar className='fixed bottom-0' />
+
         </Page>
     )
 }

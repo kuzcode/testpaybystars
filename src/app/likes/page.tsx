@@ -12,7 +12,7 @@ import React from 'react'
 
 const Likes = () => {
     return (
-        <Page className='!to-[#DDD7F7]'>
+        <Page disableHeightLimit className='!to-[#DDD7F7] !pb-[100px]'>
             <MainAppBar text='Your likes (24)' shadow />
             <Container className='!mt-4'>
                 <div className='space-y-2'>
@@ -22,7 +22,7 @@ const Likes = () => {
                 </div>
             </Container>
 
-            <BottomNavigationBar className='fixed bottom-0' />
+            <BottomNavigationBar className='fixed bottom-0 z-[999]' />
 
         </Page>
     )
