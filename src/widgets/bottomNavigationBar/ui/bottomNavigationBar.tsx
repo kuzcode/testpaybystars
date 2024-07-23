@@ -21,8 +21,8 @@ const navLinks = [
         height: 32
     },
     {
-        url: "/hot",
-        activeIcon: "/icons/navbarHotInactive.svg",
+        url: "/matches",
+        activeIcon: "/icons/navbarHotActive.svg",
         inactiveIcon: "/icons/navbarHotInactive.svg",
         alt: "hot",
         width: 32,

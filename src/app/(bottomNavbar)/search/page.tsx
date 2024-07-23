@@ -8,13 +8,16 @@ import React from 'react'
 import { PeopleNearbyModal } from './ui/modals/peopleNearbyModal';
 import { AboutMatchModal } from './ui/modals/aboutMatchModal';
 import { HotScoreBadge } from '@/shared/ui/HotScoreBadge';
+import Link from 'next/link';
 
 const Search = () => {
     return (
         <Page className="flex flex-col !to-[#D8D0F9]">
 
             <MainAppBar text="Search" enableScore>
-                <Image src={'/icons/filter.svg'} width={28} height={26} alt="filter" />
+                <Link href={'/wallet'}>
+                    <Image src={'/icons/filter.svg'} width={28} height={26} alt="filter" />
+                </Link>
             </MainAppBar>
 
             <UserProfileShowcase />
