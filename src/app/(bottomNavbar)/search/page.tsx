@@ -21,6 +21,7 @@ const Search = () => {
             </MainAppBar>
 
             <UserProfileShowcase />
+            {/* <UserProfileShowcase /> */}
 
             {/* <BottomNavigationBar /> */}
 

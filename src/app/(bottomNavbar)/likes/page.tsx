@@ -12,7 +12,7 @@ const Likes = () => {
             <MainAppBar text='Your likes (24)' shadow />
             <Container className='!mt-4'>
                 <div className='space-y-2'>
-                    {Array.from({ length: 5 }).map((_, index) => {
+                    {Array.from({ length: 10 }).map((_, index) => {
                         return <DismissibleCard key={index} index={index} />
                     })}
                 </div>

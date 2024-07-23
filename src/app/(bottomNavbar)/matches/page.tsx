@@ -11,7 +11,7 @@ const MatchesPage = () => {
             <MainAppBar text='Your matches (17)' shadow />
             <Container className='!mt-4'>
                 <div className='space-y-2'>
-                    {Array.from({ length: 5 }).map((_, index) => {
+                    {Array.from({ length: 10 }).map((_, index) => {
                         return <DismissibleCard key={index} index={index + 1} />
                     })}
                 </div>
