@@ -50,14 +50,26 @@ export const BottomNavigationBar: React.FC<Props> = ({ className }) => {
     const pathname = usePathname()
     const router = useRouter()
 
-    const goToPage = (page: string) => router.push(page)
+    // const goToPage = (page: string) => router.push(page)
 
     return (
-        <Flex className={clsx("bg-white justify-around border border-[#DFDFDF] h-[85px] w-full rounded-t-[54px]", className)}>
+        <Flex className={clsx("fixed bottom-0 bg-white justify-around border border-[#DFDFDF] h-[85px] w-full rounded-t-[54px] z-[999]", className)}>
             {navLinks.map((link, index) => {
                 const isActive = link.url === pathname
-                const iconUrl = isActive ? link.activeIcon : link.inactiveIcon
-                return <button key={index} onClick={() => goToPage(link.url)} ><Image src={iconUrl} width={link.width} height={link.height} alt={link.alt} /></button>
+                // const iconUrl = isActive ? link.activeIcon : link.inactiveIcon
+                const iconUrl = link.activeIcon
+                return <Link href={link.url} key={index} >
+                    {/* active */}
+                    <Image src={link.activeIcon} priority={true} width={link.width} height={link.height} alt={link.alt} className={clsx('', {
+                        'opacity-100 relative': isActive,
+                        'opacity-0 absolute': !isActive,
+                    })} />
+                    {/* inactive */}
+                    <Image src={link.inactiveIcon} priority={true} width={link.width} height={link.height} alt={link.alt} className={clsx('', {
+                        'opacity-100 relative': !isActive,
+                        'opacity-0 absolute': isActive,
+                    })} />
+                </Link>
             })}
         </Flex>
     )
