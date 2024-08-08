@@ -1,24 +1,43 @@
-import { Container } from '@/shared/ui/Container'
-import { DismissibleCard } from '@/shared/ui/DismissibleCard'
-import { BottomNavigationBar } from '@/widgets/bottomNavigationBar'
-import { MainAppBar } from '@/widgets/mainAppBar'
-import { Page } from '@/shared/ui/Page'
-import React from 'react'
+"use client";
+
+import React from "react";
+import { Container } from "@/shared/ui/Container";
+import { DismissibleCard } from "@/shared/ui/DismissibleCard";
+import { MainAppBar } from "@/widgets/mainAppBar";
+import { Page } from "@/shared/ui/Page";
+import { useQuery } from "@tanstack/react-query";
+import { fetchUsersWhoLiked, IMyLikedUser } from "@/shared/api/usersApi";
+import { ConnectToUserConfirmationModal } from "../search/ui/modals/connectToUserConfirmationModal";
 
 const Likes = () => {
-    return (
-        <Page disableHeightLimit className='!to-[#DDD7F7] !pb-[100px]'>
+  const { data, isLoading } = useQuery({
+    queryKey: ["fetchUsersWhoLiked"],
+    queryFn: () => fetchUsersWhoLiked(),
+  });
 
-            <MainAppBar text='Your likes (24)' shadow />
-            <Container className='!mt-4'>
-                <div className='space-y-2'>
-                    {Array.from({ length: 10 }).map((_, index) => {
-                        return <DismissibleCard key={index} index={index} />
-                    })}
-                </div>
-            </Container>
-        </Page>
-    )
-}
+  return (
+    <>
+      <Page
+        disableHeightLimit
+        className="!to-[#DDD7F7] min-h-screen !pb-[100px]"
+      >
+        <MainAppBar text={`Your likes (${data?.length || 0})`} shadow />
+        <Container className="!mt-4">
+          {/* LOADING STATE */}
+          {isLoading && <div>Loading</div>}
+          {/* DATA STATE */}
+          {!isLoading && (
+            <div className="space-y-2">
+              {data?.map((user: IMyLikedUser) => {
+                return <DismissibleCard key={user.id} user={user} />;
+              })}
+            </div>
+          )}
+        </Container>
+      </Page>
+      <ConnectToUserConfirmationModal />
+    </>
+  );
+};
 
-export default Likes
+export default Likes;

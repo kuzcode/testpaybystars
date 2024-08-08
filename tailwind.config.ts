@@ -16,6 +16,7 @@ const config: Config = {
         gradientSecondary: "#BD5ED4",
         primary: "#9E4FE9",
         secondary: "#202020",
+        textPrimary: "#827987",
       },
     },
   },

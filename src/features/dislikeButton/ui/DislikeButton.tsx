@@ -1,0 +1,33 @@
+import { useMutation } from "@tanstack/react-query";
+import Image from "next/image";
+import React from "react";
+import { dislike } from "../api/dislikeApi";
+
+interface Props {
+  userId: string;
+}
+
+export const DislikeButton: React.FC<Props> = ({ userId }) => {
+  const mutation = useMutation({
+    mutationFn: () => dislike(userId),
+  });
+
+  const onDislike = () => {
+    mutation.mutate();
+  };
+
+  return (
+    <button
+      onClick={onDislike}
+      className="w-[70px] h-[70px] rounded-full bg-white flex items-center justify-center shadow-sm"
+    >
+      <Image
+        priority
+        src={"/icons/close.svg"}
+        width={30}
+        height={30}
+        alt="telegram"
+      />
+    </button>
+  );
+};

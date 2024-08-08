@@ -1,10 +1,4 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/createProfile/page": "app/createProfile/page.js",
-  "/wallet/page": "app/wallet/page.js",
-  "/page": "app/page.js",
-  "/(bottomNavbar)/likes/page": "app/(bottomNavbar)/likes/page.js",
-  "/(bottomNavbar)/matches/page": "app/(bottomNavbar)/matches/page.js",
-  "/(bottomNavbar)/profile/page": "app/(bottomNavbar)/profile/page.js",
   "/(bottomNavbar)/search/page": "app/(bottomNavbar)/search/page.js"
 }

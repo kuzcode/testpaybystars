@@ -5,17 +5,27 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "PORT=4173 next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.51.21",
+    "@types/js-cookie": "^3.0.6",
+    "axios": "^1.7.3",
     "clsx": "^2.1.1",
+    "framer-motion": "^11.3.21",
+    "js-cookie": "^2.2.1",
+    "lodash-move": "^1.1.1",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
-    "vaul": "^0.9.1"
+    "sharp": "^0.33.4",
+    "tgwa": "^1.0.0",
+    "vaul": "^0.9.1",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^5.51.15",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

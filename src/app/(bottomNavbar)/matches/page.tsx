@@ -1,23 +1,36 @@
-import { Container } from '@/shared/ui/Container'
-import { DismissibleCard } from '@/shared/ui/DismissibleCard'
-import { Page } from '@/shared/ui/Page'
-import { MainAppBar } from '@/widgets/mainAppBar'
-import React from 'react'
+"use client";
+
+import { fetchUsersWhoMatched, IMyMatchedUser } from "@/shared/api/usersApi";
+import { Container } from "@/shared/ui/Container";
+import { DismissibleCard } from "@/shared/ui/DismissibleCard";
+import { Page } from "@/shared/ui/Page";
+import { MainAppBar } from "@/widgets/mainAppBar";
+import { useQuery } from "@tanstack/react-query";
+import React from "react";
 
 const MatchesPage = () => {
-    return (
-        <Page disableHeightLimit className='!to-[#DDD7F7] !pb-[100px]'>
+  const { data, isLoading } = useQuery({
+    queryKey: ["fetchUsersWhoMatched"],
+    queryFn: () => fetchUsersWhoMatched(),
+  });
 
-            <MainAppBar text='Your matches (17)' shadow />
-            <Container className='!mt-4'>
-                <div className='space-y-2'>
-                    {Array.from({ length: 10 }).map((_, index) => {
-                        return <DismissibleCard key={index} index={index + 1} />
-                    })}
-                </div>
-            </Container>
-        </Page>
-    )
-}
+  return (
+    <Page disableHeightLimit className="!to-[#DDD7F7] !pb-[100px] min-h-screen">
+      <MainAppBar text={`Your matches (${data?.length || 0})`} shadow />
+      <Container className="!mt-4">
+        {/* LOADING STATE */}
+        {isLoading && <div>Loading</div>}
+        {/* DATA STATE */}
+        {!isLoading && (
+          <div className="space-y-2">
+            {data?.map((user: IMyMatchedUser) => {
+              return <DismissibleCard key={user.id} user={user} />;
+            })}
+          </div>
+        )}
+      </Container>
+    </Page>
+  );
+};
 
-export default MatchesPage
+export default MatchesPage;

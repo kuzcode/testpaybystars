@@ -1,37 +1,36 @@
-import { Container } from '@/shared/ui/Container';
-import { Page } from '@/shared/ui/Page';
-import { BottomNavigationBar } from '@/widgets/bottomNavigationBar';
-import { MainAppBar } from '@/widgets/mainAppBar';
-import { UserProfileShowcase } from '@/widgets/userProfileShowcase';
-import Image from 'next/image';
-import React from 'react'
-import { PeopleNearbyModal } from './ui/modals/peopleNearbyModal';
-import { AboutMatchModal } from './ui/modals/aboutMatchModal';
-import { HotScoreBadge } from '@/shared/ui/HotScoreBadge';
-import Link from 'next/link';
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Page } from "@/shared/ui/Page";
+import { MainAppBar } from "@/widgets/mainAppBar";
+import { UserProfileShowcase } from "@/widgets/userProfileShowcase";
 
 const Search = () => {
-    return (
-        <Page className="flex flex-col !to-[#D8D0F9]">
+  return (
+    <>
+      <Page className="flex flex-col !to-[#D8D0F9]">
+        <MainAppBar text="Search" enableScore>
+          <Link href={"/wallet"}>
+            <Image
+              src={"/icons/filter.svg"}
+              width={28}
+              height={26}
+              alt="filter"
+            />
+          </Link>
+        </MainAppBar>
 
-            <MainAppBar text="Search" enableScore>
-                <Link href={'/wallet'}>
-                    <Image src={'/icons/filter.svg'} width={28} height={26} alt="filter" />
-                </Link>
-            </MainAppBar>
+        <UserProfileShowcase />
 
-            <UserProfileShowcase />
-            {/* <UserProfileShowcase /> */}
+        {/* <BottomNavigationBar /> */}
 
-            {/* <BottomNavigationBar /> */}
+        {/* MODALS */}
 
-            {/* MODALS */}
+        {/* <AboutMatchModal /> */}
+        {/* <PeopleNearbyModal /> */}
+      </Page>
+    </>
+  );
+};
 
-            {/* <PeopleNearbyModal /> */}
-            {/* <AboutMatchModal /> */}
-
-        </Page>
-    );
-}
-
-export default Search
+export default Search;

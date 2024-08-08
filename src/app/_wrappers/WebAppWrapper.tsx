@@ -1,17 +1,15 @@
-'use client'
+"use client";
 
-import React from "react"
+import React from "react";
+import { Tgwa } from "tgwa";
 
 export const WebAppWrapper = () => {
-
   React.useEffect(() => {
+    Tgwa.ready();
+    Tgwa.expand();
     // @ts-ignore
-    window.Telegram.WebApp.ready()
-    // @ts-ignore
-    window.Telegram.WebApp.expand()
-    // @ts-ignore
-    window.Telegram.WebApp.disableVerticalSwipes()
-  }, [])
+    Tgwa.disableVerticalSwipes();
+  }, []);
 
-  return null
-}
+  return null;
+};
