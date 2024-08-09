@@ -1,4 +1,3 @@
 {
-  "/createProfile/page": "app/createProfile/page.js",
-  "/(bottomNavbar)/search/page": "app/(bottomNavbar)/search/page.js"
+  "/createProfile/page": "app/createProfile/page.js"
 }

@@ -1,5 +1,3 @@
-"use server";
-
 import { instance } from "@/shared/api/instance";
 import { ILoginResponse } from "@/shared/interfaces";
 

@@ -8,7 +8,7 @@ import { UserProfileShowcase } from "@/widgets/userProfileShowcase";
 const Search = () => {
   return (
     <>
-      <Page className="flex flex-col !to-[#D8D0F9]">
+      <Page className="flex flex-col !to-[#D8D0F9] overflow-x-hidden">
         <MainAppBar text="Search" enableScore>
           <Link href={"/wallet"}>
             <Image

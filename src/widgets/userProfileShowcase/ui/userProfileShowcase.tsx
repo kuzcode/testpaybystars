@@ -1,12 +1,13 @@
 "use client";
 
-import { fetchFindUsersNear } from "@/shared/api/usersApi";
-import { Container } from "@/shared/ui/Container";
-import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
-import { useQuery } from "@tanstack/react-query";
-import clsx from "clsx";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import TinderCard from "react-tinder-card";
+import { useQuery } from "@tanstack/react-query";
+import { Container } from "@/shared/ui/Container";
+import { fetchFindUsersNear } from "@/shared/api/usersApi";
+import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
+import { useShowcase } from "@/app/(bottomNavbar)/search/ui/store/useShowcase";
 
 export const UserProfileShowcase = () => {
   const { data, isLoading } = useQuery({
@@ -14,13 +15,75 @@ export const UserProfileShowcase = () => {
     queryFn: fetchFindUsersNear,
   });
 
-  const [sliceFrom, setSLiceFrom] = React.useState(0);
+  const {
+    users,
+    setUsers,
+    removeLastUser,
+    currentIndex,
+    setCurrentIndex,
+    currentUser,
+    setCurrentUser,
+  } = useShowcase();
 
-  const onChangeLike = () => {
-    setSLiceFrom((prev) => prev + 1);
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+  const currentIndexRef = React.useRef(currentIndex);
+
+  const childRefs = React.useMemo(
+    () =>
+      Array(data?.length)
+        .fill(0)
+        .map(() => React.createRef()),
+    [data]
+  );
+
+  const canSwipe = currentIndex >= 0;
+
+  const updateCurrentIndex = (val: number) => {
+    setCurrentIndex(val);
+    setCurrentUser(users[val + 1]);
+    currentIndexRef.current = val;
   };
 
-  console.log(data?.slice(sliceFrom, data.length + 1));
+  const swiped = (index: number) => updateCurrentIndex(index - 1);
+
+  const swipe = async (dir: string) => {
+    if (!data?.length) return;
+    const removeTimer = setTimeout(() => {
+      removeLastUser();
+      clearTimeout(removeTimer);
+    }, 1000);
+    if (canSwipe && currentIndex < data?.length) {
+      // @ts-ignore
+      await childRefs[currentIndex].current.swipe(dir);
+    }
+  };
+
+  const outOfFrame = (name: string, idx: number) => {
+    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
+    // @ts-ignore
+    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
+  };
+
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+  const onChangeLike = () => swipe("right");
+
+  const onChangeDislike = () => swipe("left");
+
+  React.useEffect(() => {
+    if (!data?.length) return;
+    if (!users?.length) {
+      setUsers(data);
+      setCurrentIndex(data.length - 1);
+    }
+  }, [data]);
+
+  React.useEffect(() => {
+    if (!currentUser) {
+      setCurrentUser(users[currentIndex]);
+    }
+  }, [users]);
 
   return (
     <Container className="h-full">
@@ -30,32 +93,37 @@ export const UserProfileShowcase = () => {
             Loading
           </div>
         )}
-        {!isLoading &&
-          data?.slice(sliceFrom, data.length + 1).map((user, index) => {
-            const isOdd = index % 2 === 0;
-
-            return (
-              <Image
-                key={user.id}
-                src={isOdd ? "/images/girl.png" : "/images/boy.png"}
-                fill
-                alt="girl"
-                className={clsx(
-                  "object-cover rounded-lg transition-all duration-1000",
-                  {
-                    "scale-[1]": index === 1,
-                    "scale-[0.9]": index > 1,
-                  }
-                )}
-                loading="eager"
-              />
-            );
-          })}
+        {users?.map((character, index) => {
+          const isOdd = index % 2 === 0;
+          return (
+            <TinderCard
+              // @ts-ignore
+              ref={childRefs[index]}
+              className="absolute w-full h-full"
+              key={character.firstName}
+              onSwipe={() => swiped(index)}
+              onCardLeftScreen={() => outOfFrame(character.firstName, index)}
+            >
+              <div className="relative bg-[#fff] w-full h-full b">
+                <Image
+                  key={character.firstName}
+                  src={isOdd ? "/images/girl.png" : "/images/boy.png"}
+                  fill
+                  alt="girl"
+                  className={"object-cover rounded-lg"}
+                  loading="eager"
+                />
+                <h2>{character.firstName}</h2>
+              </div>
+            </TinderCard>
+          );
+        })}
       </div>
+
       <ReactionButtonsGroup
         isLoading={isLoading}
-        users={data ? data : []}
         onChangeLike={onChangeLike}
+        onChangeDislike={onChangeDislike}
       />
     </Container>
   );

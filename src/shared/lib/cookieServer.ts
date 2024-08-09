@@ -10,5 +10,6 @@ export const setAccessTokenServer = (token: string) => {
 
 export const getAccessTokenServer = () => {
   const token = cookies().get("accessTokenCookieMatch")?.value;
+  console.log(token);
   return token ? token : null;
 };

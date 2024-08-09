@@ -5,15 +5,17 @@ import { dislike } from "../api/dislikeApi";
 
 interface Props {
   userId: string;
+  onChange: () => void;
 }
 
-export const DislikeButton: React.FC<Props> = ({ userId }) => {
+export const DislikeButton: React.FC<Props> = ({ userId, onChange }) => {
   const mutation = useMutation({
     mutationFn: () => dislike(userId),
   });
 
   const onDislike = () => {
     mutation.mutate();
+    onChange();
   };
 
   return (

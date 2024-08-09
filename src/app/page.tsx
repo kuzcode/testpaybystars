@@ -1,10 +1,16 @@
-import { getAccessTokenServer } from "@/shared/lib/cookieServer";
+"use client";
+
+import { getAccessTokenClient } from "@/shared/lib/cookie";
 import { redirect } from "next/navigation";
+import React from "react";
 
-export default async function Home() {
-  const token = getAccessTokenServer();
+export default function Home() {
+  React.useEffect(() => {
+    const token = getAccessTokenClient();
 
-  if (token) redirect("/search");
+    if (token) redirect("/search");
+    else redirect("/createProfile");
+  }, []);
 
-  if (!token) redirect("/createProfile");
+  return null;
 }

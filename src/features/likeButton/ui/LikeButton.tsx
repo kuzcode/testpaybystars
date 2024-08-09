@@ -14,7 +14,7 @@ export const LikeButton: React.FC<Props> = ({ userId, onChange }) => {
   });
 
   const onLike = () => {
-    // mutation.mutate();
+    mutation.mutate();
     onChange();
   };
 

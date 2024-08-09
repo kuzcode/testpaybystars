@@ -1,3 +1,4 @@
+import { useShowcase } from "@/app/(bottomNavbar)/search/ui/store/useShowcase";
 import { DislikeButton } from "@/features/dislikeButton";
 import { LikeButton } from "@/features/likeButton";
 import { IUser } from "@/shared/api/usersApi";
@@ -9,21 +10,21 @@ import React from "react";
 interface Props {
   className?: string;
   isLoading?: boolean;
-  users: IUser[];
   onChangeLike: () => void;
+  onChangeDislike: () => void;
 }
 
 export const ReactionButtonsGroup: React.FC<Props> = ({
   className,
   isLoading,
-  users,
   onChangeLike,
+  onChangeDislike,
 }) => {
-  const [currentUserIndex, setCurrentUserIndex] = React.useState(1);
+  const { currentUser } = useShowcase();
 
-  const currentUser = users[currentUserIndex];
+  const onChangeInLike = () => onChangeLike();
 
-  const onChange = () => onChangeLike();
+  const onChangeInDislike = () => onChangeDislike();
 
   return (
     <div
@@ -35,7 +36,7 @@ export const ReactionButtonsGroup: React.FC<Props> = ({
         }
       )}
     >
-      <DislikeButton userId={currentUser?.id} />
+      <DislikeButton userId={currentUser?.id!} onChange={onChangeInDislike} />
       <div className="relative w-[90px] h-[90px] rounded-full bg-white flex items-center justify-center shadow-sm">
         <Image
           priority
@@ -50,7 +51,7 @@ export const ReactionButtonsGroup: React.FC<Props> = ({
           className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[12px] w-full scale-[0.75]"
         />
       </div>
-      <LikeButton userId={currentUser?.id} onChange={onChange} />
+      <LikeButton userId={currentUser?.id!} onChange={onChangeInLike} />
     </div>
   );
 };
