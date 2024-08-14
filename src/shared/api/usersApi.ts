@@ -12,6 +12,7 @@ export interface IUser {
   longitude: number;
   metric: string;
   status: null;
+  contactPrice: number;
 }
 
 export const fetchFindUsersNear = async () => {
@@ -68,5 +69,12 @@ export const fetchUsersWhoMatched = async () => {
 
 export const fetchMyProfile = async () => {
   const response = await instance.get(`/users`);
+  return response.data;
+};
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+export const buyContact = async (userId: string) => {
+  const response = await instance.post(`/users/${userId}/contact`);
   return response.data;
 };

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
 import { UserProfileShowcase } from "@/widgets/userProfileShowcase";
+import { ConnectToUserModal } from "./ui/modals/connectToUserModal";
 
 const Search = () => {
   return (
@@ -28,6 +29,7 @@ const Search = () => {
 
         {/* <AboutMatchModal /> */}
         {/* <PeopleNearbyModal /> */}
+        <ConnectToUserModal />
       </Page>
     </>
   );

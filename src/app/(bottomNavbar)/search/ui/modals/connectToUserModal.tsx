@@ -1,24 +1,38 @@
 "use client";
 
-import { IMyLikedUser } from "@/shared/api/usersApi";
+import { buyContact, IUser } from "@/shared/api/usersApi";
 import { useModal } from "@/shared/store/useModal";
 import { Button } from "@/shared/ui/Button";
 import { Flex } from "@/shared/ui/Flex";
 import { GradientHotIcon } from "@/shared/ui/GradientHotIcon";
 import { Icon } from "@/shared/ui/Icon";
 import { Vaul } from "@/shared/ui/modals/Vaul";
+import { useMutation } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
 
-export const ConnectToUserConfirmationModal = () => {
+export const ConnectToUserModal = () => {
   const { isOpen, type, toggleModal, data } = useModal((state) => state);
-  const typedData = data as IMyLikedUser;
+
+  const typedData = data as IUser;
+
+  const mutation = useMutation({
+    mutationFn: () => buyContact(typedData?.id),
+    onSuccess: () => {
+      toggleModal("connect-to-user", data);
+    },
+  });
+
   const modal = isOpen && type === "connect-to-user";
 
   const onClose = async () => {
     if (isOpen) {
       toggleModal("connect-to-user", data);
     }
+  };
+
+  const onConfirm = () => {
+    mutation.mutate();
   };
 
   return (
@@ -65,7 +79,9 @@ export const ConnectToUserConfirmationModal = () => {
           <p className="mx-auto text-textPrimary max-w-[250px]">
             Do you really want to connect with this soul? It will cost
             <span className="inline-flex items-center">
-              <span className="mx-1 font-bold text-[#000] text-[17px]">10</span>
+              <span className="mx-1 font-bold text-[#000] text-[17px]">
+                {typedData?.contactPrice || 0}
+              </span>
               <GradientHotIcon className="scale-[0.85]" />
             </span>
           </p>
@@ -80,8 +96,8 @@ export const ConnectToUserConfirmationModal = () => {
 
       <div className="space-y-2">
         <Button
-          onClick={() => {}}
-          text="Confirm"
+          onClick={onConfirm}
+          text={mutation.isPending ? "Loading" : "Confirm"}
           className="bg-gradient-to-b from-gradientPrimary to-gradientSecondary"
         />
         <Button

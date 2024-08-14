@@ -18,11 +18,11 @@ export const UserProfileShowcase = () => {
   const {
     users,
     setUsers,
-    removeLastUser,
-    currentIndex,
-    setCurrentIndex,
     currentUser,
+    currentIndex,
+    removeLastUser,
     setCurrentUser,
+    setCurrentIndex,
   } = useShowcase();
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -41,7 +41,9 @@ export const UserProfileShowcase = () => {
 
   const updateCurrentIndex = (val: number) => {
     setCurrentIndex(val);
-    setCurrentUser(users[val + 1]);
+
+    setCurrentUser(users[val]);
+
     currentIndexRef.current = val;
   };
 
@@ -99,21 +101,23 @@ export const UserProfileShowcase = () => {
             <TinderCard
               // @ts-ignore
               ref={childRefs[index]}
-              className="absolute w-full h-full"
+              className="absolute w-full h-full flex !pointer-events-none"
               key={character.firstName}
               onSwipe={() => swiped(index)}
-              onCardLeftScreen={() => outOfFrame(character.firstName, index)}
+              preventSwipe={["up", "down", "right", "left"]}
+              // onCardLeftScreen={() => outOfFrame(character.firstName, index)}
             >
-              <div className="relative bg-[#fff] w-full h-full b">
+              <div
+                onClick={() => console.log("hi")}
+                className="relative bg-[#fff] w-full h-full"
+              >
                 <Image
                   key={character.firstName}
                   src={isOdd ? "/images/girl.png" : "/images/boy.png"}
                   fill
                   alt="girl"
                   className={"object-cover rounded-lg"}
-                  loading="eager"
                 />
-                <h2>{character.firstName}</h2>
               </div>
             </TinderCard>
           );

@@ -7,7 +7,7 @@ import { MainAppBar } from "@/widgets/mainAppBar";
 import { Page } from "@/shared/ui/Page";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsersWhoLiked, IMyLikedUser } from "@/shared/api/usersApi";
-import { ConnectToUserConfirmationModal } from "../search/ui/modals/connectToUserConfirmationModal";
+import { ConnectToUserModal } from "../search/ui/modals/connectToUserModal";
 
 const Likes = () => {
   const { data, isLoading } = useQuery({
@@ -35,7 +35,8 @@ const Likes = () => {
           )}
         </Container>
       </Page>
-      <ConnectToUserConfirmationModal />
+      {/* MODALS */}
+      <ConnectToUserModal />
     </>
   );
 };

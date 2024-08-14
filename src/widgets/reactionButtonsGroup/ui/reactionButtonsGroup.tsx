@@ -1,7 +1,7 @@
 import { useShowcase } from "@/app/(bottomNavbar)/search/ui/store/useShowcase";
 import { DislikeButton } from "@/features/dislikeButton";
 import { LikeButton } from "@/features/likeButton";
-import { IUser } from "@/shared/api/usersApi";
+import { useModal } from "@/shared/store/useModal";
 import { HotScoreBadge } from "@/shared/ui/HotScoreBadge";
 import clsx from "clsx";
 import Image from "next/image";
@@ -22,9 +22,13 @@ export const ReactionButtonsGroup: React.FC<Props> = ({
 }) => {
   const { currentUser } = useShowcase();
 
+  const { toggleModal } = useModal();
+
   const onChangeInLike = () => onChangeLike();
 
   const onChangeInDislike = () => onChangeDislike();
+
+  const onContact = () => toggleModal("connect-to-user", currentUser);
 
   return (
     <div
@@ -37,7 +41,10 @@ export const ReactionButtonsGroup: React.FC<Props> = ({
       )}
     >
       <DislikeButton userId={currentUser?.id!} onChange={onChangeInDislike} />
-      <div className="relative w-[90px] h-[90px] rounded-full bg-white flex items-center justify-center shadow-sm">
+      <div
+        onClick={onContact}
+        className="relative w-[90px] h-[90px] rounded-full bg-white flex items-center justify-center shadow-sm"
+      >
         <Image
           priority
           src={"/icons/telegram.svg"}
