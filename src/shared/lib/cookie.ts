@@ -7,3 +7,17 @@ export const getAccessTokenClient = () => {
 
 export const setAccessTokenClient = (token: string) =>
   Cookies.set("accessTokenCookieMatchClient", token);
+
+export const removeAccessTokenClient = () =>
+  Cookies.remove("accessTokenCookieMatchClient");
+
+export const getRefreshTokenClient = () => {
+  const token = Cookies.get("refreshTokenCookieMatchClient");
+  return token ? token : null;
+};
+
+export const setRefreshTokenClient = (token: string) =>
+  Cookies.set("refreshTokenCookieMatchClient", token);
+
+export const removeRefreshTokenClient = () =>
+  Cookies.remove("refreshTokenCookieMatchClient");

@@ -1,3 +1,4 @@
+import { ILatLng, ILoginResponse } from "../interfaces";
 import { instance } from "./instance";
 
 export interface IUser {
@@ -76,5 +77,27 @@ export const fetchMyProfile = async () => {
 
 export const buyContact = async (userId: string) => {
   const response = await instance.post(`/users/${userId}/contact`);
+  return response.data;
+};
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+export const updateUserLocation = async ({
+  lat,
+  lng,
+  accessToken,
+}: ILatLng & { accessToken?: string }) => {
+  const data = {
+    x: lat,
+    y: lng,
+  };
+
+  const headersConfig = {
+    ...(accessToken && { "x-auth-token": `Bearer ${accessToken}` }),
+  };
+
+  const response = await instance.post(`/users/location`, data, {
+    headers: headersConfig,
+  });
   return response.data;
 };

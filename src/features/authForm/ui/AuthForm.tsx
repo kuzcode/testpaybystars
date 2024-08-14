@@ -14,14 +14,18 @@ import {
   TAGS,
   TG_INIT_DATA,
 } from "@/shared/lib/constants";
-import { IOption } from "@/shared/interfaces";
-import { setAccessTokenClient } from "@/shared/lib/cookie";
+import { ILatLng, IOption } from "@/shared/interfaces";
+import {
+  setAccessTokenClient,
+  setRefreshTokenClient,
+} from "@/shared/lib/cookie";
 import { useModal } from "@/shared/store/useModal";
 import Image from "next/image";
 import { ProfileImageShowcaseSection } from "./ProfileImageShowcaseSection";
 import { LocationSelector } from "./LocationSelector";
 import { AboutYourselfInput } from "./AboutYourselfInput";
 import { AuthTags } from "./AuthTags";
+import { updateUserLocation } from "@/shared/api/usersApi";
 
 export const AuthForm = () => {
   const router = useRouter();
@@ -32,6 +36,10 @@ export const AuthForm = () => {
   const [status, setStatus] = React.useState("");
   const [searchGender, setSearchGender] = React.useState("");
   const [gender, setGender] = React.useState("");
+  const [coordinates, setCoordinates] = React.useState<ILatLng>({
+    lat: 0,
+    lng: 0,
+  });
 
   const disabled = loading || !about || !status || !searchGender || !gender;
 
@@ -63,6 +71,10 @@ export const AuthForm = () => {
         clearTimeout(timer);
       }, 3000);
       setAccessTokenClient(response.accessToken);
+      setRefreshTokenClient(response.refreshToken);
+
+      await updateUserLocation({ lat: coordinates.lat, lng: coordinates.lng });
+
       router.push("/search");
     }
 
@@ -99,7 +111,7 @@ export const AuthForm = () => {
             options={SEARCH_GENDER}
             onChangeOption={onChangeSearchGenderOption}
           />
-          <LocationSelector />
+          <LocationSelector setCoordinates={setCoordinates} />
         </div>
       </Card>
       <Button

@@ -1,5 +1,5 @@
 import { instance } from "@/shared/api/instance";
-import { IOption } from "@/shared/interfaces";
+import { ILatLng, IOption } from "@/shared/interfaces";
 import { SEARCH_GENDER } from "@/shared/lib/constants";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import axios from "axios";
@@ -40,14 +40,15 @@ interface IGetCityProps {
   };
 }
 
-export const LocationSelector = () => {
+interface Props {
+  className?: string;
+  setCoordinates: React.Dispatch<React.SetStateAction<ILatLng>>;
+}
+
+export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
   const [loading, setLoading] = React.useState(false);
 
   const [city, setCity] = React.useState("");
-  const [coordinates, setCoordinates] = React.useState({
-    latitude: 0,
-    longitude: 0,
-  });
   const [selectManuallyEnabled, setSelectManuallyEnabled] =
     React.useState(false);
 
@@ -79,7 +80,7 @@ export const LocationSelector = () => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          setCoordinates({ latitude, longitude });
+          setCoordinates({ lat: latitude, lng: longitude });
           getCity(latitude, longitude);
         },
         (error) => {
