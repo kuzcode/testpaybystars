@@ -2,12 +2,12 @@
 
 import React from "react";
 import { Container } from "@/shared/ui/Container";
-import { DismissibleCard } from "@/shared/ui/DismissibleCard";
 import { MainAppBar } from "@/widgets/mainAppBar";
 import { Page } from "@/shared/ui/Page";
 import { useQuery } from "@tanstack/react-query";
 import { fetchUsersWhoLiked, IMyLikedUser } from "@/shared/api/usersApi";
 import { ConnectToUserModal } from "../search/ui/modals/connectToUserModal";
+import { DismissibleCard } from "@/shared/ui/DismissibleCard";
 
 const Likes = () => {
   const { data, isLoading } = useQuery({

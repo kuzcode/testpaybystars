@@ -1,4 +1,4 @@
-import { ILatLng, ILoginResponse } from "../interfaces";
+import { ILatLng } from "../interfaces";
 import { instance } from "./instance";
 
 export interface IUser {
@@ -99,5 +99,12 @@ export const updateUserLocation = async ({
   const response = await instance.post(`/users/location`, data, {
     headers: headersConfig,
   });
+  return response.data;
+};
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+export const revokeLike = async (id: string) => {
+  const response = await instance.delete(`/users/${id}/like`);
   return response.data;
 };
