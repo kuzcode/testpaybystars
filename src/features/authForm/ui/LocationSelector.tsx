@@ -61,7 +61,7 @@ export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
       );
       const data = response.data as IGetCityProps;
       if (data && data.address && data.address.city) {
-        setCity(`${data.address.country}, ${data.address.city}`);
+        setCity(`${data.address.city}`);
       } else {
         setCity("City not found");
       }
@@ -108,7 +108,9 @@ export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
   return (
     <>
       <Dropdown
-        label={`Локация${loading ? ": ищем..." : `: ${city}`}`}
+        label={
+          loading ? `Локация: ищем` : city ? `Локация: ${city}` : `Локация`
+        }
         options={SELECT_LOCATION_TYPES}
         onChangeOption={onChangeLocationTypeSelector}
       />
