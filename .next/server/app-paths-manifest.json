@@ -1,6 +1,4 @@
 {
-  "/(bottomNavbar)/likes/page": "app/(bottomNavbar)/likes/page.js",
-  "/(bottomNavbar)/search/page": "app/(bottomNavbar)/search/page.js",
-  "/(bottomNavbar)/matches/page": "app/(bottomNavbar)/matches/page.js",
-  "/(bottomNavbar)/profile/page": "app/(bottomNavbar)/profile/page.js"
+  "/createProfile/page": "app/createProfile/page.js",
+  "/(bottomNavbar)/search/page": "app/(bottomNavbar)/search/page.js"
 }
