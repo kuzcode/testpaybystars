@@ -33,7 +33,7 @@ export const ProfileImageRemoveConfirmationModal = () => {
         <div className="w-[150px] h-[150px] relative mx-auto">
           <Image
             fill
-            src={image?.fileUrl}
+            src={image?.fileUrl as string}
             alt="profile image"
             className="mx-auto rounded-full object-cover object-center"
           />
