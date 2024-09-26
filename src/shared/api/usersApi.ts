@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { ILatLng } from "../interfaces";
 import { instance } from "./instance";
 
@@ -68,9 +69,33 @@ export const fetchUsersWhoMatched = async () => {
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+export interface IProfileImage {
+  fileName: string;
+  fileUrl: string | File;
+  id: string;
+}
+
+export interface IProfile {
+  dislikesAmount: number;
+  energy: number;
+  fires: number;
+  firstName: string;
+  gender: null;
+  id: string;
+  images: IProfileImage[];
+  info: null;
+  lastName: string;
+  latitude: number;
+  likesAmount: number;
+  longitude: number;
+  rating: number;
+  searchGender: null;
+  status: null;
+}
+
 export const fetchMyProfile = async () => {
   const response = await instance.get(`/users`);
-  return response.data;
+  return response.data as IProfile;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -107,4 +132,22 @@ export const updateUserLocation = async ({
 export const revokeLike = async (id: string) => {
   const response = await instance.delete(`/users/${id}/like`);
   return response.data;
+};
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+export const uploadProfileImage = async (data: FormData) => {
+  const response = await instance.post(`/users/images`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+export const deleteUserImage = async (id: string) => {
+  const response = await instance.delete(`/users/images/${id}`);
+  return response.status;
 };

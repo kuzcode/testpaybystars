@@ -12,3 +12,8 @@ export interface ILatLng {
   lat: number;
   lng: number;
 }
+
+export interface IUploadImage {
+  id: number;
+  url: File;
+}

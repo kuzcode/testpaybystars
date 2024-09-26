@@ -1,6 +1,9 @@
 import { create } from "zustand";
 
-type TModal = "request-geo" | "connect-to-user";
+type TModal =
+  | "request-geo"
+  | "connect-to-user"
+  | "profile-image-remove-confirmation";
 
 interface State {
   type: TModal;
@@ -9,15 +12,17 @@ interface State {
 }
 
 interface Action {
-  toggleModal: (type: TModal, data: any) => void;
+  toggleModal: (type: TModal, data: any, bool: boolean) => void;
 }
 
 export const useModal = create<State & Action>((set) => ({
   type: "request-geo",
   isOpen: false,
   data: null,
-  toggleModal: (type, data) =>
+  toggleModal: (type, data, bool) =>
     set((state) => {
-      return { type, isOpen: !state.isOpen, data };
+      console.log("state", state.isOpen);
+
+      return { type, isOpen: bool, data };
     }),
 }));

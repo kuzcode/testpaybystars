@@ -1,10 +1,10 @@
 "use client";
 
+import React from "react";
+import Image from "next/image";
 import { useModal } from "@/shared/store/useModal";
 import { Button } from "@/shared/ui/Button";
 import { Vaul } from "@/shared/ui/modals/Vaul";
-import Image from "next/image";
-import React from "react";
 
 interface IGEO {
   latitude: number;
@@ -22,7 +22,7 @@ export const PeopleNearbyModal = () => {
     //   requestGEO;
     // }
     // if (geo) {
-    toggleModal(type, null);
+    toggleModal(type, null, false);
     // }
   };
 

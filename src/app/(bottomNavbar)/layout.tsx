@@ -1,6 +1,8 @@
-import { BottomNavigationBar } from "@/widgets/bottomNavigationBar";
-import dynamic from "next/dynamic";
+"use client";
+
 import React from "react";
+import { BottomNavigationBar } from "@/widgets/bottomNavigationBar";
+import { useFetchProfile } from "@/shared/hooks/useFetchProfile";
 // const BottomNavigationBarWithNoSSR = dynamic(
 //   () =>
 //     import("@/widgets/bottomNavigationBar").then(
@@ -12,6 +14,8 @@ import React from "react";
 // );
 
 const BottomNavbarLayout = ({ children }: { children: React.ReactNode }) => {
+  useFetchProfile();
+
   return (
     <div>
       {children}

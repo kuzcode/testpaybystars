@@ -19,7 +19,7 @@ export const ConnectToUserModal = () => {
   const mutation = useMutation({
     mutationFn: () => buyContact(typedData?.id),
     onSuccess: () => {
-      toggleModal("connect-to-user", data);
+      toggleModal("connect-to-user", data, false);
     },
   });
 
@@ -27,7 +27,7 @@ export const ConnectToUserModal = () => {
 
   const onClose = async () => {
     if (isOpen) {
-      toggleModal("connect-to-user", data);
+      toggleModal("connect-to-user", data, false);
     }
   };
 

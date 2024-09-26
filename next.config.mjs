@@ -6,6 +6,16 @@ const nextConfig = {
       allowedOrigins: ["localhost:4173"],
     },
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "storage.googleapis.com",
+        port: "",
+        pathname: "/peoplenearby-images/**",
+      },
+    ],
+  },
 };
 
 export default nextConfig;

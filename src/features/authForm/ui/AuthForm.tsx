@@ -3,7 +3,6 @@
 import React from "react";
 import { Button } from "@/shared/ui/Button";
 import { Card } from "@/shared/ui/Card";
-import { Flex } from "@/shared/ui/Flex";
 import { ILoginProps, login } from "../api/login";
 import { useRouter } from "next/navigation";
 import { Dropdown } from "@/shared/ui/Dropdown";
@@ -11,27 +10,26 @@ import {
   GENDER,
   SEARCH_GENDER,
   STATUSES,
-  TAGS,
   TG_INIT_DATA,
 } from "@/shared/lib/constants";
-import { ILatLng, IOption } from "@/shared/interfaces";
+import { ILatLng, IOption, IUploadImage } from "@/shared/interfaces";
 import {
   setAccessTokenClient,
   setRefreshTokenClient,
 } from "@/shared/lib/cookie";
 import { useModal } from "@/shared/store/useModal";
-import Image from "next/image";
 import { ProfileImageShowcaseSection } from "./ProfileImageShowcaseSection";
 import { LocationSelector } from "./LocationSelector";
-import { AboutYourselfInput } from "./AboutYourselfInput";
-import { AuthTags } from "./AuthTags";
-import { updateUserLocation } from "@/shared/api/usersApi";
+import { updateUserLocation, uploadProfileImage } from "@/shared/api/usersApi";
+import { usePrefetchSearchPage } from "../hooks/usePrefetchSearchPage";
+import { AboutYourselfInput } from "@/shared/ui/Input/AboutYourselfInput";
 
 export const AuthForm = () => {
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   const { toggleModal } = useModal();
 
+  const [images, setImages] = React.useState<IUploadImage[]>([]);
   const [about, setAbout] = React.useState("");
   const [status, setStatus] = React.useState("");
   const [searchGender, setSearchGender] = React.useState("");
@@ -43,6 +41,8 @@ export const AuthForm = () => {
 
   const disabled = loading || !about || !status || !searchGender || !gender;
 
+  // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
   const onChangeStatusOption = (option: IOption) => setStatus(option.value);
 
   const onChangeSearchGenderOption = (option: IOption) =>
@@ -50,9 +50,16 @@ export const AuthForm = () => {
 
   const onChangeGenderOption = (option: IOption) => setGender(option.value);
 
-  const onSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
+  const uploadImages = async () => {
+    const formData = new FormData();
+    images.forEach((image) => {
+      formData.append("files", image.url);
+    });
+    await uploadProfileImage(formData);
+  };
+
+  const onSubmit = async () => {
     setLoading(true);
-    e.preventDefault();
     const data: ILoginProps = {
       info: about,
       reference: "",
@@ -67,12 +74,12 @@ export const AuthForm = () => {
 
     if (response.accessToken) {
       const timer = setTimeout(() => {
-        toggleModal("request-geo", null);
+        toggleModal("request-geo", null, false);
         clearTimeout(timer);
       }, 3000);
       setAccessTokenClient(response.accessToken);
       setRefreshTokenClient(response.refreshToken);
-
+      await uploadImages();
       await updateUserLocation({ lat: coordinates.lat, lng: coordinates.lng });
 
       router.push("/search");
@@ -81,21 +88,21 @@ export const AuthForm = () => {
     setLoading(false);
   };
 
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      router.prefetch("/search");
-    }
-  }, [router]);
+  usePrefetchSearchPage();
 
   return (
-    <form onSubmit={onSubmit}>
+    <div>
       <Card className="!py-6">
-        <ProfileImageShowcaseSection />
-        <AboutYourselfInput about={about} setAbout={setAbout} />
+        <ProfileImageShowcaseSection images={images} setImages={setImages} />
+        <AboutYourselfInput
+          about={about}
+          setAbout={setAbout}
+          label="About your soul mate"
+        />
 
-        <AuthTags />
+        {/* <AuthTags /> */}
 
-        <div className="space-y-2">
+        <div className="space-y-2 mt-4">
           <Dropdown
             label="Статус"
             options={STATUSES}
@@ -117,10 +124,11 @@ export const AuthForm = () => {
       <Button
         text="Continue"
         className="mt-4"
-        type="submit"
+        type="button"
+        onClick={onSubmit}
         loading={loading}
         disabled={disabled}
       />
-    </form>
+    </div>
   );
 };

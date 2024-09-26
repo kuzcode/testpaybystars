@@ -28,7 +28,7 @@ export const ReactionButtonsGroup: React.FC<Props> = ({
 
   const onChangeInDislike = () => onChangeDislike();
 
-  const onContact = () => toggleModal("connect-to-user", currentUser);
+  const onContact = () => toggleModal("connect-to-user", currentUser, true);
 
   return (
     <div

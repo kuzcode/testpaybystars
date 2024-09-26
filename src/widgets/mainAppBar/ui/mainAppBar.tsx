@@ -1,6 +1,6 @@
-import { Container } from "@/shared/ui/Container";
 import { Flex } from "@/shared/ui/Flex";
-import { HotScoreBadge } from "@/shared/ui/HotScoreBadge";
+import { Container } from "@/shared/ui/Container";
+import { FireBalance } from "@/widgets/fireBalance";
 import clsx from "clsx";
 import React from "react";
 
@@ -32,12 +32,11 @@ export const MainAppBar: React.FC<Props> = ({
       <Container className="w-full">
         <Flex className="justify-between">
           <Flex className="gap-x-4">
-            {/* <MenuButton /> */}
             <h3 className="font-bold text-[26px]">{text}</h3>
           </Flex>
           <Flex className="gap-x-3">
             {children}
-            {enableScore && <HotScoreBadge count={523} />}
+            {enableScore && <FireBalance />}
           </Flex>
         </Flex>
       </Container>

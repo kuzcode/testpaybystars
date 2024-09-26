@@ -13,7 +13,7 @@ interface Props {
 export const LikeLayer: React.FC<Props> = ({ user }) => {
   const [swipedSize, setSwipedSize] = React.useState(0);
   const { toggleModal } = useModal((state) => state);
-  const onClickSendMessage = () => toggleModal("connect-to-user", user);
+  const onClickSendMessage = () => toggleModal("connect-to-user", user, true);
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
