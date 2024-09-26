@@ -11,6 +11,7 @@ interface Props {
   className?: string;
   options: IOption[];
   onChangeOption: (option: IOption) => void;
+  defultValue?: string;
 }
 
 export const Dropdown: React.FC<Props> = ({
@@ -18,6 +19,7 @@ export const Dropdown: React.FC<Props> = ({
   className,
   onChangeOption,
   options,
+  defultValue,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedOption, setSelectedOption] = React.useState(options[0]);
@@ -44,7 +46,11 @@ export const Dropdown: React.FC<Props> = ({
           }
         )}
       >
-        <h4>{selectedOption.label}</h4>
+        <h4>
+          {defultValue && selectedOption.value === ""
+            ? defultValue
+            : selectedOption.label}
+        </h4>
         <Image
           src={"/icons/arrowDown.svg"}
           width={15}

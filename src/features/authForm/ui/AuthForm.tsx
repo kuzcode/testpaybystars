@@ -93,7 +93,11 @@ export const AuthForm = () => {
   return (
     <div>
       <Card className="!py-6">
-        <ProfileImageShowcaseSection images={images} setImages={setImages} />
+        <ProfileImageShowcaseSection
+          images={images}
+          setImages={setImages}
+          className="!mt-0"
+        />
         <AboutYourselfInput
           about={about}
           setAbout={setAbout}

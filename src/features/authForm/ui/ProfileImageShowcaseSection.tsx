@@ -1,6 +1,7 @@
 import React from "react";
 import { IUploadImage } from "@/shared/interfaces";
 import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
+import clsx from "clsx";
 
 interface Props {
   className?: string;
@@ -9,6 +10,7 @@ interface Props {
 }
 
 export const ProfileImageShowcaseSection: React.FC<Props> = ({
+  className,
   images,
   setImages,
 }) => {
@@ -28,7 +30,7 @@ export const ProfileImageShowcaseSection: React.FC<Props> = ({
 
   return (
     <MiniImageCardWrapper
-      className="my-4"
+      className={clsx("my-4", className)}
       onChangeImage={onChangeImage}
       label="Photos"
     >

@@ -7,6 +7,7 @@ import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { Skeleton } from "./ui/Skeleton";
 
 const MatchesPage = () => {
   const { data, isLoading } = useQuery({
@@ -19,7 +20,7 @@ const MatchesPage = () => {
       <MainAppBar text={`Your matches (${data?.length || 0})`} shadow />
       <Container className="!mt-4">
         {/* LOADING STATE */}
-        {isLoading && <div>Loading</div>}
+        {isLoading && <Skeleton />}
         {/* DATA STATE */}
         {!isLoading && (
           <div className="space-y-2">

@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchUsersWhoLiked, IMyLikedUser } from "@/shared/api/usersApi";
 import { ConnectToUserModal } from "../search/ui/modals/connectToUserModal";
 import { DismissibleCard } from "@/shared/ui/DismissibleCard";
+import { Skeleton } from "./ui/Skeleton";
 
 const Likes = () => {
   const { data, isLoading } = useQuery({
@@ -24,7 +25,7 @@ const Likes = () => {
         <MainAppBar text={`Your likes (${data?.length || 0})`} shadow />
         <Container className="!mt-4">
           {/* LOADING STATE */}
-          {isLoading && <div>Loading</div>}
+          {isLoading && <Skeleton />}
           {/* DATA STATE */}
           {!isLoading && (
             <div className="space-y-2">

@@ -8,8 +8,11 @@ import { Button } from "@/shared/ui/Button";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import { GENDER, SEARCH_GENDER, STATUSES } from "@/shared/lib/constants";
 import { IOption } from "@/shared/interfaces";
+import { useProfile } from "@/shared/store/useProfile";
+import { isObjectEmpty } from "@/shared/lib/isObjectEmpty";
 
 export const EditProfileCard = () => {
+  const { profile } = useProfile();
   const [about, setAbout] = React.useState("");
   const [status, setStatus] = React.useState("");
   const [searchGender, setSearchGender] = React.useState("");
@@ -21,6 +24,14 @@ export const EditProfileCard = () => {
     setSearchGender(option.value);
 
   const onChangeGenderOption = (option: IOption) => setGender(option.value);
+
+  React.useEffect(() => {
+    if (isObjectEmpty(profile)) return;
+    setAbout(profile.info || "");
+    setStatus(profile.status || "");
+    setGender(profile.gender || "");
+    setSearchGender(profile.searchGender || "");
+  }, [profile]);
 
   return (
     <Card>
@@ -34,16 +45,26 @@ export const EditProfileCard = () => {
         <Dropdown
           label="Статус"
           options={STATUSES}
+          defultValue={
+            STATUSES.find((item) => item.value === status)?.label || ""
+          }
           onChangeOption={onChangeStatusOption}
         />
         <Dropdown
           label="Пол"
           options={GENDER}
+          defultValue={
+            GENDER.find((item) => item.value === gender)?.label || ""
+          }
           onChangeOption={onChangeGenderOption}
         />
         <Dropdown
           label="Ищу"
           options={SEARCH_GENDER}
+          defultValue={
+            SEARCH_GENDER.find((item) => item.value === searchGender)?.label ||
+            ""
+          }
           onChangeOption={onChangeSearchGenderOption}
         />
         <Button text="Save Changes" className="mt-4" />

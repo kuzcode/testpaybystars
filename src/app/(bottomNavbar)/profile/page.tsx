@@ -7,6 +7,8 @@ import { WalletConnectedCard } from "./ui/WalletConnectedCard";
 import { WalletNotConnectedCard } from "./ui/WalletNotConnectedCard";
 import { EditProfileCard } from "./ui/EditProfileCard/ui/EditProfileCard";
 import { ProfileImageRemoveConfirmationModal } from "./ui/modals/ProfileImageRemoveConfirmationModal";
+import { CardSkeleton } from "@/shared/ui/Skeleton";
+import { SkeletonWrapper } from "@/shared/ui/Skeleton/ui/SkeletonWrapper";
 
 const Profile = () => {
   return (

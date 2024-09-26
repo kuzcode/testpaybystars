@@ -3,7 +3,7 @@ import React from "react";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export const Card: React.FC<Props> = ({ className, children, ...props }) => {

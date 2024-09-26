@@ -4,9 +4,11 @@ import React from "react";
 import { useProfile } from "@/shared/store/useProfile";
 import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
 import { useModal } from "@/shared/store/useModal";
-import { IProfileImage } from "@/shared/api/usersApi";
+import { IProfileImage, uploadProfileImage } from "@/shared/api/usersApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const Gallery = () => {
+  const queryClient = useQueryClient();
   const { profile } = useProfile();
   const { toggleModal } = useModal();
 
@@ -16,7 +18,7 @@ export const Gallery = () => {
     return [...(profile?.images || []), ...images];
   }, [images, profile?.images]);
 
-  const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files?.length) return;
     const image: IProfileImage = {
@@ -25,6 +27,11 @@ export const Gallery = () => {
       fileName: "",
     };
     setImages((prev) => [...prev, image]);
+    const formData = new FormData();
+    formData.append("files", files[0]);
+    await uploadProfileImage(formData);
+    await queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
+    setImages((prev) => prev.slice(0, -1));
   };
 
   const handleImageClick = () => {};
