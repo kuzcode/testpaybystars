@@ -65,7 +65,10 @@ export const Dropdown: React.FC<Props> = ({
           className="border border-black/40 shadow-md p-3 rounded-xl mt-4"
         >
           {options.map((option) => {
-            const isActive = option.value === selectedOption.value;
+            const isActive =
+              defultValue && selectedOption.value === ""
+                ? option.label === defultValue
+                : option.value === selectedOption.value;
             return (
               <div
                 key={option.value}

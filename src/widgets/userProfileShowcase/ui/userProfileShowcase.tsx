@@ -89,7 +89,7 @@ export const UserProfileShowcase = () => {
 
   return (
     <Container className="h-full">
-      <div className="h-[calc(100vh-250px)] w-full relative bg-primary">
+      <div className="h-[calc(100vh-250px)] w-full relative bg-primary rounded-xl overflow-hidden">
         {isLoading && (
           <div className="flex items-center justify-center h-full text-white">
             Loading
@@ -118,6 +118,15 @@ export const UserProfileShowcase = () => {
                   alt="girl"
                   className={"object-cover rounded-lg"}
                 />
+                <div className="absolute bottom-0 pb-10 pt-2 left-0 px-4 w-full bg-gradient-to-t from-white/60 via-white/40 to-transparent backdrop-blur-sm">
+                  <h2 className="text-white font-bold text-[20px] mb-2">
+                    {character.firstName}
+                  </h2>
+                  <h4 className="text-white">
+                    {character.info ||
+                      "Who I’m looking for: I’m looking for is a man in his early 30s..."}
+                  </h4>
+                </div>
               </div>
             </TinderCard>
           );

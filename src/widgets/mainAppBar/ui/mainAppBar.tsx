@@ -3,6 +3,7 @@ import { Container } from "@/shared/ui/Container";
 import { FireBalance } from "@/widgets/fireBalance";
 import clsx from "clsx";
 import React from "react";
+import Link from "next/link";
 
 interface Props {
   text: string;
@@ -36,7 +37,11 @@ export const MainAppBar: React.FC<Props> = ({
           </Flex>
           <Flex className="gap-x-3">
             {children}
-            {enableScore && <FireBalance />}
+            {enableScore && (
+              <Link href={"/wallet"}>
+                <FireBalance />
+              </Link>
+            )}
           </Flex>
         </Flex>
       </Container>

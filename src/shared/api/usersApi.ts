@@ -15,6 +15,7 @@ export interface IUser {
   metric: string;
   status: null;
   contactPrice: number;
+  info: string | null;
 }
 
 export const fetchFindUsersNear = async () => {

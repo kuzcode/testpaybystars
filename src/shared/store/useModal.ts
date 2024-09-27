@@ -3,7 +3,8 @@ import { create } from "zustand";
 type TModal =
   | "request-geo"
   | "connect-to-user"
-  | "profile-image-remove-confirmation";
+  | "profile-image-remove-confirmation"
+  | "search-filter";
 
 interface State {
   type: TModal;
@@ -20,9 +21,7 @@ export const useModal = create<State & Action>((set) => ({
   isOpen: false,
   data: null,
   toggleModal: (type, data, bool) =>
-    set((state) => {
-      console.log("state", state.isOpen);
-
+    set(() => {
       return { type, isOpen: bool, data };
     }),
 }));
