@@ -1,4 +1,3 @@
-import { headers } from "next/headers";
 import { ILatLng } from "../interfaces";
 import { instance } from "./instance";
 

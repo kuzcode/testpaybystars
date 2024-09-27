@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   label: string;
@@ -11,6 +12,7 @@ export const AboutYourselfInput: React.FC<Props> = ({
   about,
   setAbout,
 }) => {
+  const { t } = useTranslation();
   return (
     <div>
       <h3 className="text-secondary font-bold text-[16px]">{label}</h3>
@@ -18,7 +20,7 @@ export const AboutYourselfInput: React.FC<Props> = ({
         <textarea
           value={about}
           onChange={(e) => setAbout(e.target.value)}
-          placeholder="A few words about the person who you're looking for"
+          placeholder={t("aFewWordsAboutYourSoulmate")}
           className="placeholder-[#CCCCCC] text-secondary font-medium text-[16px] outline-none resize-none w-full h-[130px] bg-transparent"
         ></textarea>
       </div>

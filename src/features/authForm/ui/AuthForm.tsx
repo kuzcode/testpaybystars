@@ -23,8 +23,11 @@ import { LocationSelector } from "./LocationSelector";
 import { updateUserLocation, uploadProfileImage } from "@/shared/api/usersApi";
 import { usePrefetchSearchPage } from "../hooks/usePrefetchSearchPage";
 import { AboutYourselfInput } from "@/shared/ui/Input/AboutYourselfInput";
+import { useTranslation } from "react-i18next";
 
 export const AuthForm = () => {
+  const { t } = useTranslation();
+
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
   const { toggleModal } = useModal();
@@ -101,24 +104,24 @@ export const AuthForm = () => {
         <AboutYourselfInput
           about={about}
           setAbout={setAbout}
-          label="About your soul mate"
+          label={t("aboutYourSoulmate")}
         />
 
         {/* <AuthTags /> */}
 
         <div className="space-y-2 mt-4">
           <Dropdown
-            label="Статус"
+            label={t("status")}
             options={STATUSES}
             onChangeOption={onChangeStatusOption}
           />
           <Dropdown
-            label="Пол"
+            label={t("gender")}
             options={GENDER}
             onChangeOption={onChangeGenderOption}
           />
           <Dropdown
-            label="Ищу"
+            label={t("isearch")}
             options={SEARCH_GENDER}
             onChangeOption={onChangeSearchGenderOption}
           />
@@ -126,7 +129,7 @@ export const AuthForm = () => {
         </div>
       </Card>
       <Button
-        text="Continue"
+        text={t("continue")}
         className="mt-4"
         type="button"
         onClick={onSubmit}

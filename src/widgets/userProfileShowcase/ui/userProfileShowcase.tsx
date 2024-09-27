@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Container } from "@/shared/ui/Container";
 import { fetchFindUsersNear } from "@/shared/api/usersApi";
 import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
-import { useShowcase } from "@/app/(bottomNavbar)/search/ui/store/useShowcase";
+import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 
 export const UserProfileShowcase = () => {
   const { data, isLoading } = useQuery({

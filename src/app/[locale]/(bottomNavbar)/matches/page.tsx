@@ -1,13 +1,13 @@
 "use client";
 
+import React from "react";
 import { fetchUsersWhoMatched, IMyMatchedUser } from "@/shared/api/usersApi";
 import { Container } from "@/shared/ui/Container";
 import { DismissibleCard } from "@/shared/ui/DismissibleCard";
 import { Page } from "@/shared/ui/Page";
-import { MainAppBar } from "@/widgets/mainAppBar";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { Skeleton } from "./ui/Skeleton";
+import { MainAppBar } from "@/widgets/mainAppBar";
 
 const MatchesPage = () => {
   const { data, isLoading } = useQuery({
@@ -17,7 +17,11 @@ const MatchesPage = () => {
 
   return (
     <Page disableHeightLimit className="!to-[#DDD7F7] !pb-[100px] min-h-screen">
-      <MainAppBar text={`Your matches (${data?.length || 0})`} shadow />
+      <MainAppBar
+        text="yourMatches"
+        extraText={`(${data?.length || 0})`}
+        shadow
+      />
       <Container className="!mt-4">
         {/* LOADING STATE */}
         {isLoading && <Skeleton />}

@@ -1,12 +1,15 @@
 import { Flex } from "@/shared/ui/Flex";
 import { Container } from "@/shared/ui/Container";
 import { FireBalance } from "@/widgets/fireBalance";
+import { AppBarTitle } from "./appBarTitle";
 import clsx from "clsx";
 import React from "react";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   text: string;
+  extraText?: string;
   children?: React.ReactNode;
   shadow?: boolean;
   className?: string;
@@ -15,6 +18,7 @@ interface Props {
 
 export const MainAppBar: React.FC<Props> = ({
   text,
+  extraText,
   children,
   shadow = false,
   className,
@@ -33,7 +37,7 @@ export const MainAppBar: React.FC<Props> = ({
       <Container className="w-full">
         <Flex className="justify-between">
           <Flex className="gap-x-4">
-            <h3 className="font-bold text-[26px]">{text}</h3>
+            <AppBarTitle text={text} extraText={extraText} />
           </Flex>
           <Flex className="gap-x-3">
             {children}

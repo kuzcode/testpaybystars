@@ -1,7 +1,8 @@
 import React from "react";
+import clsx from "clsx";
+import { useTranslation } from "react-i18next";
 import { IUploadImage } from "@/shared/interfaces";
 import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
-import clsx from "clsx";
 
 interface Props {
   className?: string;
@@ -14,6 +15,8 @@ export const ProfileImageShowcaseSection: React.FC<Props> = ({
   images,
   setImages,
 }) => {
+  const { t } = useTranslation();
+
   const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const randomId = Math.floor(Math.random() * 1000);
@@ -32,7 +35,7 @@ export const ProfileImageShowcaseSection: React.FC<Props> = ({
     <MiniImageCardWrapper
       className={clsx("my-4", className)}
       onChangeImage={onChangeImage}
-      label="Photos"
+      label={t("photos")}
     >
       {images.map((image) => {
         return (

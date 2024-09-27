@@ -10,8 +10,10 @@ import { GENDER, SEARCH_GENDER, STATUSES } from "@/shared/lib/constants";
 import { IOption } from "@/shared/interfaces";
 import { useProfile } from "@/shared/store/useProfile";
 import { isObjectEmpty } from "@/shared/lib/isObjectEmpty";
+import { useTranslation } from "react-i18next";
 
 export const EditProfileCard = () => {
+  const { t } = useTranslation();
   const { profile } = useProfile();
   const [about, setAbout] = React.useState("");
   const [status, setStatus] = React.useState("");
@@ -40,10 +42,10 @@ export const EditProfileCard = () => {
         <AboutYourselfInput
           about={about}
           setAbout={setAbout}
-          label="Edit your profile info"
+          label={t("editYourProfileInfo")}
         />
         <Dropdown
-          label="Статус"
+          label={t("status")}
           options={STATUSES}
           defultValue={
             STATUSES.find((item) => item.value === status)?.label || ""
@@ -51,7 +53,7 @@ export const EditProfileCard = () => {
           onChangeOption={onChangeStatusOption}
         />
         <Dropdown
-          label="Пол"
+          label={t("gender")}
           options={GENDER}
           defultValue={
             GENDER.find((item) => item.value === gender)?.label || ""
@@ -59,7 +61,7 @@ export const EditProfileCard = () => {
           onChangeOption={onChangeGenderOption}
         />
         <Dropdown
-          label="Ищу"
+          label={t("isearch")}
           options={SEARCH_GENDER}
           defultValue={
             SEARCH_GENDER.find((item) => item.value === searchGender)?.label ||
@@ -67,7 +69,7 @@ export const EditProfileCard = () => {
           }
           onChangeOption={onChangeSearchGenderOption}
         />
-        <Button text="Save Changes" className="mt-4" />
+        <Button text={t("save")} className="mt-4" />
       </div>
     </Card>
   );

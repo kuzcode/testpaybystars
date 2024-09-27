@@ -1,4 +1,4 @@
-import { useShowcase } from "@/app/(bottomNavbar)/search/ui/store/useShowcase";
+import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { DislikeButton } from "@/features/dislikeButton";
 import { LikeButton } from "@/features/likeButton";
 import { useModal } from "@/shared/store/useModal";

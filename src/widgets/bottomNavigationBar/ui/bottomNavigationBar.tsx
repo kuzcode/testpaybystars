@@ -48,9 +48,10 @@ const navLinks = [
 
 export const BottomNavigationBar: React.FC<Props> = ({ className }) => {
   const pathname = usePathname();
-  const router = useRouter();
 
-  // const goToPage = (page: string) => router.push(page)
+  const realPathname = pathname.startsWith("/en")
+    ? pathname.substring(3)
+    : pathname;
 
   return (
     <Flex
@@ -60,7 +61,7 @@ export const BottomNavigationBar: React.FC<Props> = ({ className }) => {
       )}
     >
       {navLinks.map((link, index) => {
-        const isActive = link.url === pathname;
+        const isActive = link.url === realPathname;
         // const iconUrl = isActive ? link.activeIcon : link.inactiveIcon
         const iconUrl = link.activeIcon;
         return (

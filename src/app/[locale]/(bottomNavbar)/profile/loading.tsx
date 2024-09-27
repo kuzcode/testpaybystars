@@ -4,11 +4,12 @@ import { CardSkeleton } from "@/shared/ui/Skeleton";
 import { SkeletonWrapper } from "@/shared/ui/Skeleton/ui/SkeletonWrapper";
 import { MainAppBar } from "@/widgets/mainAppBar";
 import { Container } from "@/shared/ui/Container";
+import { useTranslation } from "react-i18next";
 
 const Loading = () => {
   return (
     <Page disableHeightLimit className="min-h-screen !pb-[100px]">
-      <MainAppBar text="Profile" enableScore />
+      <MainAppBar text={"profile"} enableScore />
       <Container>
         <SkeletonWrapper>
           <CardSkeleton height={243} />

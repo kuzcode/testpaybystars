@@ -10,8 +10,10 @@ import { useModal } from "@/shared/store/useModal";
 import { SEARCH_PARAMS } from "@/shared/lib/searchParams";
 import { GENDER, STATUSES } from "@/shared/lib/constants";
 import { useSetSearchParams } from "@/shared/hooks/useSetSearchParams";
+import { useTranslation } from "react-i18next";
 
 export const FilterModal = () => {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const setSearchParams = useSetSearchParams();
   const { isOpen, type, toggleModal } = useModal();
@@ -38,19 +40,19 @@ export const FilterModal = () => {
       <div className="space-y-4">
         <Card className="space-y-4">
           <Dropdown
-            label="Статус"
+            label={t("status")}
             options={STATUSES}
             defultValue={STATUSES.find((item) => item.value === status)?.label}
             onChangeOption={(item) => onChangeStatusOption(item.value)}
           />
           <Dropdown
-            label="Пол"
+            label={t("gender")}
             options={GENDER}
             defultValue={GENDER.find((item) => item.value === gender)?.label}
             onChangeOption={(item) => onChangeGenderOption(item.value)}
           />
         </Card>
-        <Button text="Сохранить" onClick={onSubmit} />
+        <Button text={t("save")} onClick={onSubmit} />
       </div>
     </Vaul>
   );
