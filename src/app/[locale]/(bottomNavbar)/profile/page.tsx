@@ -1,12 +1,12 @@
 import React from "react";
-import { Container } from "@/shared/ui/Container";
 import { Page } from "@/shared/ui/Page";
-import { MainAppBar } from "@/widgets/mainAppBar";
+import { WalletState } from "./ui/WalletState";
 import { BalanceCard } from "./ui/BalanceCard";
-import { WalletNotConnectedCard } from "./ui/WalletNotConnectedCard";
+import { Container } from "@/shared/ui/Container";
+import { MainAppBar } from "@/widgets/mainAppBar";
 import { EditProfileCard } from "./ui/EditProfileCard/ui/EditProfileCard";
+import { PaymentNetworkTypesModal } from "./ui/modals/PaymentNetworkTypesModal";
 import { ProfileImageRemoveConfirmationModal } from "./ui/modals/ProfileImageRemoveConfirmationModal";
-import { WalletConnectedCard } from "./ui/WalletConnectedCard";
 
 const Profile = () => {
   return (
@@ -15,14 +15,14 @@ const Profile = () => {
       <Container>
         <div className="space-y-3">
           <BalanceCard />
-          <WalletConnectedCard />
-          <WalletNotConnectedCard />
+          <WalletState />
           <EditProfileCard />
         </div>
       </Container>
 
       {/* MODALS */}
       <ProfileImageRemoveConfirmationModal />
+      <PaymentNetworkTypesModal />
     </Page>
   );
 };

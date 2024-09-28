@@ -17,6 +17,7 @@ const config: Config = {
         primary: "#9E4FE9",
         secondary: "#202020",
         textPrimary: "#827987",
+        ton: "#4F8BBF",
       },
     },
   },

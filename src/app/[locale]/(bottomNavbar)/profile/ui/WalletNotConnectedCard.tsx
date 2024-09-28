@@ -5,9 +5,15 @@ import { Card } from "@/shared/ui/Card";
 import { Step } from "@/shared/ui/Step";
 import { Button } from "@/shared/ui/Button";
 import { useTranslation } from "react-i18next";
+import { useModal } from "@/shared/store/useModal";
 
 export const WalletNotConnectedCard = () => {
   const { t } = useTranslation();
+  const { toggleModal } = useModal();
+
+  const onWalletConnect = () =>
+    toggleModal("payment-network-types", null, true);
+
   return (
     <Card>
       <Step
@@ -16,6 +22,7 @@ export const WalletNotConnectedCard = () => {
         icon="ton"
         actions={
           <Button
+            onClick={onWalletConnect}
             text={t("connectWallet")}
             className="mt-3 !w-fit px-4 bg-gradient-to-b to-gradientPrimary from-gradientSecondary"
           />

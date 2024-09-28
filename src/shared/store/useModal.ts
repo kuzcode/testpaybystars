@@ -4,7 +4,8 @@ type TModal =
   | "request-geo"
   | "connect-to-user"
   | "profile-image-remove-confirmation"
-  | "search-filter";
+  | "search-filter"
+  | "payment-network-types";
 
 interface State {
   type: TModal;

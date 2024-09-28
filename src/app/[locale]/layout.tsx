@@ -9,6 +9,8 @@ import TranslationsProvider from "./_providers/TranslationProvider";
 import { Telegram } from "@twa-dev/types";
 import initTranslations from "../i18n";
 import "./globals.css";
+import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { TonConnectUiProvider } from "./_providers/TonConnectUiProvider";
 
 declare global {
   interface Window {
@@ -60,7 +62,9 @@ export default async function RootLayout({
           locale={locale}
           resources={resources}
         >
-          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <TonConnectUiProvider>
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+          </TonConnectUiProvider>
         </TranslationsProvider>
       </body>
     </html>
