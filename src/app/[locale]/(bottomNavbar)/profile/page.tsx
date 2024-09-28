@@ -6,6 +6,7 @@ import { BalanceCard } from "./ui/BalanceCard";
 import { WalletNotConnectedCard } from "./ui/WalletNotConnectedCard";
 import { EditProfileCard } from "./ui/EditProfileCard/ui/EditProfileCard";
 import { ProfileImageRemoveConfirmationModal } from "./ui/modals/ProfileImageRemoveConfirmationModal";
+import { WalletConnectedCard } from "./ui/WalletConnectedCard";
 
 const Profile = () => {
   return (
@@ -14,7 +15,7 @@ const Profile = () => {
       <Container>
         <div className="space-y-3">
           <BalanceCard />
-          {/* <WalletConnectedCard /> */}
+          <WalletConnectedCard />
           <WalletNotConnectedCard />
           <EditProfileCard />
         </div>

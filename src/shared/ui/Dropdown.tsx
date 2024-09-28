@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import { useOutsideClick } from "../hooks/useOutsideClick";
 import { IOption } from "../interfaces";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   label?: string;
@@ -21,6 +22,7 @@ export const Dropdown: React.FC<Props> = ({
   options,
   defultValue,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(false);
   const [selectedOption, setSelectedOption] = React.useState(options[0]);
 
@@ -48,8 +50,8 @@ export const Dropdown: React.FC<Props> = ({
       >
         <h4>
           {defultValue && selectedOption.value === ""
-            ? defultValue
-            : selectedOption.label}
+            ? t(defultValue)
+            : t(selectedOption.label)}
         </h4>
         <Image
           src={"/icons/arrowDown.svg"}
@@ -81,7 +83,7 @@ export const Dropdown: React.FC<Props> = ({
                   }
                 )}
               >
-                <h4>{option.label}</h4>
+                <h4>{t(option.label)}</h4>
                 {isActive && (
                   <Image
                     src={"/icons/tickGray.svg"}

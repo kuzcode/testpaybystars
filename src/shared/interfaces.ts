@@ -17,3 +17,11 @@ export interface IUploadImage {
   id: number;
   url: File;
 }
+
+export interface IGetCityProps {
+  address: {
+    city: string;
+    country: string;
+    country_code: string;
+  };
+}

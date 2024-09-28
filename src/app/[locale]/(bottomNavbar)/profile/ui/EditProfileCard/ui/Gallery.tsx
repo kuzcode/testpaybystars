@@ -6,8 +6,10 @@ import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
 import { useModal } from "@/shared/store/useModal";
 import { IProfileImage, uploadProfileImage } from "@/shared/api/usersApi";
 import { useQueryClient } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 export const Gallery = () => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { profile } = useProfile();
   const { toggleModal } = useModal();
@@ -52,7 +54,7 @@ export const Gallery = () => {
   return (
     <MiniImageCardWrapper
       onChangeImage={(e) => onChangeImage(e)}
-      label="Photos"
+      label={t("photos")}
     >
       {combinedImages.map((image) => {
         return (

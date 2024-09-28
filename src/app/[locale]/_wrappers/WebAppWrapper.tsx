@@ -1,15 +1,15 @@
-"use client";
+// "use client";
 
-import React from "react";
-import { Tgwa } from "tgwa";
+// import React from "react";
+// import { Tgwa } from "tgwa";
 
-export const WebAppWrapper = () => {
-  React.useEffect(() => {
-    Tgwa.ready();
-    Tgwa.expand();
-    // @ts-ignore
-    Tgwa.disableVerticalSwipes();
-  }, []);
+// export const WebAppWrapper = () => {
+//   React.useEffect(() => {
+//     Tgwa.ready();
+//     Tgwa.expand();
+//     // @ts-ignore
+//     Tgwa.disableVerticalSwipes();
+//   }, []);
 
-  return null;
-};
+//   return null;
+// };

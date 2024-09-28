@@ -1,15 +1,16 @@
-import { Button } from "@/shared/ui/Button";
-import { Card } from "@/shared/ui/Card";
-import { Flex } from "@/shared/ui/Flex";
-import { GradientHotIcon } from "@/shared/ui/GradientHotIcon";
-import { PointBadge } from "@/shared/ui/PointBadge";
-import Image from "next/image";
+"use client";
+
 import React from "react";
 import { Header } from "./Header";
+import { Card } from "@/shared/ui/Card";
+import { Button } from "@/shared/ui/Button";
+import { PointBadge } from "@/shared/ui/PointBadge";
+import { useTranslation } from "react-i18next";
 
 const COUNTRIES = ["Monkey", "Elephant", "Lion"];
 
 export const BalanceCard = () => {
+  const { t } = useTranslation();
   return (
     <Card className="!pb-3">
       <Header />
@@ -24,7 +25,7 @@ export const BalanceCard = () => {
         </div>
       </div>
 
-      <Button text="Deposit" className="mt-4" />
+      <Button text={t("deposit")} className="mt-4" />
     </Card>
   );
 };

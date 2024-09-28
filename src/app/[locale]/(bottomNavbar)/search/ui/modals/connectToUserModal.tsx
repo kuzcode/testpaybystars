@@ -1,5 +1,7 @@
 "use client";
 
+import React from "react";
+import Image from "next/image";
 import { buyContact, IUser } from "@/shared/api/usersApi";
 import { useModal } from "@/shared/store/useModal";
 import { Button } from "@/shared/ui/Button";
@@ -8,10 +10,10 @@ import { GradientHotIcon } from "@/shared/ui/GradientHotIcon";
 import { Icon } from "@/shared/ui/Icon";
 import { Vaul } from "@/shared/ui/modals/Vaul";
 import { useMutation } from "@tanstack/react-query";
-import Image from "next/image";
-import React from "react";
+import { useTranslation } from "react-i18next";
 
 export const ConnectToUserModal = () => {
+  const { t } = useTranslation();
   const { isOpen, type, toggleModal, data } = useModal((state) => state);
 
   const typedData = data as IUser;
@@ -59,25 +61,15 @@ export const ConnectToUserModal = () => {
           </h3>
           <Flex className="justify-center gap-x-2">
             <Icon type="verified" />
-            <Image
+            {/* <Image
               src={"/icons/brave.svg"}
               width={24}
               height={24}
               alt="brave"
-            />
+            /> */}
           </Flex>
-          {/* <p
-          className="text-textPrimary max-w-[250px] inline-flex items-baseline
-        "
-        >
-          Do you really want to connect with this soul? It will cost
-          <span className="flex items-center">
-            <span>12</span>
-            <GradientHotIcon />
-          </span>
-        </p> */}
           <p className="mx-auto text-textPrimary max-w-[250px]">
-            Do you really want to connect with this soul? It will cost
+            {t("connectConfirmation")}
             <span className="inline-flex items-center">
               <span className="mx-1 font-bold text-[#000] text-[17px]">
                 {typedData?.contactPrice || 0}
@@ -85,24 +77,18 @@ export const ConnectToUserModal = () => {
               <GradientHotIcon className="scale-[0.85]" />
             </span>
           </p>
-          {/* <div className="space-y-4">
-          <p className="text-[#857889]">
-            To do this, you need to allow the application to access the
-            location.
-          </p>
-        </div> */}
         </div>
       </div>
 
       <div className="space-y-2">
         <Button
           onClick={onConfirm}
-          text={mutation.isPending ? "Loading" : "Confirm"}
+          text={mutation.isPending ? t("loading") : t("confirm")}
           className="bg-gradient-to-b from-gradientPrimary to-gradientSecondary"
         />
         <Button
           onClick={onClose}
-          text="Cancel"
+          text={t("cancel")}
           className="bg-white !text-textPrimary"
         />
       </div>

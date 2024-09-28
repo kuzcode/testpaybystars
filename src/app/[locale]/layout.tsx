@@ -1,13 +1,20 @@
-import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { dir } from "i18next";
 import Script from "next/script";
-import "./globals.css";
-import { ReactQueryProvider } from "./_providers/ReactQueryProvider";
+import { Inter } from "next/font/google";
 import { i18nConfig } from "@/i18nConfig";
 import { notFound } from "next/navigation";
-import { dir } from "i18next";
-import initTranslations from "../i18n";
+import type { Metadata, Viewport } from "next";
+import { ReactQueryProvider } from "./_providers/ReactQueryProvider";
 import TranslationsProvider from "./_providers/TranslationProvider";
+import { Telegram } from "@twa-dev/types";
+import initTranslations from "../i18n";
+import "./globals.css";
+
+declare global {
+  interface Window {
+    Telegram: Telegram;
+  }
+}
 
 const inter = Inter({ subsets: ["latin"] });
 

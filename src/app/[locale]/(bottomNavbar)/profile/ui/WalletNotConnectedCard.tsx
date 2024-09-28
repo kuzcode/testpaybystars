@@ -1,25 +1,29 @@
-import { Button } from "@/shared/ui/Button";
+"use client";
+
+import React from "react";
 import { Card } from "@/shared/ui/Card";
 import { Step } from "@/shared/ui/Step";
-import React from "react";
+import { Button } from "@/shared/ui/Button";
+import { useTranslation } from "react-i18next";
 
 export const WalletNotConnectedCard = () => {
+  const { t } = useTranslation();
   return (
     <Card>
       <Step
-        title="Connect a ton wallet"
-        subTitle="Connect the TON wallet to deposit bonuses"
+        title={t("connectTonWallet")}
+        subTitle={t("connectTonWalletToGetBonuses")}
         icon="ton"
         actions={
           <Button
-            text="Connect Wallet"
-            className="mt-3 !w-[200px] bg-gradient-to-b to-gradientPrimary from-gradientSecondary"
+            text={t("connectWallet")}
+            className="mt-3 !w-fit px-4 bg-gradient-to-b to-gradientPrimary from-gradientSecondary"
           />
         }
       />
       <Step
-        title="Get bonuses"
-        subTitle="Get bonuses daily"
+        title={t("getBonuses")}
+        subTitle={t("getBonusesDaily")}
         icon="roundedLock"
         showLine={false}
       />

@@ -151,3 +151,17 @@ export const deleteUserImage = async (id: string) => {
   const response = await instance.delete(`/users/images/${id}`);
   return response.status;
 };
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+// const getCountries = async (countryName: string) => {
+//   const response = await instance.get(
+//     `/public/meta/countries?name=${countryName}`,
+//     {
+//       headers: {
+//         "Accept-Language": "en",
+//       },
+//     }
+//   );
+//   return response.data;
+// };

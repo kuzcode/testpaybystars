@@ -37,7 +37,7 @@ export const FilterModal = () => {
 
   return (
     <Vaul isOpen={modal} onClose={onClose} className="!pb-3" height={370}>
-      <div className="space-y-4">
+      <div className="space-y-4 overflow-y-scroll">
         <Card className="space-y-4">
           <Dropdown
             label={t("status")}

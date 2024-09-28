@@ -4,47 +4,62 @@ export const TG_INIT_DATA = process.env.NEXT_PUBLIC_TG_INIT_DATA;
 
 export const STATUSES = [
   {
-    label: "Не выбрано",
+    label: "notSelected",
     value: "",
   },
   {
-    label: "В поиске",
+    label: "insearch",
     value: "insearch",
   },
   {
-    label: "Влюблен(а)",
+    label: "inlove",
     value: "inlove",
   },
 ];
 
 export const SEARCH_GENDER = [
   {
-    label: "Не выбрано",
+    label: "notSelected",
     value: "",
   },
   {
-    label: "Мужчину",
+    label: "forMale",
     value: "male",
   },
   {
-    label: "Женщину",
+    label: "forFemale",
     value: "female",
   },
 ];
 
 export const GENDER = [
   {
-    label: "Не выбрано",
+    label: "notSelected",
     value: "",
   },
   {
-    label: "Мужчина",
+    label: "male",
     value: "male",
   },
   {
-    label: "Женщина",
+    label: "female",
     value: "female",
   },
 ];
 
 export const TAGS = ["musician", "marketer", "artist", "tough", "guy"];
+
+export const SELECT_LOCATION_TYPES = [
+  {
+    label: "selectLocation",
+    value: "select-geo",
+  },
+  {
+    label: "detectAuto",
+    value: "auto-detect",
+  },
+  // {
+  //   label: "Выбрать вручную",
+  //   value: "select-manually",
+  // },
+];

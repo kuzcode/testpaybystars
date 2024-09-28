@@ -1,44 +1,9 @@
-import { instance } from "@/shared/api/instance";
-import { ILatLng, IOption } from "@/shared/interfaces";
-import { SEARCH_GENDER } from "@/shared/lib/constants";
-import { Dropdown } from "@/shared/ui/Dropdown";
 import axios from "axios";
 import React from "react";
-
-const getCountries = async (countryName: string) => {
-  const response = await instance.get(
-    `/public/meta/countries?name=${countryName}`,
-    {
-      headers: {
-        "Accept-Language": "en",
-      },
-    }
-  );
-  return response.data;
-};
-
-const SELECT_LOCATION_TYPES = [
-  {
-    label: "Выберите локацию",
-    value: "select-geo",
-  },
-  {
-    label: "Определить автоматически",
-    value: "auto-detect",
-  },
-  // {
-  //   label: "Выбрать вручную",
-  //   value: "select-manually",
-  // },
-];
-
-interface IGetCityProps {
-  address: {
-    city: string;
-    country: string;
-    country_code: string;
-  };
-}
+import { useTranslation } from "react-i18next";
+import { Dropdown } from "@/shared/ui/Dropdown";
+import { IGetCityProps, ILatLng, IOption } from "@/shared/interfaces";
+import { SELECT_LOCATION_TYPES } from "@/shared/lib/constants";
 
 interface Props {
   className?: string;
@@ -46,13 +11,12 @@ interface Props {
 }
 
 export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
+  const { t } = useTranslation();
   const [loading, setLoading] = React.useState(false);
 
   const [city, setCity] = React.useState("");
   const [selectManuallyEnabled, setSelectManuallyEnabled] =
     React.useState(false);
-
-  const [countryCode, setCountryCode] = React.useState("");
 
   const getCity = async (latitude: number, longitude: number) => {
     try {
@@ -80,6 +44,8 @@ export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
+          console.log(position.coords);
+
           setCoordinates({ lat: latitude, lng: longitude });
           getCity(latitude, longitude);
         },
@@ -99,23 +65,27 @@ export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
       getLocation();
       setSelectManuallyEnabled(false);
     }
-    if (option.value === "select-manually") {
-      setSelectManuallyEnabled(true);
-      getCountries("a");
-    }
+    // if (option.value === "select-manually") {
+    //   setSelectManuallyEnabled(true);
+    //   getCountries("a");
+    // }
   };
 
   return (
     <>
       <Dropdown
         label={
-          loading ? `Локация: ищем` : city ? `Локация: ${city}` : `Локация`
+          loading
+            ? `${t("searchingLocation")}..`
+            : city
+            ? `${t("location")}: ${city}`
+            : t("location")
         }
         options={SELECT_LOCATION_TYPES}
         onChangeOption={onChangeLocationTypeSelector}
       />
 
-      {selectManuallyEnabled ? (
+      {/* {selectManuallyEnabled ? (
         <>
           <Dropdown
             label={`Страна`}
@@ -123,7 +93,7 @@ export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
             onChangeOption={onChangeLocationTypeSelector}
           />
         </>
-      ) : null}
+      ) : null} */}
     </>
   );
 };
