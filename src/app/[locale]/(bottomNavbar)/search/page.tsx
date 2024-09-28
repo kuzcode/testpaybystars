@@ -13,13 +13,13 @@ const Search = () => {
         <MainAppBar text="search" enableScore>
           <SearchFilterButton />
         </MainAppBar>
+
         <UserProfileShowcase />
 
         {/* MODALS */}
 
         {/* <AboutMatchModal /> */}
         {/* <PeopleNearbyModal /> */}
-        <FilterModal />
         <ConnectToUserModal />
       </Page>
     </>

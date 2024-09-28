@@ -13,6 +13,7 @@ interface Action {
   setUsers: (users: IUser[]) => void;
   removeUserById: (id: string) => void;
   removeLastUser: () => void;
+  reset: () => void;
 }
 
 export const useShowcase = create<State & Action>((set) => ({
@@ -22,6 +23,7 @@ export const useShowcase = create<State & Action>((set) => ({
   setCurrentUser: (user) => set({ currentUser: user }),
   setCurrentIndex: (index) => set({ currentIndex: index }),
   setUsers: (users: IUser[]) => set({ users: users }),
+  reset: () => set({ currentUser: null, currentIndex: 0, users: [] }),
   removeUserById: (id) =>
     set((state) => {
       return {

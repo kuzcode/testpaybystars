@@ -1,8 +1,8 @@
+import clsx from "clsx";
 import React from "react";
 import Image from "next/image";
-import { useMutation } from "@tanstack/react-query";
 import { like } from "../api/likeApi";
-import clsx from "clsx";
+import { useMutation } from "@tanstack/react-query";
 import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
 
 interface Props {
@@ -12,11 +12,11 @@ interface Props {
 
 export const LikeButton: React.FC<Props> = ({ userId, onChange }) => {
   const mutation = useMutation({
-    mutationFn: () => like(userId),
+    mutationFn: (id: string) => like(id),
   });
 
   const onLike = () => {
-    mutation.mutate();
+    mutation.mutate(userId);
     onChange();
   };
 

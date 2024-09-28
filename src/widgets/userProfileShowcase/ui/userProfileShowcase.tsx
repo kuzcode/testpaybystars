@@ -3,16 +3,22 @@
 import React from "react";
 import Image from "next/image";
 import TinderCard from "react-tinder-card";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Container } from "@/shared/ui/Container";
 import { fetchFindUsersNear } from "@/shared/api/usersApi";
 import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
+import { FilterModal } from "@/app/[locale]/(bottomNavbar)/search/ui/modals/filterModal";
 
 export const UserProfileShowcase = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["fetchFindUsersNear"],
-    queryFn: fetchFindUsersNear,
+  const mutation = useMutation({
+    mutationFn: () => fetchFindUsersNear(),
+    onSuccess(data) {
+      if (!data?.length) return;
+      setUsers(data);
+      setCurrentIndex(data.length - 1);
+      setCurrentUser(data[data.length - 1]);
+    },
   });
 
   const {
@@ -27,44 +33,33 @@ export const UserProfileShowcase = () => {
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-  const currentIndexRef = React.useRef(currentIndex);
-
   const childRefs = React.useMemo(
     () =>
-      Array(data?.length)
+      Array(users?.length)
         .fill(0)
         .map(() => React.createRef()),
-    [data]
+    [users]
   );
 
   const canSwipe = currentIndex >= 0;
 
   const updateCurrentIndex = (val: number) => {
     setCurrentIndex(val);
-
     setCurrentUser(users[val]);
-
-    currentIndexRef.current = val;
   };
 
   const swiped = (index: number) => updateCurrentIndex(index - 1);
 
   const swipe = async (dir: string) => {
-    if (!data?.length) return;
+    if (!users?.length) return;
     const removeTimer = setTimeout(() => {
       removeLastUser();
       clearTimeout(removeTimer);
     }, 1000);
-    if (canSwipe && currentIndex < data?.length) {
+    if (canSwipe && currentIndex < users?.length) {
       // @ts-ignore
       await childRefs[currentIndex].current.swipe(dir);
     }
-  };
-
-  const outOfFrame = (name: string, idx: number) => {
-    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
-    // @ts-ignore
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
   };
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -73,28 +68,24 @@ export const UserProfileShowcase = () => {
 
   const onChangeDislike = () => swipe("left");
 
-  React.useEffect(() => {
-    if (!data?.length) return;
-    if (!users?.length) {
-      setUsers(data);
-      setCurrentIndex(data.length - 1);
-    }
-  }, [data]);
+  const refetchMutation = () => {
+    mutation.mutate();
+  };
 
   React.useEffect(() => {
-    if (!currentUser) {
-      setCurrentUser(users[currentIndex]);
-    }
-  }, [users]);
+    if (users?.length) return;
+
+    mutation.mutate();
+  }, []);
 
   return (
     <Container className="h-full">
       <div className="h-[calc(100vh-250px)] w-full relative bg-primary rounded-xl overflow-hidden">
-        {isLoading && (
-          <div className="flex items-center justify-center h-full text-white">
+        {/* {isLoading && (
+          <div className="flex items-center justify-center h-full text-white bg-red-300/30 animate-pulse">
             Loading
           </div>
-        )}
+        )} */}
         {users?.map((character, index) => {
           const isOdd = index % 2 === 0;
           return (
@@ -103,9 +94,11 @@ export const UserProfileShowcase = () => {
               ref={childRefs[index]}
               className="absolute w-full h-full flex !pointer-events-none"
               key={character.firstName}
-              onSwipe={() => swiped(index)}
+              onSwipe={() => {
+                swiped(index);
+                console.log(index);
+              }}
               preventSwipe={["up", "down", "right", "left"]}
-              // onCardLeftScreen={() => outOfFrame(character.firstName, index)}
             >
               <div
                 onClick={() => console.log("hi")}
@@ -134,10 +127,12 @@ export const UserProfileShowcase = () => {
       </div>
 
       <ReactionButtonsGroup
-        isLoading={isLoading}
+        isLoading={false}
         onChangeLike={onChangeLike}
         onChangeDislike={onChangeDislike}
       />
+      {/* MODALS */}
+      <FilterModal handleSubmit={refetchMutation} />
     </Container>
   );
 };

@@ -11,9 +11,16 @@ import { SEARCH_PARAMS } from "@/shared/lib/searchParams";
 import { GENDER, STATUSES } from "@/shared/lib/constants";
 import { useSetSearchParams } from "@/shared/hooks/useSetSearchParams";
 import { useTranslation } from "react-i18next";
+import { useShowcase } from "../store/useShowcase";
+import { useQueryClient } from "@tanstack/react-query";
 
-export const FilterModal = () => {
+interface Props {
+  handleSubmit?: () => void;
+}
+
+export const FilterModal: React.FC<Props> = ({ handleSubmit }) => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const setSearchParams = useSetSearchParams();
   const { isOpen, type, toggleModal } = useModal();
@@ -22,6 +29,8 @@ export const FilterModal = () => {
 
   const status = searchParams.get(SEARCH_PARAMS.STATUS);
   const gender = searchParams.get(SEARCH_PARAMS.GENDER);
+
+  const { reset } = useShowcase();
 
   const onClose = () => toggleModal("search-filter", null, false);
 
@@ -32,6 +41,8 @@ export const FilterModal = () => {
     setSearchParams(SEARCH_PARAMS.GENDER, value);
 
   const onSubmit = () => {
+    reset();
+    handleSubmit && handleSubmit(); // refetch function
     onClose();
   };
 

@@ -1,4 +1,5 @@
 import { ILatLng } from "../interfaces";
+import { SEARCH_PARAMS } from "../lib/searchParams";
 import { instance } from "./instance";
 
 export interface IUser {
@@ -17,8 +18,24 @@ export interface IUser {
   info: string | null;
 }
 
+interface IFetchFindUsersNearProps {
+  gender?: string;
+  status?: string;
+}
+
 export const fetchFindUsersNear = async () => {
-  const resposne = await instance.get(`/users/find?distance=5`);
+  const searchParams = location.search.split("?")[1];
+  const urlParams = new URLSearchParams(searchParams);
+
+  const gender = urlParams.get(SEARCH_PARAMS.GENDER) || "";
+  const status = urlParams.get(SEARCH_PARAMS.STATUS) || "";
+
+  const data: IFetchFindUsersNearProps = {
+    ...(gender && { gender }),
+    ...(status && { status }),
+  };
+
+  const resposne = await instance.post(`/users/find?distance=5`, data);
   return resposne.data as IUser[];
 };
 
