@@ -21,6 +21,8 @@ export default function Home() {
 
     const token = getAccessTokenClient();
 
+    console.log(WebApp.initData);
+
     if (token) redirect(`${WebAppLanguage}/search`);
     else redirect(`${WebAppLanguage}/createProfile`);
   }, []);

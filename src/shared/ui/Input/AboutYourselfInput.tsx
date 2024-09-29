@@ -15,7 +15,7 @@ export const AboutYourselfInput: React.FC<Props> = ({
   const { t } = useTranslation();
   return (
     <div>
-      <h3 className="text-secondary font-bold text-[16px]">{label}</h3>
+      <h3 className="text-secondary font-bold text-[18px]">{label}</h3>
       <div className="border border-[#000000]/40 rounded-lg p-3 mt-4">
         <textarea
           value={about}

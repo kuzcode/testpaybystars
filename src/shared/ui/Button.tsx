@@ -1,5 +1,8 @@
+"use client";
+
 import clsx from "clsx";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   text: string;
@@ -17,6 +20,7 @@ export const Button: React.FC<Props> = ({
   loading = false,
   ...props
 }) => {
+  const { t } = useTranslation();
   return (
     <button
       type={type}
@@ -31,7 +35,7 @@ export const Button: React.FC<Props> = ({
       )}
       {...props}
     >
-      {loading ? "Loading" : text}
+      {loading ? t("loading") : text}
     </button>
   );
 };

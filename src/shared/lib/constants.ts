@@ -7,7 +7,7 @@ export const TON_CONNECT_UI_MANIFEST_URL =
 
 export const STATUSES = [
   {
-    label: "notSelected",
+    label: "noMatter",
     value: "",
   },
   {
@@ -22,7 +22,7 @@ export const STATUSES = [
 
 export const SEARCH_GENDER = [
   {
-    label: "notSelected",
+    label: "noMatter",
     value: "",
   },
   {
@@ -37,7 +37,7 @@ export const SEARCH_GENDER = [
 
 export const GENDER = [
   {
-    label: "notSelected",
+    label: "noMatter",
     value: "",
   },
   {

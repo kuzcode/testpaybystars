@@ -24,7 +24,7 @@ export const MiniImageCard: React.FC<Props> = ({
         src={url}
         fill
         alt="profile-img"
-        className="w-full object-contain rounded-xl"
+        className="w-full object-cover object-center rounded-xl"
         onClick={() => handleImageClick(imageId)}
       />
       <button

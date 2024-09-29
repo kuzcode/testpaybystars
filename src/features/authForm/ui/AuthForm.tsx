@@ -29,8 +29,8 @@ export const AuthForm = () => {
   const { t } = useTranslation();
 
   const router = useRouter();
-  const [loading, setLoading] = React.useState(false);
   const { toggleModal } = useModal();
+  const [loading, setLoading] = React.useState(false);
 
   const [images, setImages] = React.useState<IUploadImage[]>([]);
   const [about, setAbout] = React.useState("");
@@ -42,7 +42,7 @@ export const AuthForm = () => {
     lng: 0,
   });
 
-  const disabled = loading || !about || !status || !searchGender || !gender;
+  const disabled = loading || !about;
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -66,8 +66,8 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      tg: window.Telegram.WebApp.initData,
-      // tg: TG_INIT_DATA || "",
+      // tg: window.Telegram.WebApp.initData,
+      tg: TG_INIT_DATA || "",
       gender: gender,
       searchGender: searchGender,
       status: status,

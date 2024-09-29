@@ -17,7 +17,7 @@ export const MiniImageCardWrapper: React.FC<Props> = ({
 }) => {
   return (
     <div className={clsx("", className)}>
-      <h3 className="text-secondary font-bold text-[16px] mb-4">{label}</h3>
+      <h3 className="text-secondary font-bold text-[18px] mb-4">{label}</h3>
       <div className={clsx("grid grid-cols-4 gap-y-2 gap-x-3")}>
         {children}
         <MiniImageUploadButton onChangeImage={onChangeImage} />

@@ -48,7 +48,7 @@ export const Dropdown: React.FC<Props> = ({
           }
         )}
       >
-        <h4>
+        <h4 className="font-medium">
           {defultValue && selectedOption.value === ""
             ? t(defultValue)
             : t(selectedOption.label)}
@@ -83,7 +83,7 @@ export const Dropdown: React.FC<Props> = ({
                   }
                 )}
               >
-                <h4>{t(option.label)}</h4>
+                <h4 className="font-medium">{t(option.label)}</h4>
                 {isActive && (
                   <Image
                     src={"/icons/tickGray.svg"}
