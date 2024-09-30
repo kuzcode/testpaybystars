@@ -47,5 +47,9 @@
     "perItem": "за единицу",
     "d": "д",
     "h": "ч",
-    "noMatter": "Не важно"
+    "noMatter": "Не важно",
+    "cityNotFound": "Город не найден",
+    "city": "Город",
+    "country": "Страна",
+    "selectManual": "Выбрать вручную"
 }

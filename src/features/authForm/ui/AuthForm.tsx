@@ -12,13 +12,18 @@ import {
   STATUSES,
   TG_INIT_DATA,
 } from "@/shared/lib/constants";
-import { ILatLng, IOption, IUploadImage } from "@/shared/interfaces";
+import {
+  ILatLng,
+  IManualSelectedCity,
+  IOption,
+  IUploadImage,
+} from "@/shared/interfaces";
 import {
   setAccessTokenClient,
   setRefreshTokenClient,
 } from "@/shared/lib/cookie";
 import { useModal } from "@/shared/store/useModal";
-import { ProfileImageShowcaseSection } from "./ProfileImageShowcaseSection";
+import ProfileImageShowcaseSection from "./ProfileImageShowcaseSection";
 import { LocationSelector } from "./LocationSelector";
 import { updateUserLocation, uploadProfileImage } from "@/shared/api/usersApi";
 import { usePrefetchSearchPage } from "../hooks/usePrefetchSearchPage";
@@ -29,8 +34,8 @@ export const AuthForm = () => {
   const { t } = useTranslation();
 
   const router = useRouter();
-  const { toggleModal } = useModal();
   const [loading, setLoading] = React.useState(false);
+  const { toggleModal } = useModal();
 
   const [images, setImages] = React.useState<IUploadImage[]>([]);
   const [about, setAbout] = React.useState("");
@@ -41,6 +46,9 @@ export const AuthForm = () => {
     lat: 0,
     lng: 0,
   });
+  const [manualSelectedCity, setManualSelectedCity] = React.useState(
+    null as IManualSelectedCity | null
+  );
 
   const disabled = loading || !about;
 
@@ -54,6 +62,7 @@ export const AuthForm = () => {
   const onChangeGenderOption = (option: IOption) => setGender(option.value);
 
   const uploadImages = async () => {
+    if (!images.length) return;
     const formData = new FormData();
     images.forEach((image) => {
       formData.append("files", image.url);
@@ -66,12 +75,15 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      // tg: window.Telegram.WebApp.initData,
-      tg: TG_INIT_DATA || "",
-      gender: gender,
-      searchGender: searchGender,
-      status: status,
-      // tg: typeof window !== "undefined" ? window.Telegram.WebApp.initData : "",
+      tg: window.Telegram.WebApp.initData,
+      // tg: TG_INIT_DATA || "",
+      ...(gender && { gender }),
+      ...(searchGender && { searchGender }),
+      ...(status && { status }),
+      ...(manualSelectedCity && {
+        cityName: manualSelectedCity.name,
+        countryCode: manualSelectedCity.countryCode,
+      }),
     };
 
     const response = await login(data);
@@ -126,7 +138,10 @@ export const AuthForm = () => {
             options={SEARCH_GENDER}
             onChangeOption={onChangeSearchGenderOption}
           />
-          <LocationSelector setCoordinates={setCoordinates} />
+          <LocationSelector
+            setCoordinates={setCoordinates}
+            setManualSelectedCity={setManualSelectedCity}
+          />
         </div>
       </Card>
       <Button

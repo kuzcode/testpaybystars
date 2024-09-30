@@ -10,7 +10,7 @@ interface Props {
   setImages: React.Dispatch<React.SetStateAction<IUploadImage[]>>;
 }
 
-export const ProfileImageShowcaseSection: React.FC<Props> = ({
+const ProfileImageShowcaseSection: React.FC<Props> = ({
   className,
   images,
   setImages,
@@ -51,3 +51,5 @@ export const ProfileImageShowcaseSection: React.FC<Props> = ({
     </MiniImageCardWrapper>
   );
 };
+
+export default React.memo(ProfileImageShowcaseSection);

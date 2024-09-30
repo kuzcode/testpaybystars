@@ -58,11 +58,11 @@ export const SELECT_LOCATION_TYPES = [
     value: "select-geo",
   },
   {
+    label: "selectManual",
+    value: "select-manually",
+  },
+  {
     label: "detectAuto",
     value: "auto-detect",
   },
-  // {
-  //   label: "Выбрать вручную",
-  //   value: "select-manually",
-  // },
 ];

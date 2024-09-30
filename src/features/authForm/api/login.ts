@@ -5,9 +5,11 @@ export interface ILoginProps {
   info: string;
   reference: string;
   tg: string;
-  gender: string;
-  searchGender: string;
-  status: string;
+  gender?: string;
+  searchGender?: string;
+  status?: string;
+  cityName?: string;
+  countryCode?: string;
 }
 
 export const login = async (data: ILoginProps) => {

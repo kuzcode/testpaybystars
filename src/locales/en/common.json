@@ -47,5 +47,9 @@
     "perItem": "per item",
     "d": "d",
     "h": "h",
-    "noMatter": "No matter"
+    "noMatter": "No matter",
+    "cityNotFound": "City not found",
+    "city": "City",
+    "country": "Country",
+    "selectManual": "Select manually"
 }

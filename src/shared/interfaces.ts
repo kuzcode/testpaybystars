@@ -25,3 +25,22 @@ export interface IGetCityProps {
     country_code: string;
   };
 }
+
+export interface IWorldCountry {
+  code: string;
+  language: string;
+  name: string;
+}
+
+export interface IWorldCity {
+  countryCode: string;
+  id: number;
+  language: string;
+  name: string;
+  nameLocale: null;
+}
+
+export interface IManualSelectedCity {
+  countryCode: string;
+  name: string;
+}

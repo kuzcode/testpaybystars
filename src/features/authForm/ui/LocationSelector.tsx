@@ -2,19 +2,39 @@ import axios from "axios";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { Dropdown } from "@/shared/ui/Dropdown";
-import { IGetCityProps, ILatLng, IOption } from "@/shared/interfaces";
+import {
+  IGetCityProps,
+  ILatLng,
+  IManualSelectedCity,
+  IOption,
+  IWorldCity,
+  IWorldCountry,
+} from "@/shared/interfaces";
 import { SELECT_LOCATION_TYPES } from "@/shared/lib/constants";
+import { SearchDropdown } from "@/shared/ui/SearchDropdown";
+import { useMutation } from "@tanstack/react-query";
+import { getCities, getCountries } from "@/shared/api/worldApi";
 
 interface Props {
   className?: string;
   setCoordinates: React.Dispatch<React.SetStateAction<ILatLng>>;
+  setManualSelectedCity: React.Dispatch<
+    React.SetStateAction<IManualSelectedCity | null>
+  >;
 }
 
-export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
+export const LocationSelector: React.FC<Props> = ({
+  setCoordinates,
+  setManualSelectedCity,
+}) => {
   const { t } = useTranslation();
   const [loading, setLoading] = React.useState(false);
 
-  const [city, setCity] = React.useState("");
+  const [city, setCity] = React.useState(""); // use it with autodetect
+  const [countries, setCountries] = React.useState<IWorldCountry[]>([]);
+  const [cities, setCities] = React.useState<IWorldCity[]>([]);
+  const [countryCode, setCountryCode] = React.useState("");
+
   const [selectManuallyEnabled, setSelectManuallyEnabled] =
     React.useState(false);
 
@@ -27,11 +47,11 @@ export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
       if (data && data.address && data.address.city) {
         setCity(`${data.address.city}`);
       } else {
-        setCity("City not found");
+        setCity(t("cityNotFound"));
       }
     } catch (error) {
       console.error("Error fetching city data: ", error);
-      setCity("Error fetching city");
+      setCity(t("cityNotFound"));
     } finally {
       setLoading(false);
     }
@@ -44,8 +64,6 @@ export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          console.log(position.coords);
-
           setCoordinates({ lat: latitude, lng: longitude });
           getCity(latitude, longitude);
         },
@@ -60,15 +78,40 @@ export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
     }
   };
 
+  const countryMutation = useMutation({
+    mutationFn: (name: string) => getCountries(name),
+    onSuccess(data) {
+      setCountries(data);
+    },
+  });
+
+  const cityMutation = useMutation({
+    mutationFn: (name: string) => getCities(countryCode, name),
+    onSuccess(data) {
+      setCities(data);
+    },
+  });
+
+  const fetchCountries = (value: string) => {
+    countryMutation.mutate(value);
+  };
+
+  const fetchCities = (value: string) => {
+    cityMutation.mutate(value);
+  };
+
+  const onChangeCountryOption = (option: IOption) =>
+    setCountryCode(option.value);
+
+  const onChangeCityOption = (option: IOption) =>
+    setManualSelectedCity({ countryCode: option.value, name: option.label });
+
   const onChangeLocationTypeSelector = (option: IOption) => {
     if (option.value === "auto-detect") {
       getLocation();
       setSelectManuallyEnabled(false);
     }
-    // if (option.value === "select-manually") {
-    //   setSelectManuallyEnabled(true);
-    //   getCountries("a");
-    // }
+    if (option.value === "select-manually") setSelectManuallyEnabled(true);
   };
 
   return (
@@ -85,15 +128,35 @@ export const LocationSelector: React.FC<Props> = ({ setCoordinates }) => {
         onChangeOption={onChangeLocationTypeSelector}
       />
 
-      {/* {selectManuallyEnabled ? (
+      {selectManuallyEnabled ? (
         <>
-          <Dropdown
-            label={`Страна`}
-            options={SELECT_LOCATION_TYPES}
-            onChangeOption={onChangeLocationTypeSelector}
+          <SearchDropdown
+            label={t("country")}
+            options={countries?.map((country) => ({
+              label: country.name,
+              value: country.code,
+            }))}
+            onChangeInput={fetchCountries}
+            onChangeOption={onChangeCountryOption}
+            loading={countryMutation.isPending}
           />
         </>
-      ) : null} */}
+      ) : null}
+
+      {selectManuallyEnabled && countryCode !== "" ? (
+        <>
+          <SearchDropdown
+            label={t("city")}
+            options={cities?.map((city) => ({
+              label: city.name,
+              value: city.countryCode,
+            }))}
+            onChangeInput={fetchCities}
+            onChangeOption={onChangeCityOption}
+            loading={cityMutation.isPending}
+          />
+        </>
+      ) : null}
     </>
   );
 };

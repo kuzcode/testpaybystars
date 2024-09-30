@@ -15,13 +15,11 @@ export default function Home() {
 
     WebApp.setHeaderColor("#9E4FE9"); // primary
 
-    WebApp.setBackgroundColor("#9E4FE9"); // dark
+    WebApp.setBackgroundColor("#FFFFFF"); // dark
 
     WebApp.BackButton.hide();
 
     const token = getAccessTokenClient();
-
-    console.log(WebApp.initData);
 
     if (token) redirect(`${WebAppLanguage}/search`);
     else redirect(`${WebAppLanguage}/createProfile`);
