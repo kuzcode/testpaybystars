@@ -5,7 +5,6 @@ import { Dropdown } from "@/shared/ui/Dropdown";
 import {
   IGetCityProps,
   ILatLng,
-  IManualSelectedCity,
   IOption,
   IWorldCity,
   IWorldCountry,
@@ -18,14 +17,15 @@ import { getCities, getCountries } from "@/shared/api/worldApi";
 interface Props {
   className?: string;
   setCoordinates: React.Dispatch<React.SetStateAction<ILatLng>>;
-  setManualSelectedCity: React.Dispatch<
-    React.SetStateAction<IManualSelectedCity | null>
-  >;
+
+  setSelectedCountryCode: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedCityId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const LocationSelector: React.FC<Props> = ({
   setCoordinates,
-  setManualSelectedCity,
+  setSelectedCountryCode,
+  setSelectedCityId,
 }) => {
   const { t } = useTranslation();
   const [loading, setLoading] = React.useState(false);
@@ -100,11 +100,13 @@ export const LocationSelector: React.FC<Props> = ({
     cityMutation.mutate(value);
   };
 
-  const onChangeCountryOption = (option: IOption) =>
+  const onChangeCountryOption = (option: IOption) => {
     setCountryCode(option.value);
+    setSelectedCountryCode(option.value);
+  };
 
   const onChangeCityOption = (option: IOption) =>
-    setManualSelectedCity({ countryCode: option.value, name: option.label });
+    setSelectedCityId(option.value);
 
   const onChangeLocationTypeSelector = (option: IOption) => {
     if (option.value === "auto-detect") {
@@ -149,7 +151,7 @@ export const LocationSelector: React.FC<Props> = ({
             label={t("city")}
             options={cities?.map((city) => ({
               label: city.name,
-              value: city.countryCode,
+              value: city.id.toString(),
             }))}
             onChangeInput={fetchCities}
             onChangeOption={onChangeCityOption}

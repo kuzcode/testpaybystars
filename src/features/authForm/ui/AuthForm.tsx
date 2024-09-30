@@ -12,12 +12,7 @@ import {
   STATUSES,
   TG_INIT_DATA,
 } from "@/shared/lib/constants";
-import {
-  ILatLng,
-  IManualSelectedCity,
-  IOption,
-  IUploadImage,
-} from "@/shared/interfaces";
+import { ILatLng, IOption, IUploadImage } from "@/shared/interfaces";
 import {
   setAccessTokenClient,
   setRefreshTokenClient,
@@ -46,9 +41,9 @@ export const AuthForm = () => {
     lat: 0,
     lng: 0,
   });
-  const [manualSelectedCity, setManualSelectedCity] = React.useState(
-    null as IManualSelectedCity | null
-  );
+
+  const [selectedCountryCode, setSelectedCountryCode] = React.useState("");
+  const [selectedCityId, setSelectedCityId] = React.useState("");
 
   const disabled = loading || !about;
 
@@ -75,14 +70,14 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      tg: window.Telegram.WebApp.initData,
-      // tg: TG_INIT_DATA || "",
+      // tg: window.Telegram.WebApp.initData,
+      tg: TG_INIT_DATA || "",
       ...(gender && { gender }),
       ...(searchGender && { searchGender }),
       ...(status && { status }),
-      ...(manualSelectedCity && {
-        cityName: manualSelectedCity.name,
-        countryCode: manualSelectedCity.countryCode,
+      ...(selectedCityId && {
+        cityId: selectedCityId,
+        countryCode: selectedCountryCode,
       }),
     };
 
@@ -140,7 +135,8 @@ export const AuthForm = () => {
           />
           <LocationSelector
             setCoordinates={setCoordinates}
-            setManualSelectedCity={setManualSelectedCity}
+            setSelectedCityId={setSelectedCityId}
+            setSelectedCountryCode={setSelectedCountryCode}
           />
         </div>
       </Card>

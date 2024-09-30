@@ -8,7 +8,7 @@ export interface ILoginProps {
   gender?: string;
   searchGender?: string;
   status?: string;
-  cityName?: string;
+  cityId?: string;
   countryCode?: string;
 }
 

@@ -39,8 +39,3 @@ export interface IWorldCity {
   name: string;
   nameLocale: null;
 }
-
-export interface IManualSelectedCity {
-  countryCode: string;
-  name: string;
-}
