@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Flex } from "@/shared/ui/Flex";
 import Image from "next/image";
+import { CustomLink } from "@/shared/ui/CustomLink";
 
 interface Props {
   className?: string;
@@ -63,9 +64,9 @@ export const BottomNavigationBar: React.FC<Props> = ({ className }) => {
       {navLinks.map((link, index) => {
         const isActive = link.url === realPathname;
         // const iconUrl = isActive ? link.activeIcon : link.inactiveIcon
-        const iconUrl = link.activeIcon;
+        // const iconUrl = link.activeIcon;
         return (
-          <Link href={link.url} key={index}>
+          <CustomLink href={link.url} key={index}>
             {/* active */}
             <Image
               src={link.activeIcon}
@@ -90,7 +91,7 @@ export const BottomNavigationBar: React.FC<Props> = ({ className }) => {
                 "opacity-0 absolute": isActive,
               })}
             />
-          </Link>
+          </CustomLink>
         );
       })}
     </Flex>

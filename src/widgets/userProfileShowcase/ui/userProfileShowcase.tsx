@@ -3,36 +3,17 @@
 import React from "react";
 import Image from "next/image";
 import TinderCard from "react-tinder-card";
-import { useMutation } from "@tanstack/react-query";
 import { Container } from "@/shared/ui/Container";
-import { fetchFindUsersNear } from "@/shared/api/usersApi";
+import { useSliderListener } from "@/shared/hooks/useSliderListener";
 import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
-import { FilterModal } from "@/app/[locale]/(bottomNavbar)/search/ui/modals/filterModal";
 
 export const UserProfileShowcase = () => {
-  const mutation = useMutation({
-    mutationFn: () => fetchFindUsersNear(),
-    onSuccess(data) {
-      if (!data?.length) return;
-      setUsers(data);
-      setCurrentIndex(data.length - 1);
-      setCurrentUser(data[data.length - 1]);
-    },
-  });
-
-  const {
-    users,
-    setUsers,
-    currentUser,
-    currentIndex,
-    removeLastUser,
-    setCurrentUser,
-    setCurrentIndex,
-  } = useShowcase();
+  const { users, currentIndex, removeLastUser } = useShowcase();
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+  // needed for animation when swipe
   const childRefs = React.useMemo(
     () =>
       Array(users?.length)
@@ -41,47 +22,32 @@ export const UserProfileShowcase = () => {
     [users]
   );
 
-  const canSwipe = currentIndex >= 0;
-
-  const updateCurrentIndex = (val: number) => {
-    setCurrentIndex(val);
-    setCurrentUser(users[val]);
-  };
-
-  const swiped = (index: number) => updateCurrentIndex(index - 1);
-
   const swipe = async (dir: string) => {
-    if (!users?.length) return;
-    const removeTimer = setTimeout(() => {
+    // remove unused users, renew currentIndex and currentUser, it's good for optimization when fetched new users
+    const timer = setTimeout(() => {
       removeLastUser();
-      clearTimeout(removeTimer);
+      clearTimeout(timer);
     }, 1000);
-    if (canSwipe && currentIndex < users?.length) {
-      // @ts-ignore
-      await childRefs[currentIndex].current.swipe(dir);
-    }
+    // remove unused users, it's good for optimization when fetched new users
+
+    // use it for animation when swipe
+    // @ts-ignore
+    await childRefs[currentIndex].current.swipe(dir);
+    // use it for animation when swipe
   };
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+  // reactions not works if currentIndex === undefined (it means no user in interface to swipe)
   const onChangeLike = () => swipe("right");
-
   const onChangeDislike = () => swipe("left");
 
-  const refetchMutation = () => {
-    mutation.mutate();
-  };
-
-  React.useEffect(() => {
-    if (users?.length) return;
-
-    mutation.mutate();
-  }, []);
+  useSliderListener();
 
   return (
     <Container className="h-full">
       <div className="h-[calc(100vh-250px)] w-full relative bg-primary rounded-xl overflow-hidden">
-        {/* {isLoading && (
+        {/* {mutation.isPending && !users?.length && (
           <div className="flex items-center justify-center h-full text-white bg-red-300/30 animate-pulse">
             Loading
           </div>
@@ -94,22 +60,16 @@ export const UserProfileShowcase = () => {
               ref={childRefs[index]}
               className="absolute w-full h-full flex !pointer-events-none"
               key={character.firstName}
-              onSwipe={() => {
-                swiped(index);
-                console.log(index);
-              }}
+              // onSwipe={}
               preventSwipe={["up", "down", "right", "left"]}
             >
-              <div
-                onClick={() => console.log("hi")}
-                className="relative bg-[#fff] w-full h-full"
-              >
+              <div className="relative bg-[#fff] w-full h-full">
                 <Image
-                  key={character.firstName}
                   src={isOdd ? "/images/girl.png" : "/images/boy.png"}
-                  fill
-                  alt="girl"
                   className={"object-cover rounded-lg"}
+                  key={character.firstName}
+                  alt="girl"
+                  fill
                 />
                 <div className="absolute bottom-0 pb-10 pt-2 left-0 px-4 w-full bg-gradient-to-t from-white/60 via-white/40 to-transparent backdrop-blur-sm">
                   <h2 className="text-white font-bold text-[20px] mb-2">
@@ -132,7 +92,7 @@ export const UserProfileShowcase = () => {
         onChangeDislike={onChangeDislike}
       />
       {/* MODALS */}
-      <FilterModal handleSubmit={refetchMutation} />
+      {/* <FilterModal handleSubmit={refetchMutation} /> */}
     </Container>
   );
 };

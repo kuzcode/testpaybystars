@@ -34,6 +34,8 @@ export const useShowcase = create<State & Action>((set) => ({
     set((state) => {
       return {
         users: state.users.slice(0, -1),
+        currentUser: state.users[state.currentIndex - 1],
+        currentIndex: state.currentIndex - 1,
       };
     }),
 }));

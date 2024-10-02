@@ -3,7 +3,6 @@ import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
 import { UserProfileShowcase } from "@/widgets/userProfileShowcase";
 import { ConnectToUserModal } from "./ui/modals/connectToUserModal";
-import { FilterModal } from "./ui/modals/filterModal";
 import { SearchFilterButton } from "@/features/searchFilterButton";
 
 const Search = () => {

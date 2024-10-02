@@ -58,7 +58,7 @@ export const ReactionButtonsGroup: React.FC<Props> = ({
           className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[12px] w-full scale-[0.75]"
         />
       </div>
-      <LikeButton userId={currentUser?.id!} onChange={onChangeInLike} />
+      <LikeButton userId={currentUser?.id} onChange={onChangeInLike} />
     </div>
   );
 };

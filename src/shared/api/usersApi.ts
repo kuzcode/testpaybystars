@@ -29,14 +29,21 @@ export const fetchFindUsersNear = async () => {
 
   const gender = urlParams.get(SEARCH_PARAMS.GENDER) || "";
   const status = urlParams.get(SEARCH_PARAMS.STATUS) || "";
+  const pageNumber = urlParams.get(SEARCH_PARAMS.PAGE_NUMBER) || "0";
+  const distance = urlParams.get(SEARCH_PARAMS.DISTANCE) || "10000";
+  const size = "3";
 
   const data: IFetchFindUsersNearProps = {
     ...(gender && { gender }),
     ...(status && { status }),
   };
 
-  const resposne = await instance.post(`/users/find?distance=5`, data);
-  return resposne.data as IUser[];
+  const resposne = await instance.post(
+    `/users/find?distance=${distance}&size=${size}&page_number=${pageNumber}`,
+    data
+  );
+
+  return resposne.data as { profiles: IUser[]; total: number };
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

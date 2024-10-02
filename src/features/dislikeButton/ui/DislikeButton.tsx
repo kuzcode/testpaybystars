@@ -5,17 +5,18 @@ import { dislike } from "../api/dislikeApi";
 import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
 
 interface Props {
-  userId: string;
+  userId: string | undefined;
   onChange: () => void;
 }
 
 export const DislikeButton: React.FC<Props> = ({ userId, onChange }) => {
   const mutation = useMutation({
-    mutationFn: () => dislike(userId),
+    mutationFn: (id: string) => dislike(id),
   });
 
   const onDislike = () => {
-    mutation.mutate();
+    if (!userId) return;
+    mutation.mutate(userId);
     onChange();
   };
 

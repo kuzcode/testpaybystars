@@ -1,11 +1,10 @@
+import React from "react";
+import clsx from "clsx";
 import { Flex } from "@/shared/ui/Flex";
 import { Container } from "@/shared/ui/Container";
 import { FireBalance } from "@/widgets/fireBalance";
 import { AppBarTitle } from "./appBarTitle";
-import clsx from "clsx";
-import React from "react";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import { CustomLink } from "@/shared/ui/CustomLink";
 
 interface Props {
   text: string;
@@ -42,9 +41,9 @@ export const MainAppBar: React.FC<Props> = ({
           <Flex className="gap-x-3">
             {children}
             {enableScore && (
-              <Link href={"/wallet"}>
+              <CustomLink href="/wallet">
                 <FireBalance />
-              </Link>
+              </CustomLink>
             )}
           </Flex>
         </Flex>

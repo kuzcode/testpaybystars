@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
 
 interface Props {
-  userId: string;
+  userId: string | undefined;
   onChange: () => void;
 }
 
@@ -16,6 +16,7 @@ export const LikeButton: React.FC<Props> = ({ userId, onChange }) => {
   });
 
   const onLike = () => {
+    if (!userId) return;
     mutation.mutate(userId);
     onChange();
   };
