@@ -24,13 +24,8 @@ export const UserProfileShowcase = () => {
 
   const swipe = async (dir: string) => {
     // remove unused users, renew currentIndex and currentUser, it's good for optimization when fetched new users
-    const timer = setTimeout(() => {
-      removeLastUser();
-      clearTimeout(timer);
-    }, 1000);
-    // remove unused users, it's good for optimization when fetched new users
+    removeLastUser();
 
-    // use it for animation when swipe
     // @ts-ignore
     await childRefs[currentIndex].current.swipe(dir);
     // use it for animation when swipe
@@ -59,8 +54,8 @@ export const UserProfileShowcase = () => {
               // @ts-ignore
               ref={childRefs[index]}
               className="absolute w-full h-full flex !pointer-events-none"
-              key={character.firstName}
               preventSwipe={["up", "down", "right", "left"]}
+              key={character.id}
             >
               <TinderCardContent character={character} isOdd={isOdd} />
             </TinderCard>

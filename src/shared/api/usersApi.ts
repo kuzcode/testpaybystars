@@ -24,15 +24,17 @@ interface IFetchFindUsersNearProps {
   status?: string;
 }
 
-export const fetchFindUsersNear = async () => {
+export const fetchFindUsersNear = async (pageNumberManual: string | null) => {
   const searchParams = location.search.split("?")[1];
   const urlParams = new URLSearchParams(searchParams);
 
   const gender = urlParams.get(SEARCH_PARAMS.GENDER) || "";
   const status = urlParams.get(SEARCH_PARAMS.STATUS) || "";
-  const pageNumber = urlParams.get(SEARCH_PARAMS.PAGE_NUMBER) || "0";
-  const distance = urlParams.get(SEARCH_PARAMS.DISTANCE) || "10000";
-  const size = "3";
+  const pageNumber = pageNumberManual
+    ? pageNumberManual
+    : urlParams.get(SEARCH_PARAMS.PAGE_NUMBER) || "0";
+  const distance = urlParams.get(SEARCH_PARAMS.DISTANCE) || "100000";
+  const size = "10";
 
   const data: IFetchFindUsersNearProps = {
     ...(gender && { gender }),

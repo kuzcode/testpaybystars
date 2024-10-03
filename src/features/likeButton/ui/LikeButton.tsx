@@ -23,6 +23,7 @@ export const LikeButton: React.FC<Props> = ({ userId, onChange }) => {
   const onLike = () => {
     if (!reactionsActivated) return;
     if (!userId) return;
+    console.log(userId);
     mutation.mutate(userId);
     onChange();
 

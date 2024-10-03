@@ -6,6 +6,7 @@ interface State {
   currentIndex: number;
   users: IUser[];
   reactionsActivated: boolean;
+  isReceivedDataEmpty: boolean;
 }
 
 interface Action {
@@ -16,6 +17,7 @@ interface Action {
   removeLastUser: () => void;
   reset: () => void;
   toggleReactionsActivated: () => void;
+  setIsReceivedDataEmpty: (value: boolean) => void;
 }
 
 export const useShowcase = create<State & Action>((set) => ({
@@ -23,24 +25,40 @@ export const useShowcase = create<State & Action>((set) => ({
   currentIndex: 0,
   users: [],
   reactionsActivated: true,
+  isReceivedDataEmpty: false,
+
+  setIsReceivedDataEmpty: (value) => set({ isReceivedDataEmpty: value }),
+
   setCurrentUser: (user) => set({ currentUser: user }),
-  setCurrentIndex: (index) => set({ currentIndex: index }),
-  setUsers: (users: IUser[]) => set({ users: users }),
+
+  setCurrentIndex: (index) =>
+    set((state) => ({ currentIndex: state.currentIndex + index })),
+
+  setUsers: (users: IUser[]) =>
+    set((state) => ({ users: [...users, ...state.users] })),
+
   reset: () => set({ currentUser: null, currentIndex: 0, users: [] }),
+
   removeUserById: (id) =>
     set((state) => {
       return {
         users: state.users.filter((user) => user.id !== id),
       };
     }),
-  removeLastUser: () =>
+
+  removeLastUser: () => {
     set((state) => {
       return {
-        users: state.users.slice(0, -1),
         currentUser: state.users[state.currentIndex - 1],
         currentIndex: state.currentIndex - 1,
       };
-    }),
+    });
+    const timer = setTimeout(() => {
+      set((state) => ({ users: state.users.slice(0, -1) }));
+      clearTimeout(timer);
+    }, 1000);
+  },
+
   toggleReactionsActivated: () =>
     set((state) => ({ reactionsActivated: !state.reactionsActivated })),
 }));
