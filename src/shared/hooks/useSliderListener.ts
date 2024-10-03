@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query";
 import React from "react";
+import { useMutation } from "@tanstack/react-query";
 import { fetchFindUsersNear } from "../api/usersApi";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 

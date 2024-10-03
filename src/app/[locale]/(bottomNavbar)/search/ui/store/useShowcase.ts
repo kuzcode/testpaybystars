@@ -5,6 +5,7 @@ interface State {
   currentUser: IUser | null;
   currentIndex: number;
   users: IUser[];
+  reactionsActivated: boolean;
 }
 
 interface Action {
@@ -14,12 +15,14 @@ interface Action {
   removeUserById: (id: string) => void;
   removeLastUser: () => void;
   reset: () => void;
+  toggleReactionsActivated: () => void;
 }
 
 export const useShowcase = create<State & Action>((set) => ({
   currentUser: null,
   currentIndex: 0,
   users: [],
+  reactionsActivated: true,
   setCurrentUser: (user) => set({ currentUser: user }),
   setCurrentIndex: (index) => set({ currentIndex: index }),
   setUsers: (users: IUser[]) => set({ users: users }),
@@ -38,4 +41,6 @@ export const useShowcase = create<State & Action>((set) => ({
         currentIndex: state.currentIndex - 1,
       };
     }),
+  toggleReactionsActivated: () =>
+    set((state) => ({ reactionsActivated: !state.reactionsActivated })),
 }));

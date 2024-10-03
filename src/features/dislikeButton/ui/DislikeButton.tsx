@@ -1,8 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
+import { useMutation } from "@tanstack/react-query";
 import { dislike } from "../api/dislikeApi";
 import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
+import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
+import { useToggleReactionsActivated } from "@/app/[locale]/(bottomNavbar)/search/ui/hooks/useToggleReactionsActivated";
 
 interface Props {
   userId: string | undefined;
@@ -10,14 +12,20 @@ interface Props {
 }
 
 export const DislikeButton: React.FC<Props> = ({ userId, onChange }) => {
+  const { reactionsActivated } = useShowcase();
+  const toggleReactionsActivated = useToggleReactionsActivated();
+
   const mutation = useMutation({
     mutationFn: (id: string) => dislike(id),
   });
 
   const onDislike = () => {
+    if (!reactionsActivated) return;
     if (!userId) return;
     mutation.mutate(userId);
     onChange();
+
+    toggleReactionsActivated();
   };
 
   return (

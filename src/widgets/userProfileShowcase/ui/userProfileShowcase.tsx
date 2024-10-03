@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 import TinderCard from "react-tinder-card";
 import { Container } from "@/shared/ui/Container";
+import { TinderCardContent } from "./TinderCardContent";
 import { useSliderListener } from "@/shared/hooks/useSliderListener";
 import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
@@ -60,27 +60,9 @@ export const UserProfileShowcase = () => {
               ref={childRefs[index]}
               className="absolute w-full h-full flex !pointer-events-none"
               key={character.firstName}
-              // onSwipe={}
               preventSwipe={["up", "down", "right", "left"]}
             >
-              <div className="relative bg-[#fff] w-full h-full">
-                <Image
-                  src={isOdd ? "/images/girl.png" : "/images/boy.png"}
-                  className={"object-cover rounded-lg"}
-                  key={character.firstName}
-                  alt="girl"
-                  fill
-                />
-                <div className="absolute bottom-0 pb-10 pt-2 left-0 px-4 w-full bg-gradient-to-t from-white/60 via-white/40 to-transparent backdrop-blur-sm">
-                  <h2 className="text-white font-bold text-[20px] mb-2">
-                    {character.firstName}
-                  </h2>
-                  <h4 className="text-white">
-                    {character.info ||
-                      "Who I’m looking for: I’m looking for is a man in his early 30s..."}
-                  </h4>
-                </div>
-              </div>
+              <TinderCardContent character={character} isOdd={isOdd} />
             </TinderCard>
           );
         })}

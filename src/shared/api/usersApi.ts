@@ -16,6 +16,7 @@ export interface IUser {
   status: null;
   contactPrice: number;
   info: string | null;
+  likeReceived: boolean;
 }
 
 interface IFetchFindUsersNearProps {

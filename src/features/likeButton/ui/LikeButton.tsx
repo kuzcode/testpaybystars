@@ -4,6 +4,8 @@ import Image from "next/image";
 import { like } from "../api/likeApi";
 import { useMutation } from "@tanstack/react-query";
 import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
+import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
+import { useToggleReactionsActivated } from "@/app/[locale]/(bottomNavbar)/search/ui/hooks/useToggleReactionsActivated";
 
 interface Props {
   userId: string | undefined;
@@ -11,14 +13,20 @@ interface Props {
 }
 
 export const LikeButton: React.FC<Props> = ({ userId, onChange }) => {
+  const { reactionsActivated } = useShowcase();
+  const toggleReactionsActivated = useToggleReactionsActivated();
+
   const mutation = useMutation({
     mutationFn: (id: string) => like(id),
   });
 
   const onLike = () => {
+    if (!reactionsActivated) return;
     if (!userId) return;
     mutation.mutate(userId);
     onChange();
+
+    toggleReactionsActivated();
   };
 
   return (
