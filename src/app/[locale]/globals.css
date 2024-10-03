@@ -28,3 +28,10 @@ body {
   height: 24px;
   animation: spin 2s linear infinite;
 }
+
+.oneLineTitle {
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}

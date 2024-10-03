@@ -11,15 +11,21 @@ interface Props {
 }
 
 export const LikeLayer: React.FC<Props> = ({ user }) => {
+  const onClickSendMessage = () => toggleModal("connect-to-user", user, true);
   const [swipedSize, setSwipedSize] = React.useState(0);
   const { toggleModal } = useModal((state) => state);
-  const onClickSendMessage = () => toggleModal("connect-to-user", user, true);
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
   const touchStartX = React.useRef<number | null>(null);
   const touchStartY = React.useRef<number | null>(null);
   const touchEndX = React.useRef<number | null>(null);
+
+  const profileImage = user?.images?.length
+    ? user.images[0].fileUrl
+    : "/images/girl.png";
+
+  const fullUsername = `${user?.firstName} ${user?.lastName}`;
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.targetTouches[0].clientX;
@@ -77,17 +83,17 @@ export const LikeLayer: React.FC<Props> = ({ user }) => {
       <Flex className="gap-x-4">
         <div className="w-[64px] h-[64px] rounded-full bg-primary relative overflow-hidden">
           <Image
-            src={"/images/girl.png"}
+            className="object-cover object-top"
+            src={profileImage}
+            alt="profile photo"
             fill
-            alt="girl"
-            className="translate-y-0.5 object-cover object-top"
           />
         </div>
         {/* <Image src={'/icons/hotPlus.svg'} width={48} height={48} alt='hot-plus' className='translate-y-0.5' /> */}
         <div className="space-y-2">
           <Flex className="gap-x-2">
-            <h3 className="font-bold text-black text-[20px]">
-              {user?.firstName} {user?.lastName}
+            <h3 className="font-bold text-black text-[20px] oneLineTitle">
+              {fullUsername}
             </h3>
             {/* <Flex className="gap-x-1">
                 <Image

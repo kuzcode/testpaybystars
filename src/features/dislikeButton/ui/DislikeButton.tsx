@@ -1,10 +1,12 @@
 import React from "react";
 import Image from "next/image";
-import { useMutation } from "@tanstack/react-query";
 import { dislike } from "../api/dislikeApi";
+import { useModal } from "@/shared/store/useModal";
+import { useMutation } from "@tanstack/react-query";
 import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { useToggleReactionsActivated } from "@/app/[locale]/(bottomNavbar)/search/ui/hooks/useToggleReactionsActivated";
+import { useIsEnergyLow } from "@/shared/hooks/useIsEnergyLow";
 
 interface Props {
   userId: string | undefined;
@@ -12,16 +14,25 @@ interface Props {
 }
 
 export const DislikeButton: React.FC<Props> = ({ userId, onChange }) => {
+  const isEnergyLow = useIsEnergyLow();
+  const { toggleModal } = useModal();
   const { reactionsActivated } = useShowcase();
   const toggleReactionsActivated = useToggleReactionsActivated();
 
   const mutation = useMutation({
     mutationFn: (id: string) => dislike(id),
+    onError: () => {
+      // toggleModal("not-enough-energy", null, true);
+    },
   });
 
   const onDislike = () => {
     if (!reactionsActivated) return;
     if (!userId) return;
+    if (isEnergyLow) {
+      toggleModal("not-enough-energy", null, true);
+      return;
+    }
     mutation.mutate(userId);
     onChange();
 

@@ -5,7 +5,8 @@ type TModal =
   | "connect-to-user"
   | "profile-image-remove-confirmation"
   | "search-filter"
-  | "payment-network-types";
+  | "payment-network-types"
+  | "not-enough-energy";
 
 interface State {
   type: TModal;

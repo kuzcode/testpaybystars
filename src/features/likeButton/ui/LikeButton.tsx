@@ -6,6 +6,8 @@ import { useMutation } from "@tanstack/react-query";
 import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { useToggleReactionsActivated } from "@/app/[locale]/(bottomNavbar)/search/ui/hooks/useToggleReactionsActivated";
+import { useModal } from "@/shared/store/useModal";
+import { useIsEnergyLow } from "@/shared/hooks/useIsEnergyLow";
 
 interface Props {
   userId: string | undefined;
@@ -13,17 +15,25 @@ interface Props {
 }
 
 export const LikeButton: React.FC<Props> = ({ userId, onChange }) => {
+  const isEnergyLow = useIsEnergyLow();
+  const { toggleModal } = useModal();
   const { reactionsActivated } = useShowcase();
   const toggleReactionsActivated = useToggleReactionsActivated();
 
   const mutation = useMutation({
     mutationFn: (id: string) => like(id),
+    onError() {
+      // toggleModal("not-enough-energy", null, true);
+    },
   });
 
   const onLike = () => {
     if (!reactionsActivated) return;
     if (!userId) return;
-    console.log(userId);
+    if (isEnergyLow) {
+      toggleModal("not-enough-energy", null, true);
+      return;
+    }
     mutation.mutate(userId);
     onChange();
 

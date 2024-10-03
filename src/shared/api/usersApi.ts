@@ -30,9 +30,11 @@ export const fetchFindUsersNear = async (pageNumberManual: string | null) => {
 
   const gender = urlParams.get(SEARCH_PARAMS.GENDER) || "";
   const status = urlParams.get(SEARCH_PARAMS.STATUS) || "";
+
   const pageNumber = pageNumberManual
     ? pageNumberManual
     : urlParams.get(SEARCH_PARAMS.PAGE_NUMBER) || "0";
+
   const distance = urlParams.get(SEARCH_PARAMS.DISTANCE) || "100000";
   const size = "10";
 
@@ -51,6 +53,13 @@ export const fetchFindUsersNear = async (pageNumberManual: string | null) => {
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+interface IImage {
+  fileName: string;
+  fileUrl: string;
+  id: string;
+  main: null;
+}
+
 export interface IMyLikedUser {
   id: string;
   gender: null;
@@ -65,6 +74,7 @@ export interface IMyLikedUser {
   likesAmount: number;
   dislikesAmount: number;
   fires: null;
+  images: IImage[];
 }
 
 export const fetchUsersWhoLiked = async () => {
@@ -87,6 +97,7 @@ export interface IMyMatchedUser {
   longitude: number;
   searchGender: string;
   status: string;
+  images: IImage[];
 }
 
 export const fetchUsersWhoMatched = async () => {

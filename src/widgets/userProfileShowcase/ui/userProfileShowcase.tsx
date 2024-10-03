@@ -7,9 +7,10 @@ import { TinderCardContent } from "./TinderCardContent";
 import { useSliderListener } from "@/shared/hooks/useSliderListener";
 import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
+import { FilterModal } from "@/app/[locale]/(bottomNavbar)/search/ui/modals/filterModal";
 
 export const UserProfileShowcase = () => {
-  const { users, currentIndex, removeLastUser } = useShowcase();
+  const { users, currentIndex, removeLastUser, reset } = useShowcase();
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -37,7 +38,12 @@ export const UserProfileShowcase = () => {
   const onChangeLike = () => swipe("right");
   const onChangeDislike = () => swipe("left");
 
-  useSliderListener();
+  const mutation = useSliderListener();
+
+  const refetch = () => {
+    reset();
+    mutation.mutate("0");
+  };
 
   return (
     <Container className="h-full">
@@ -69,7 +75,7 @@ export const UserProfileShowcase = () => {
         onChangeDislike={onChangeDislike}
       />
       {/* MODALS */}
-      {/* <FilterModal handleSubmit={refetchMutation} /> */}
+      <FilterModal handleSubmit={refetch} />
     </Container>
   );
 };

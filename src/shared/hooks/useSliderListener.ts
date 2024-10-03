@@ -62,4 +62,6 @@ export const useSliderListener = () => {
       // }, 1000);
     }
   }, [currentIndex]);
+
+  return mutation;
 };

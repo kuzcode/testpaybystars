@@ -7,12 +7,14 @@ import { useModal } from "@/shared/store/useModal";
 import { Button } from "@/shared/ui/Button";
 import { Flex } from "@/shared/ui/Flex";
 import { GradientHotIcon } from "@/shared/ui/GradientHotIcon";
-import { Icon } from "@/shared/ui/Icon";
 import { Vaul } from "@/shared/ui/modals/Vaul";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { GradientRoundedWaves } from "@/shared/ui/GradientRoundedWaves";
+import { ModalTitle } from "@/shared/ui/modals/ModalTitle";
 
 export const ConnectToUserModal = () => {
+  const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { isOpen, type, toggleModal, data } = useModal((state) => state);
 
@@ -20,8 +22,11 @@ export const ConnectToUserModal = () => {
 
   const mutation = useMutation({
     mutationFn: () => buyContact(typedData?.id),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      const username = data.username;
       toggleModal("connect-to-user", data, false);
+      queryClient.invalidateQueries({ queryKey: ["fetchMyProfile"] });
+      window.Telegram.WebApp.openTelegramLink(`https://t.me/${username}`);
     },
   });
 
@@ -33,34 +38,26 @@ export const ConnectToUserModal = () => {
     }
   };
 
-  const onConfirm = () => {
-    mutation.mutate();
-  };
+  const onConfirm = () => mutation.mutate();
 
   return (
     <Vaul isOpen={modal} onClose={onClose} className="!pb-3">
       <div>
-        <div className="w-[205px] h-[205px] border border-primary/20 rounded-full flex items-center justify-center mx-auto">
-          <div className="w-[180px] h-[180px] border border-primary/40 rounded-full flex items-center justify-center">
-            <div className="w-[155px] h-[155px] border border-primary rounded-full flex items-center justify-center">
-              <div className="w-[130px] h-[130px] relative">
-                <Image
-                  src={"/images/girl.png"}
-                  fill
-                  alt="filter"
-                  className="rounded-full bg-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+        <GradientRoundedWaves>
+          <Image
+            src={"/images/girl.png"}
+            fill
+            alt="profile-photo"
+            className="rounded-full object-cover object-top"
+          />
+        </GradientRoundedWaves>
 
         <div className="text-center space-y-2">
-          <h3 className="font-bold text-[24px]">
+          <ModalTitle>
             {typedData?.firstName} {typedData?.lastName}
-          </h3>
+          </ModalTitle>
           <Flex className="justify-center gap-x-2">
-            <Icon type="verified" />
+            {/* <Icon type="verified" /> */}
             {/* <Image
               src={"/icons/brave.svg"}
               width={24}

@@ -52,5 +52,9 @@
     "city": "City",
     "country": "Country",
     "selectManual": "Select manually",
-    "success": "Success"
+    "success": "Success",
+    "energyEndTitle": "You have run out of energy",
+    "energyEndDescription": "You will be able to continue in {{ time }} minutes. Or right now, if you pay",
+    "pay": "Pay",
+    "close": "Close"
 }

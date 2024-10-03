@@ -4,6 +4,7 @@ import { MainAppBar } from "@/widgets/mainAppBar";
 import { UserProfileShowcase } from "@/widgets/userProfileShowcase";
 import { ConnectToUserModal } from "./ui/modals/connectToUserModal";
 import { SearchFilterButton } from "@/features/searchFilterButton";
+import { NotEnoughEnerguModal } from "./ui/modals/notEnoughEnergyModal";
 
 const Search = () => {
   return (
@@ -20,6 +21,7 @@ const Search = () => {
         {/* <AboutMatchModal /> */}
         {/* <PeopleNearbyModal /> */}
         <ConnectToUserModal />
+        <NotEnoughEnerguModal />
       </Page>
     </>
   );
