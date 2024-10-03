@@ -96,6 +96,20 @@ export const fetchUsersWhoMatched = async () => {
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+export interface IUpdateUserProfileProps {
+  searchGender?: string;
+  gender?: string;
+  status?: string;
+  info?: string;
+}
+
+export const updateUserProfile = async (data: IUpdateUserProfileProps) => {
+  const response = await instance.post("/users", data);
+  return response.data;
+};
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
 export interface IProfileImage {
   fileName: string;
   fileUrl: string | File;

@@ -4,9 +4,11 @@ import { useTonConnectUI } from "@tonconnect/ui-react";
 import { usePayment } from "../store/usePayment";
 import { connectWalletApi } from "../api/paymentApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useSuccessToast } from "./useSuccessToast";
 
 export const useTonConnectListener = () => {
   const queryClient = useQueryClient();
+  const callSuccessToast = useSuccessToast();
   const mutation = useMutation({
     mutationFn: (address: string) =>
       connectWalletApi({
@@ -15,6 +17,7 @@ export const useTonConnectListener = () => {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["fetchMyProfile"] });
+      callSuccessToast();
     },
   });
 

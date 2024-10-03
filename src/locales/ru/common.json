@@ -51,5 +51,6 @@
     "cityNotFound": "Город не найден",
     "city": "Город",
     "country": "Страна",
-    "selectManual": "Выбрать вручную"
+    "selectManual": "Выбрать вручную",
+    "success": "Успешно"
 }

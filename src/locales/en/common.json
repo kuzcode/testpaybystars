@@ -51,5 +51,6 @@
     "cityNotFound": "City not found",
     "city": "City",
     "country": "Country",
-    "selectManual": "Select manually"
+    "selectManual": "Select manually",
+    "success": "Success"
 }

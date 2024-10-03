@@ -11,14 +11,31 @@ import { IOption } from "@/shared/interfaces";
 import { useProfile } from "@/shared/store/useProfile";
 import { isObjectEmpty } from "@/shared/lib/isObjectEmpty";
 import { useTranslation } from "react-i18next";
+import {
+  IUpdateUserProfileProps,
+  updateUserProfile,
+} from "@/shared/api/usersApi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { useSuccessToast } from "@/shared/hooks/useSuccessToast";
 
 export const EditProfileCard = () => {
+  const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { profile } = useProfile();
-  const [about, setAbout] = React.useState("");
+  const callSuccessToast = useSuccessToast();
+  const [info, setInfo] = React.useState("");
   const [status, setStatus] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [searchGender, setSearchGender] = React.useState("");
+
+  const mutation = useMutation({
+    mutationFn: (data: IUpdateUserProfileProps) => updateUserProfile(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fetchMyProfile"] });
+      callSuccessToast();
+    },
+  });
 
   const onChangeStatusOption = (option: IOption) => setStatus(option.value);
 
@@ -27,9 +44,19 @@ export const EditProfileCard = () => {
 
   const onChangeGenderOption = (option: IOption) => setGender(option.value);
 
+  const onSubmit = () => {
+    const data: IUpdateUserProfileProps = {
+      ...(gender && { gender }),
+      ...(info && { info }),
+      ...(searchGender && { searchGender }),
+      ...(status && { status }),
+    };
+    mutation.mutate(data);
+  };
+
   React.useEffect(() => {
     if (isObjectEmpty(profile)) return;
-    setAbout(profile.info || "");
+    setInfo(profile.info || "");
     setStatus(profile.status || "");
     setGender(profile.gender || "");
     setSearchGender(profile.searchGender || "");
@@ -40,8 +67,8 @@ export const EditProfileCard = () => {
       <Gallery />
       <div className="space-y-2 mt-4">
         <AboutYourselfInput
-          about={about}
-          setAbout={setAbout}
+          about={info}
+          setAbout={setInfo}
           label={t("editYourProfileInfo")}
         />
         <Dropdown
@@ -69,7 +96,12 @@ export const EditProfileCard = () => {
           }
           onChangeOption={onChangeSearchGenderOption}
         />
-        <Button text={t("save")} className="mt-4" />
+        <Button
+          onClick={onSubmit}
+          text={t("save")}
+          className="mt-4"
+          loading={mutation.isPending}
+        />
       </div>
     </Card>
   );
