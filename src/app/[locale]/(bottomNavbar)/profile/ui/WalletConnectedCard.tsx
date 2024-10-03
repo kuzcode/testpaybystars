@@ -5,15 +5,29 @@ import { Card } from "@/shared/ui/Card";
 import { Flex } from "@/shared/ui/Flex";
 import { Button } from "@/shared/ui/Button";
 import { useTranslation } from "react-i18next";
-import { useTonConnectUI } from "@tonconnect/ui-react";
+import { disconnectWalletApi } from "@/shared/api/paymentApi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 
 export const WalletConnectedCard = () => {
   const { t } = useTranslation();
   const [tonConnectUI] = useTonConnectUI();
+  const queryClient = useQueryClient();
+  const tonAddress = useTonAddress();
 
-  const onDisconnect = () => {
-    tonConnectUI.disconnect();
-  };
+  const mutation = useMutation({
+    mutationFn: () =>
+      disconnectWalletApi({
+        blockchainType: "ton",
+        walletAddress: tonAddress,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fetchMyProfile"] });
+      tonConnectUI.disconnect();
+    },
+  });
+
+  const onDisconnect = () => mutation.mutate();
 
   return (
     <Card>

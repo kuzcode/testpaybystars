@@ -17,8 +17,8 @@ export const EditProfileCard = () => {
   const { profile } = useProfile();
   const [about, setAbout] = React.useState("");
   const [status, setStatus] = React.useState("");
-  const [searchGender, setSearchGender] = React.useState("");
   const [gender, setGender] = React.useState("");
+  const [searchGender, setSearchGender] = React.useState("");
 
   const onChangeStatusOption = (option: IOption) => setStatus(option.value);
 

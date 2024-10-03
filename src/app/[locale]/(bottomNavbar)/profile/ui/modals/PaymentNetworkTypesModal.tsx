@@ -3,8 +3,6 @@
 import React from "react";
 import { Vaul } from "@/shared/ui/modals/Vaul";
 import { useModal } from "@/shared/store/useModal";
-import { deleteUserImage, IProfileImage } from "@/shared/api/usersApi";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card } from "@/shared/ui/Card";
 import { ReactSVG } from "react-svg";
 import { Flex } from "@/shared/ui/Flex";
@@ -12,21 +10,11 @@ import { TNetworkType } from "@/shared/types";
 import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
 
 export const PaymentNetworkTypesModal = () => {
-  const queryClient = useQueryClient();
   const connectTonWallet = useConnectTonWallet();
 
-  const { isOpen, type, toggleModal, data } = useModal((state) => state);
+  const { isOpen, type, toggleModal } = useModal((state) => state);
 
-  const image = data as IProfileImage;
   const modal = isOpen && type === "payment-network-types";
-
-  const mutation = useMutation({
-    mutationFn: () => deleteUserImage(image?.id),
-    onSuccess: () => {
-      onClose();
-      queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
-    },
-  });
 
   const onClose = () => toggleModal(type, null, false);
 

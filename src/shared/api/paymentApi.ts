@@ -17,12 +17,21 @@ export const connectWalletApi = async (data: IConnectWalletApiProps) => {
   };
 
   const response = await instance.post(
-    `/users/wallets/${blockchainType}/connect`,
+    `${PREFIX}/${blockchainType}/connect`,
     body
   );
   return response.data;
 };
 
-export const disconnectWalletApi = async (
-  data: IDisconnectWalletApiProps
-) => {};
+export const disconnectWalletApi = async (data: IDisconnectWalletApiProps) => {
+  const { blockchainType, walletAddress } = data;
+  const body = {
+    walletAddress,
+  };
+
+  const response = await instance.post(
+    `${PREFIX}/${blockchainType}/disconnect`,
+    body
+  );
+  return response.data;
+};

@@ -5,7 +5,6 @@ import { useTonConnectListener } from "./useTonConnectListener";
 
 export const useConnectTonWallet = () => {
   const [tonConnectUI] = useTonConnectUI();
-  const userLocalWallet = useTonAddress();
 
   const activateTonWalletListener = useTonConnectListener();
 

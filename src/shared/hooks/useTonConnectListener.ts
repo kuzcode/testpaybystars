@@ -3,36 +3,36 @@
 import { useTonConnectUI } from "@tonconnect/ui-react";
 import { usePayment } from "../store/usePayment";
 import { connectWalletApi } from "../api/paymentApi";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export const useTonConnectListener = () => {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (address: string) =>
+      connectWalletApi({
+        blockchainType: "ton",
+        walletAddress: address,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fetchMyProfile"] });
+    },
+  });
+
   const { tonConnectListenerActivated, activateTonConnectListener } =
     usePayment();
   const [tonConnectUI] = useTonConnectUI();
 
   const connectWallet = async (address: string) => {
-    const response = await connectWalletApi({
-      blockchainType: "ton",
-      walletAddress: address,
-    });
+    mutation.mutate(address);
 
-    // dispatch(
-    //   connectWalletApi({ blockchainType: "TON", walletAddress: address })
-    // ).then((res) => {
+    // need to show modals
+
     //   if (res.meta.requestStatus === "fulfilled") {
-    //     // dispatch(getUserWalletApi());
     //     // dispatch(setWalletSuccessfullyConnectedModal(true));
     //   }
     //   if (res.meta.requestStatus === "rejected") {
     //     if ((res.payload.message as string).includes("activated")) {
     //       //   dispatch(setWalletNotActivatedModal(true));
-    //     }
-    //   }
-    // }),
-    //   {
-    //     loading: "Loading",
-    //     success: "Success",
-    //     error: "Error",
-    //   };
   };
 
   const activateListener = () => {
