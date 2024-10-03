@@ -13,6 +13,7 @@ import { SELECT_LOCATION_TYPES } from "@/shared/lib/constants";
 import { SearchDropdown } from "@/shared/ui/SearchDropdown";
 import { useMutation } from "@tanstack/react-query";
 import { getCities, getCountries } from "@/shared/api/worldApi";
+import { isIOS } from "@/shared/lib/isIOS";
 
 interface Props {
   className?: string;
@@ -44,8 +45,15 @@ export const LocationSelector: React.FC<Props> = ({
         `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&zoom=10`
       );
       const data = response.data as IGetCityProps;
-      if (data && data.address && data.address.city) {
-        setCity(`${data.address.city}`);
+      const city = data?.address?.city;
+      const name = data?.name;
+
+      if (city || name) {
+        if (city) {
+          setCity(city);
+        } else {
+          setCity(name);
+        }
       } else {
         setCity(t("cityNotFound"));
       }
@@ -115,6 +123,32 @@ export const LocationSelector: React.FC<Props> = ({
     }
     if (option.value === "select-manually") setSelectManuallyEnabled(true);
   };
+
+  const handleFocus = () => {
+    if (!isIOS) return;
+    document.body.style.paddingBottom = "200px"; // Adjust this value as needed
+  };
+
+  const handleBlur = () => {
+    document.body.style.paddingBottom = "0"; // Reset padding
+  };
+
+  React.useEffect(() => {
+    // Attach event listeners
+    const inputs = document.querySelectorAll("input"); // Target input fields
+    inputs.forEach((input) => {
+      input.addEventListener("focus", handleFocus);
+      input.addEventListener("blur", handleBlur);
+    });
+
+    // Clean up listeners on unmount
+    return () => {
+      inputs.forEach((input) => {
+        input.removeEventListener("focus", handleFocus);
+        input.removeEventListener("blur", handleBlur);
+      });
+    };
+  }, [selectManuallyEnabled, countryCode]);
 
   return (
     <>

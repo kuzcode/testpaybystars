@@ -45,7 +45,8 @@ export const AuthForm = () => {
   const [selectedCountryCode, setSelectedCountryCode] = React.useState("");
   const [selectedCityId, setSelectedCityId] = React.useState("");
 
-  const disabled = loading || !about;
+  const disabled =
+    loading || !about || (selectedCityId === "" && coordinates.lat === 0);
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 

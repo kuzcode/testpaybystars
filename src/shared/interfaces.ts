@@ -24,6 +24,7 @@ export interface IGetCityProps {
     country: string;
     country_code: string;
   };
+  name: string;
 }
 
 export interface IWorldCountry {
