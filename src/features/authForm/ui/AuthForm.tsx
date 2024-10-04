@@ -91,7 +91,7 @@ export const AuthForm = () => {
       }, 3000);
       setAccessTokenClient(response.accessToken);
       setRefreshTokenClient(response.refreshToken);
-      await uploadImages();
+      uploadImages();
       await updateUserLocation({ lat: coordinates.lat, lng: coordinates.lng });
 
       router.push("/search");
