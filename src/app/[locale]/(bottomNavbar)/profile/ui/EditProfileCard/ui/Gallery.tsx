@@ -7,6 +7,7 @@ import { useModal } from "@/shared/store/useModal";
 import { IProfileImage, uploadProfileImage } from "@/shared/api/usersApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 export const Gallery = () => {
   const { t } = useTranslation();
@@ -28,12 +29,15 @@ export const Gallery = () => {
       fileUrl: files[0],
       fileName: "",
     };
-    setImages((prev) => [...prev, image]);
+    // setImages((prev) => [...prev, image]);
     const formData = new FormData();
     formData.append("files", files[0]);
-    await uploadProfileImage(formData);
-    await queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
-    setImages((prev) => prev.slice(0, -1));
+    await toast.promise(uploadProfileImage(formData), {
+      loading: t("imageUploading"),
+      success: t("imageUploaded"),
+      error: t("error"),
+    });
+    queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
   };
 
   const handleImageClick = () => {};

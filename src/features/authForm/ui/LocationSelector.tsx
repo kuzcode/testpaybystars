@@ -135,7 +135,7 @@ export const LocationSelector: React.FC<Props> = ({
 
   React.useEffect(() => {
     // Attach event listeners
-    const inputs = document.querySelectorAll("input"); // Target input fields
+    const inputs = document.querySelectorAll("input, textarea"); // Target input fields
     inputs.forEach((input) => {
       input.addEventListener("focus", handleFocus);
       input.addEventListener("blur", handleBlur);

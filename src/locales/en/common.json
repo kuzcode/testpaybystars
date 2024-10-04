@@ -57,5 +57,7 @@
     "energyEndDescription": "You will be able to continue in {{ time }} minutes. Or right now, if you pay",
     "pay": "Pay",
     "close": "Close",
-    "cantFindUserNear": "Can't find a user near you"
+    "cantFindUserNear": "Can't find a user near you",
+    "imageUploading": "Image uploading",
+    "imageUploaded": "Image uploaded"
 }

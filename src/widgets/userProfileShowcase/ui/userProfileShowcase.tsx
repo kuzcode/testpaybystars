@@ -14,6 +14,12 @@ export const UserProfileShowcase = () => {
   const { t } = useTranslation();
   const { users, currentIndex, removeLastUser, reset } = useShowcase();
 
+  const [init, setInit] = React.useState(false);
+
+  React.useEffect(() => {
+    setInit(true);
+  }, []);
+
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
   // needed for animation when swipe
@@ -51,12 +57,12 @@ export const UserProfileShowcase = () => {
     <Container className="h-full">
       <div className="h-[calc(100vh-250px)] w-full relative bg-primary rounded-xl overflow-hidden">
         {mutation.isPending && !users?.length && (
-          <div className="flex items-center justify-center h-full text-white bg-red-300/30 animate-pulse">
+          <div className="flex items-center justify-center h-full text-white">
             {t("loading")}
           </div>
         )}
-        {!mutation.isPending && !users?.length && (
-          <div className="flex items-center justify-center h-full text-white bg-red-300/30 animate-pulse">
+        {!mutation.isPending && !users?.length && init && (
+          <div className="flex items-center justify-center h-full text-white">
             {t("cantFindUserNear")}
           </div>
         )}

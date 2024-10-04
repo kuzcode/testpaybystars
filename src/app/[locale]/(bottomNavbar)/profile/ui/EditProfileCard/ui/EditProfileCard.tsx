@@ -16,7 +16,6 @@ import {
   updateUserProfile,
 } from "@/shared/api/usersApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 import { useSuccessToast } from "@/shared/hooks/useSuccessToast";
 
 export const EditProfileCard = () => {
