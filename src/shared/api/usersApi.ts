@@ -143,6 +143,7 @@ export interface IProfile {
   rating: number;
   searchGender: null;
   status: null;
+  wallets: string[];
 }
 
 export const fetchMyProfile = async () => {

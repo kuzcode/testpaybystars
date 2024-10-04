@@ -5,14 +5,14 @@ import { Card } from "@/shared/ui/Card";
 import { Step } from "@/shared/ui/Step";
 import { Button } from "@/shared/ui/Button";
 import { useTranslation } from "react-i18next";
-import { useModal } from "@/shared/store/useModal";
+import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
 
 export const WalletNotConnectedCard = () => {
   const { t } = useTranslation();
-  const { toggleModal } = useModal();
+  const connectTonWallet = useConnectTonWallet();
 
-  const onWalletConnect = () =>
-    toggleModal("payment-network-types", null, true);
+  const onWalletConnect = () => connectTonWallet();
+  // toggleModal("payment-network-types", null, true);
 
   return (
     <Card>

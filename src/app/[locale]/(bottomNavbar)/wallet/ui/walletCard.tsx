@@ -5,11 +5,23 @@ import { Card } from "@/shared/ui/Card";
 import { Flex } from "@/shared/ui/Flex";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { useProfile } from "@/shared/store/useProfile";
+import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
 
 export const WalletCard = () => {
+  const connectTonWallet = useConnectTonWallet();
   const { t } = useTranslation();
+  const { profile } = useProfile();
+
+  const handleClick = () => {
+    if (!profile.wallets?.length) connectTonWallet();
+  };
+
   return (
-    <Card className="flex items-center justify-between border border-black/[18%] !bg-white !py-3 rounded-[25px]">
+    <Card
+      onClick={handleClick}
+      className="flex items-center justify-between border border-black/[18%] !bg-white !py-3 rounded-[25px]"
+    >
       <Flex className="gap-x-4">
         <Image
           src={"/icons/hotPlus.svg"}

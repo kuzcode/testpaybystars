@@ -8,8 +8,10 @@ import { useSliderListener } from "@/shared/hooks/useSliderListener";
 import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { FilterModal } from "@/app/[locale]/(bottomNavbar)/search/ui/modals/filterModal";
+import { useTranslation } from "react-i18next";
 
 export const UserProfileShowcase = () => {
+  const { t } = useTranslation();
   const { users, currentIndex, removeLastUser, reset } = useShowcase();
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -48,11 +50,16 @@ export const UserProfileShowcase = () => {
   return (
     <Container className="h-full">
       <div className="h-[calc(100vh-250px)] w-full relative bg-primary rounded-xl overflow-hidden">
-        {/* {mutation.isPending && !users?.length && (
+        {mutation.isPending && !users?.length && (
           <div className="flex items-center justify-center h-full text-white bg-red-300/30 animate-pulse">
-            Loading
+            {t("loading")}
           </div>
-        )} */}
+        )}
+        {!mutation.isPending && !users?.length && (
+          <div className="flex items-center justify-center h-full text-white bg-red-300/30 animate-pulse">
+            {t("cantFindUserNear")}
+          </div>
+        )}
         {users?.map((character, index) => {
           const isOdd = index % 2 === 0;
           return (
