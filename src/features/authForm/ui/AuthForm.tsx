@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import {
   GENDER,
+  LOCAL_STORAGE,
   SEARCH_GENDER,
   STATUSES,
   TG_INIT_DATA,
@@ -24,9 +25,11 @@ import { updateUserLocation, uploadProfileImage } from "@/shared/api/usersApi";
 import { usePrefetchSearchPage } from "../hooks/usePrefetchSearchPage";
 import { AboutYourselfInput } from "@/shared/ui/Input/AboutYourselfInput";
 import { useTranslation } from "react-i18next";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const AuthForm = () => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
 
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
@@ -63,7 +66,17 @@ export const AuthForm = () => {
     images.forEach((image) => {
       formData.append("files", image.url);
     });
-    await uploadProfileImage(formData);
+    localStorage.setItem(
+      LOCAL_STORAGE.AUTH_IMAGE_COUNT,
+      images.length.toString()
+    );
+    try {
+      await uploadProfileImage(formData);
+      queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
+    } catch (error) {
+    } finally {
+      localStorage.removeItem(LOCAL_STORAGE.AUTH_IMAGE_COUNT);
+    }
   };
 
   const onSubmit = async () => {
@@ -71,8 +84,8 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      tg: window.Telegram.WebApp.initData,
-      // tg: TG_INIT_DATA || "",
+      // tg: window.Telegram.WebApp.initData,
+      tg: TG_INIT_DATA || "",
       ...(gender && { gender }),
       ...(searchGender && { searchGender }),
       ...(status && { status }),
@@ -91,7 +104,7 @@ export const AuthForm = () => {
       }, 3000);
       setAccessTokenClient(response.accessToken);
       setRefreshTokenClient(response.refreshToken);
-      await uploadImages();
+      uploadImages();
       await updateUserLocation({ lat: coordinates.lat, lng: coordinates.lng });
 
       router.push("/search");

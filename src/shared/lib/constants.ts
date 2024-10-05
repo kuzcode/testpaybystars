@@ -66,3 +66,7 @@ export const SELECT_LOCATION_TYPES = [
     value: "auto-detect",
   },
 ];
+
+export const LOCAL_STORAGE = {
+  AUTH_IMAGE_COUNT: "auth-image-count",
+};

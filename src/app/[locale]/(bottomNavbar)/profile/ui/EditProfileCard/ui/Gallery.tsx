@@ -8,6 +8,7 @@ import { IProfileImage, uploadProfileImage } from "@/shared/api/usersApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
+import { LOCAL_STORAGE } from "@/shared/lib/constants";
 
 export const Gallery = () => {
   const { t } = useTranslation();
@@ -16,6 +17,8 @@ export const Gallery = () => {
   const { toggleModal } = useModal();
 
   const [images, setImages] = React.useState<IProfileImage[]>([]);
+  const [pendingImagesLengthFromAuthForm, setPendingImagesLengthFromAuthForm] =
+    React.useState(0);
 
   const combinedImages = React.useMemo(() => {
     return [...(profile?.images || []), ...images];
@@ -64,11 +67,32 @@ export const Gallery = () => {
     toggleModal("profile-image-remove-confirmation", image, true);
   };
 
+  React.useEffect(() => {
+    const pendingImagesLengthFromAuthFormLS = localStorage.getItem(
+      LOCAL_STORAGE.AUTH_IMAGE_COUNT
+    );
+    if (pendingImagesLengthFromAuthFormLS) {
+      setPendingImagesLengthFromAuthForm(
+        Number(pendingImagesLengthFromAuthFormLS)
+      );
+    }
+  }, []);
+
   return (
     <MiniImageCardWrapper
       onChangeImage={(e) => onChangeImage(e)}
       label={t("photos")}
     >
+      {Array.from({ length: pendingImagesLengthFromAuthForm }).map(
+        (_, index) => {
+          return (
+            <div
+              key={index}
+              className="w-full h-[18vw] animate-pulse relative bg-gray-200 rounded-xl"
+            ></div>
+          );
+        }
+      )}
       {combinedImages.map((image) => {
         return (
           <MiniImageCard
