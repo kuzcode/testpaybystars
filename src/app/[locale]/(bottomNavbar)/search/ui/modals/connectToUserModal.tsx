@@ -12,13 +12,22 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { GradientRoundedWaves } from "@/shared/ui/GradientRoundedWaves";
 import { ModalTitle } from "@/shared/ui/modals/ModalTitle";
+import { useProfile } from "@/shared/store/useProfile";
+import toast from "react-hot-toast";
+import { useCustomToast } from "@/shared/hooks/useCustomToast";
 
 export const ConnectToUserModal = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
+
+  const { profile } = useProfile();
   const { isOpen, type, toggleModal, data } = useModal((state) => state);
+  const customToast = useCustomToast();
 
   const typedData = data as IUser;
+  const profileImage = typedData?.images?.length
+    ? typedData.images[0].fileUrl
+    : "/images/girl.png";
 
   const mutation = useMutation({
     mutationFn: () => buyContact(typedData?.id),
@@ -38,14 +47,20 @@ export const ConnectToUserModal = () => {
     }
   };
 
-  const onConfirm = () => mutation.mutate();
+  const onConfirm = () => {
+    if (profile?.fires < typedData?.contactPrice) {
+      customToast({ type: "error", message: "notEnoughFires" });
+      return;
+    }
+    mutation.mutate();
+  };
 
   return (
     <Vaul isOpen={modal} onClose={onClose} className="!pb-3">
       <div>
         <GradientRoundedWaves>
           <Image
-            src={"/images/girl.png"}
+            src={profileImage}
             fill
             alt="profile-photo"
             className="rounded-full object-cover object-top"
@@ -56,15 +71,7 @@ export const ConnectToUserModal = () => {
           <ModalTitle>
             {typedData?.firstName} {typedData?.lastName}
           </ModalTitle>
-          <Flex className="justify-center gap-x-2">
-            {/* <Icon type="verified" /> */}
-            {/* <Image
-              src={"/icons/brave.svg"}
-              width={24}
-              height={24}
-              alt="brave"
-            /> */}
-          </Flex>
+          <Flex className="justify-center gap-x-2"></Flex>
           <p className="mx-auto text-textPrimary max-w-[250px]">
             {t("connectConfirmation")}
             <span className="inline-flex items-center">

@@ -7,14 +7,24 @@ import Image from "next/image";
 import { useTranslation } from "react-i18next";
 import { useProfile } from "@/shared/store/useProfile";
 import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
+import { useSendUSDTTransaction } from "@/shared/hooks/payment/useSendUSDTTransaction";
+import { usePayment } from "@/shared/store/usePayment";
 
 export const WalletCard = () => {
-  const connectTonWallet = useConnectTonWallet();
   const { t } = useTranslation();
   const { profile } = useProfile();
 
+  const { authorWalletAddress } = usePayment();
+
+  const connectTonWallet = useConnectTonWallet();
+  const handleCompletePayment = useSendUSDTTransaction();
+
   const handleClick = () => {
-    if (!profile.wallets?.length) connectTonWallet();
+    if (!profile.wallets?.length) {
+      connectTonWallet();
+      return;
+    }
+    handleCompletePayment(1, authorWalletAddress);
   };
 
   return (

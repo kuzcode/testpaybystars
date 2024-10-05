@@ -71,8 +71,8 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      // tg: window.Telegram.WebApp.initData,
-      tg: TG_INIT_DATA || "",
+      tg: window.Telegram.WebApp.initData,
+      // tg: TG_INIT_DATA || "",
       ...(gender && { gender }),
       ...(searchGender && { searchGender }),
       ...(status && { status }),
@@ -91,7 +91,7 @@ export const AuthForm = () => {
       }, 3000);
       setAccessTokenClient(response.accessToken);
       setRefreshTokenClient(response.refreshToken);
-      uploadImages();
+      await uploadImages();
       await updateUserLocation({ lat: coordinates.lat, lng: coordinates.lng });
 
       router.push("/search");

@@ -3,7 +3,7 @@
 import React from "react";
 import clsx from "clsx";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useCustomHref } from "../hooks/useCustomHref";
 
 interface Props extends React.HTMLAttributes<HTMLAnchorElement> {
   className?: string;
@@ -17,15 +17,7 @@ export const CustomLink: React.FC<Props> = ({
   children,
   ...props
 }) => {
-  const sp = useSearchParams();
-
-  const [searchParams, setSearchParams] = React.useState("");
-
-  const customHref = href + searchParams;
-
-  React.useEffect(() => {
-    setSearchParams("?" + sp.toString());
-  }, [sp]);
+  const customHref = useCustomHref(href);
 
   return (
     <Link href={customHref} className={clsx("", className)} {...props}>

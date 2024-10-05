@@ -43,7 +43,6 @@ export const useTonConnectListener = () => {
     activateTonConnectListener();
 
     const onStatusChange = (wallet: any) => {
-      console.log(wallet);
       if (wallet?.account.address) {
         connectWallet(wallet.account.address);
       }

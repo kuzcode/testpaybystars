@@ -4,13 +4,28 @@ import React from "react";
 import { Header } from "./Header";
 import { Card } from "@/shared/ui/Card";
 import { Button } from "@/shared/ui/Button";
-import { PointBadge } from "@/shared/ui/PointBadge";
 import { useTranslation } from "react-i18next";
+import { PointBadge } from "@/shared/ui/PointBadge";
+import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
+import { useIsWalletConnected } from "@/shared/hooks/useIsWalletConnected";
+import { useCustomPush } from "@/shared/hooks/useCustomPush";
 
 const COUNTRIES = ["Monkey", "Elephant", "Lion"];
 
 export const BalanceCard = () => {
   const { t } = useTranslation();
+  const isWalletConnected = useIsWalletConnected();
+  const connectTonWallet = useConnectTonWallet();
+  const push = useCustomPush();
+
+  const deposit = () => {
+    if (isWalletConnected) {
+      push("/wallet");
+      return;
+    }
+    connectTonWallet();
+  };
+
   return (
     <Card className="!pb-3">
       <Header />
@@ -25,7 +40,7 @@ export const BalanceCard = () => {
         </div>
       </div>
 
-      <Button text={t("deposit")} className="mt-4" />
+      <Button onClick={deposit} text={t("deposit")} className="mt-4" />
     </Card>
   );
 };

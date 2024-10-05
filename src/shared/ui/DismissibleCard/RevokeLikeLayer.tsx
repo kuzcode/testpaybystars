@@ -2,6 +2,7 @@ import { revokeLike } from "@/shared/api/usersApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   id: string;
@@ -9,6 +10,7 @@ interface Props {
 
 export const RevokeLikeLayer: React.FC<Props> = ({ id }) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation();
 
   const mutation = useMutation({
     mutationFn: () => revokeLike(id),
@@ -33,7 +35,9 @@ export const RevokeLikeLayer: React.FC<Props> = ({ id }) => {
           className=""
         />
         <h5 className="text-white font-normal text-[13px]">
-          {mutation.isPending || mutation.isSuccess ? "Removing.." : "Remove"}
+          {mutation.isPending || mutation.isSuccess
+            ? `${t("removing")}`
+            : t("remove")}
         </h5>
       </div>
     </div>

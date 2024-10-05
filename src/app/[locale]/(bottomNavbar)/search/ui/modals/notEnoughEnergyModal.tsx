@@ -26,7 +26,7 @@ export const NotEnoughEnerguModal = () => {
   };
 
   return (
-    <Vaul isOpen={modal} onClose={onClose} className="!pb-3">
+    <Vaul isOpen={modal} onClose={onClose} className="!pb-3" height={530}>
       <div>
         <GradientRoundedWaves>
           <Image
@@ -37,17 +37,9 @@ export const NotEnoughEnerguModal = () => {
           />
         </GradientRoundedWaves>
 
-        <div className="text-center space-y-2">
-          <ModalTitle>{t("energyEndTitle")}</ModalTitle>
-          <Flex className="justify-center gap-x-2">
-            {/* <Icon type="verified" /> */}
-            {/* <Image
-              src={"/icons/brave.svg"}
-              width={24}
-              height={24}
-              alt="brave"
-            /> */}
-          </Flex>
+        <div className="text-center space-y-2 mt-4">
+          <ModalTitle>{t("lowEnergy")}</ModalTitle>
+          <Flex className="justify-center gap-x-2"></Flex>
           <ModalDescription
             main={<>{t("energyEndDescription", { time: "" })}</>}
             span={<>100</>}

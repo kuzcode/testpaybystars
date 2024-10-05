@@ -1,13 +1,13 @@
 "use client";
 
 import clsx from "clsx";
-import Image from "next/image";
 import React from "react";
-import { useOutsideClick } from "../hooks/useOutsideClick";
+import Image from "next/image";
+import { ReactSVG } from "react-svg";
 import { IOption } from "../interfaces";
 import { useTranslation } from "react-i18next";
 import { useDebounce } from "../hooks/useDebounce";
-import { ReactSVG } from "react-svg";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 
 interface Props {
   label?: string;
@@ -72,7 +72,7 @@ export const SearchDropdown: React.FC<Props> = ({
           className="font-medium text-[16px] outline-none w-full"
           onChange={(e) => setValue(e.target.value)}
           value={value}
-          placeholder="Search"
+          placeholder={t("search")}
         />
         {loading && (
           <ReactSVG

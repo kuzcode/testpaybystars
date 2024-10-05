@@ -1,14 +1,16 @@
 "use client";
 
 import { deleteUserImage, IProfileImage } from "@/shared/api/usersApi";
-import { useModal } from "@/shared/store/useModal";
-import { Button } from "@/shared/ui/Button";
-import { Vaul } from "@/shared/ui/modals/Vaul";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useModal } from "@/shared/store/useModal";
+import { Vaul } from "@/shared/ui/modals/Vaul";
+import { useTranslation } from "react-i18next";
+import { Button } from "@/shared/ui/Button";
 import Image from "next/image";
 import React from "react";
 
 export const ProfileImageRemoveConfirmationModal = () => {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   // const { fetchProfile } = useFetchProfile();
@@ -28,7 +30,7 @@ export const ProfileImageRemoveConfirmationModal = () => {
   const onClose = () => toggleModal(type, null, false);
 
   return (
-    <Vaul isOpen={modal} onClose={onClose} height={360}>
+    <Vaul isOpen={modal} onClose={onClose} height={380}>
       <div className="text-center space-y-6">
         <div className="w-[150px] h-[150px] relative mx-auto">
           <Image
@@ -39,13 +41,13 @@ export const ProfileImageRemoveConfirmationModal = () => {
           />
         </div>
         <div className="space-y-4">
-          <p className="text-[#857889]">Вы точно хотите удалить это фото?</p>
+          <p className="text-[#857889]">{t("removeImageConfirmation")}</p>
         </div>
       </div>
 
       <Button
         onClick={() => mutation.mutate()}
-        text="Да"
+        text={t("yes")}
         loading={mutation.isPending}
       />
     </Vaul>

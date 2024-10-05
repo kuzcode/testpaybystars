@@ -32,11 +32,20 @@ export const Gallery = () => {
     // setImages((prev) => [...prev, image]);
     const formData = new FormData();
     formData.append("files", files[0]);
-    await toast.promise(uploadProfileImage(formData), {
-      loading: t("imageUploading"),
-      success: t("imageUploaded"),
-      error: t("error"),
-    });
+    await toast.promise(
+      uploadProfileImage(formData),
+      {
+        loading: t("imageUploading"),
+        success: t("imageUploaded"),
+        error: t("error"),
+      },
+      {
+        position: "top-right",
+        style: {
+          fontWeight: 500,
+        },
+      }
+    );
     queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
   };
 

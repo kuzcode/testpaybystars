@@ -39,6 +39,7 @@
     "getBonus": "Получить бонус",
     "disconnectWallet": "Отключить кошелек",
     "remove": "Удалить",
+    "removing": "Удаление",
     "confirm": "Подтвердить",
     "cancel": "Отмена",
     "connectConfirmation": "Вы действительно хотите подключиться к этой душе? Это будет стоить",
@@ -59,5 +60,9 @@
     "close": "Закрыть",
     "cantFindUserNear": "Не могу найти пользователя рядом с вами",
     "imageUploading": "Загрузка изображения",
-    "imageUploaded": "Изображение загружено"
+    "imageUploaded": "Изображение загружено",
+    "notEnoughFires": "Недостаточно огней",
+    "removeImageConfirmation": "Вы точно хотите удалить это фото?",
+    "yes": "Да",
+    "lowEnergy": "Низкий уровень энергии"
 }

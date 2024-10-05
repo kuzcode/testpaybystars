@@ -17,6 +17,7 @@ export interface IUser {
   contactPrice: number;
   info: string | null;
   likeReceived: boolean;
+  images: IImage[];
 }
 
 interface IFetchFindUsersNearProps {
@@ -98,6 +99,7 @@ export interface IMyMatchedUser {
   searchGender: string;
   status: string;
   images: IImage[];
+  contactPrice: number;
 }
 
 export const fetchUsersWhoMatched = async () => {
@@ -156,6 +158,7 @@ export interface IProfile {
   searchGender: null;
   status: null;
   wallets: string[];
+  usdtBalance: number;
 }
 
 export const fetchMyProfile = async () => {

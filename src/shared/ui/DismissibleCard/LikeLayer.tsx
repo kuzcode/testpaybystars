@@ -11,7 +11,6 @@ interface Props {
 }
 
 export const LikeLayer: React.FC<Props> = ({ user }) => {
-  const onClickSendMessage = () => toggleModal("connect-to-user", user, true);
   const [swipedSize, setSwipedSize] = React.useState(0);
   const { toggleModal } = useModal((state) => state);
 
@@ -26,6 +25,8 @@ export const LikeLayer: React.FC<Props> = ({ user }) => {
     : "/images/girl.png";
 
   const fullUsername = `${user?.firstName} ${user?.lastName}`;
+
+  const onClickSendMessage = () => toggleModal("connect-to-user", user, true);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.targetTouches[0].clientX;
@@ -80,14 +81,16 @@ export const LikeLayer: React.FC<Props> = ({ user }) => {
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <Flex className="gap-x-4">
-        <div className="w-[64px] h-[64px] rounded-full bg-primary relative overflow-hidden">
-          <Image
-            className="object-cover object-top"
-            src={profileImage}
-            alt="profile photo"
-            fill
-          />
+      <Flex className="gap-x-4 w-full max-w-[84%] overflow-hidden">
+        <div>
+          <div className="w-[64px] h-[64px] rounded-full bg-primary relative overflow-hidden">
+            <Image
+              className="object-cover object-top"
+              src={profileImage}
+              alt="profile photo"
+              fill
+            />
+          </div>
         </div>
         {/* <Image src={'/icons/hotPlus.svg'} width={48} height={48} alt='hot-plus' className='translate-y-0.5' /> */}
         <div className="space-y-2">
@@ -111,7 +114,7 @@ export const LikeLayer: React.FC<Props> = ({ user }) => {
               </Flex> */}
           </Flex>
           <h5 className="text-[#857889] font-normal text-[12px] leading-[14px] max-w-[150px]">
-            I’m looking for a man in hist early 30s...
+            {user?.info}
           </h5>
         </div>
       </Flex>
@@ -126,7 +129,7 @@ export const LikeLayer: React.FC<Props> = ({ user }) => {
           alt="telegram"
         />
         <HotScoreBadge
-          count={-12}
+          count={"-" + user?.contactPrice || 0}
           className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[70%] scale-[0.6] !px-1.5"
         />
       </div>
