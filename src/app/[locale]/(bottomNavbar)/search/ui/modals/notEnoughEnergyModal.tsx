@@ -30,7 +30,7 @@ export const NotEnoughEnerguModal = () => {
       <div>
         <GradientRoundedWaves>
           <Image
-            src={"/icons/roundedBgGradientFire.svg"}
+            src={"/icons/lowEnergy.png"}
             fill
             alt="filter"
             className="rounded-full bg-cover"

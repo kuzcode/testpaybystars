@@ -18,9 +18,9 @@ export const MiniImageUploadButton: React.FC<Props> = ({ onChangeImage }) => {
   };
 
   return (
-    <button
+    <div
       onClick={handleUploadImage}
-      className="w-full h-[18vw] border border-[#C4C4C4] rounded-xl bg-[#F5F5F5] flex items-center justify-center"
+      className="h-[18vw] border border-[#C4C4C4] rounded-xl bg-[#F5F5F5] flex items-center justify-center"
     >
       <div className="bg-white w-8 h-8 rounded-xl flex items-center justify-center">
         <Image src="/icons/greyPlus.svg" width={14} height={14} alt="add" />
@@ -28,9 +28,9 @@ export const MiniImageUploadButton: React.FC<Props> = ({ onChangeImage }) => {
           onChange={onChangeImage}
           ref={inputRef}
           type="file"
-          className="absolute opacity-0 pointer-events-none"
+          className="absolute w-0 opacity-0 pointer-events-none"
         />
       </div>
-    </button>
+    </div>
   );
 };

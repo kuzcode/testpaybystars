@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { dislike } from "../api/dislikeApi";
 import { useModal } from "@/shared/store/useModal";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { useToggleReactionsActivated } from "@/app/[locale]/(bottomNavbar)/search/ui/hooks/useToggleReactionsActivated";
@@ -14,15 +14,16 @@ interface Props {
 }
 
 export const DislikeButton: React.FC<Props> = ({ userId, onChange }) => {
-  const isEnergyLow = useIsEnergyLow();
+  const queryClient = useQueryClient();
   const { toggleModal } = useModal();
+  const isEnergyLow = useIsEnergyLow();
   const { reactionsActivated } = useShowcase();
   const toggleReactionsActivated = useToggleReactionsActivated();
 
   const mutation = useMutation({
     mutationFn: (id: string) => dislike(id),
-    onError: () => {
-      // toggleModal("not-enough-energy", null, true);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fetchMyProfile"] });
     },
   });
 

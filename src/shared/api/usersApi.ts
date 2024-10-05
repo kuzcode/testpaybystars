@@ -62,23 +62,23 @@ interface IImage {
 
 export interface IMyLikedUser {
   id: string;
-  gender: null;
-  searchGender: null;
-  status: null;
-  firstName: string;
+  match: false;
+  info: string;
+  gender: string;
+  status: string;
   lastName: string;
-  info: null;
-  photoUrl: null;
-  latitude: number;
-  longitude: number;
-  likesAmount: number;
-  dislikesAmount: number;
-  fires: null;
+  firstName: string;
+  spendEnergy: number;
+  contactPrice: number;
   images: IImage[];
 }
 
-export const fetchUsersWhoLiked = async () => {
-  const response = await instance.get(`/users/likes`);
+export const fetchOutcomeLikes = async () => {
+  const pageNumber = 0;
+  const size = 100;
+  const response = await instance.get(
+    `/users/out/likes?page_number=${pageNumber}&size=${size}`
+  );
   return response.data as IMyLikedUser[];
 };
 
@@ -116,6 +116,18 @@ export interface IUpdateUserProfileProps {
 
 export const updateUserProfile = async (data: IUpdateUserProfileProps) => {
   const response = await instance.post("/users", data);
+  return response.data;
+};
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+export const getUserInLikes = async () => {
+  const response = await instance.get("/users/in/likes");
+  return response.data;
+};
+
+export const getUserOutLikes = async () => {
+  const response = await instance.get("/users/out/likes");
   return response.data;
 };
 

@@ -2,7 +2,7 @@ import clsx from "clsx";
 import React from "react";
 import Image from "next/image";
 import { like } from "../api/likeApi";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { useToggleReactionsActivated } from "@/app/[locale]/(bottomNavbar)/search/ui/hooks/useToggleReactionsActivated";
@@ -15,15 +15,16 @@ interface Props {
 }
 
 export const LikeButton: React.FC<Props> = ({ userId, onChange }) => {
-  const isEnergyLow = useIsEnergyLow();
+  const queryClient = useQueryClient();
   const { toggleModal } = useModal();
+  const isEnergyLow = useIsEnergyLow();
   const { reactionsActivated } = useShowcase();
   const toggleReactionsActivated = useToggleReactionsActivated();
 
   const mutation = useMutation({
     mutationFn: (id: string) => like(id),
-    onError() {
-      // toggleModal("not-enough-energy", null, true);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["fetchMyProfile"] });
     },
   });
 

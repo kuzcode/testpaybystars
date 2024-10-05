@@ -71,8 +71,8 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      tg: window.Telegram.WebApp.initData,
-      // tg: TG_INIT_DATA || "",
+      // tg: window.Telegram.WebApp.initData,
+      tg: TG_INIT_DATA || "",
       ...(gender && { gender }),
       ...(searchGender && { searchGender }),
       ...(status && { status }),
@@ -103,7 +103,7 @@ export const AuthForm = () => {
   usePrefetchSearchPage();
 
   return (
-    <div>
+    <div id="form">
       <Card className="!py-6">
         <ProfileImageShowcaseSection
           images={images}
@@ -119,6 +119,11 @@ export const AuthForm = () => {
         {/* <AuthTags /> */}
 
         <div className="space-y-2 mt-4">
+          <LocationSelector
+            setCoordinates={setCoordinates}
+            setSelectedCityId={setSelectedCityId}
+            setSelectedCountryCode={setSelectedCountryCode}
+          />
           <Dropdown
             label={t("status")}
             options={STATUSES}
@@ -133,11 +138,6 @@ export const AuthForm = () => {
             label={t("isearch")}
             options={SEARCH_GENDER}
             onChangeOption={onChangeSearchGenderOption}
-          />
-          <LocationSelector
-            setCoordinates={setCoordinates}
-            setSelectedCityId={setSelectedCityId}
-            setSelectedCountryCode={setSelectedCountryCode}
           />
         </div>
       </Card>

@@ -7,13 +7,13 @@ import { useQuery } from "@tanstack/react-query";
 import { MainAppBar } from "@/widgets/mainAppBar";
 import { Container } from "@/shared/ui/Container";
 import { DismissibleCard } from "@/shared/ui/DismissibleCard";
-import { fetchUsersWhoLiked, IMyLikedUser } from "@/shared/api/usersApi";
+import { fetchOutcomeLikes, IMyLikedUser } from "@/shared/api/usersApi";
 import { ConnectToUserModal } from "../search/ui/modals/connectToUserModal";
 
 const Likes = () => {
   const { data, isLoading } = useQuery({
-    queryKey: ["fetchUsersWhoLiked"],
-    queryFn: () => fetchUsersWhoLiked(),
+    queryKey: ["fetchOutcomeLikes"],
+    queryFn: () => fetchOutcomeLikes(),
   });
 
   return (

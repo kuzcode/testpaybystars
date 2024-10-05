@@ -13,7 +13,7 @@ export const RevokeLikeLayer: React.FC<Props> = ({ id }) => {
   const mutation = useMutation({
     mutationFn: () => revokeLike(id),
     onSuccess: () => {
-      queryClient.refetchQueries({ queryKey: ["fetchUsersWhoLiked"] });
+      queryClient.refetchQueries({ queryKey: ["fetchOutcomeLikes"] });
     },
   });
 

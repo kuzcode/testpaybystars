@@ -2,21 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  overflow-x: hidden;
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
 }
 
-/* html {
-    overflow: hidden;
-    height: 100%;
+*::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
 }
-  
 
-body {
+html {
+  overflow: hidden;
   height: 100%;
-  overflow: auto;
+}
+
+body {
+  width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 100%;
+  height: 100%;
   overscroll-behavior-y: none;
-} */
+}
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
