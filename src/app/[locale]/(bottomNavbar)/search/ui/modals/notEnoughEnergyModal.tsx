@@ -13,10 +13,11 @@ import { ModalDescription } from "@/shared/ui/modals/ModalDescription";
 import { GradientRoundedWaves } from "@/shared/ui/GradientRoundedWaves";
 import { useProfile } from "@/shared/store/useProfile";
 import { useCustomToast } from "@/shared/hooks/useCustomToast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { buyEnergy } from "@/shared/api/usersApi";
 
 export const NotEnoughEnerguModal = () => {
+  const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { profile } = useProfile();
   const { isOpen, type, toggleModal, data } = useModal((state) => state);
@@ -29,6 +30,7 @@ export const NotEnoughEnerguModal = () => {
     onSuccess: () => {
       customToast({ type: "success", message: "success" });
       toggleModal("not-enough-energy", data, false);
+      queryClient.invalidateQueries({ queryKey: ["fetchMyProfile"] });
     },
     onError: () => {
       customToast({ type: "error", message: "error" });
