@@ -1,16 +1,23 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { Card } from "@/shared/ui/Card";
 import { Flex } from "@/shared/ui/Flex";
-import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import { IFirePrice } from "@/shared/interfaces";
 import { useProfile } from "@/shared/store/useProfile";
+import { usePayment } from "@/shared/store/usePayment";
 import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
 import { useSendUSDTTransaction } from "@/shared/hooks/payment/useSendUSDTTransaction";
-import { usePayment } from "@/shared/store/usePayment";
+import { formatPrice } from "../lib/formatPrice";
+import toast from "react-hot-toast";
 
-export const WalletCard = () => {
+interface Props {
+  price: IFirePrice;
+}
+
+export const WalletCard: React.FC<Props> = ({ price }) => {
   const { t } = useTranslation();
   const { profile } = useProfile();
 
@@ -19,12 +26,18 @@ export const WalletCard = () => {
   const connectTonWallet = useConnectTonWallet();
   const handleCompletePayment = useSendUSDTTransaction();
 
+  const calculatedPrice = price?.firesAmount * price?.perItem;
+
   const handleClick = () => {
     if (!profile.wallets?.length) {
       connectTonWallet();
       return;
     }
-    handleCompletePayment(1, authorWalletAddress);
+    if (!authorWalletAddress) {
+      toast.error(t("Author wallet not found"));
+      return;
+    }
+    handleCompletePayment(calculatedPrice, authorWalletAddress);
   };
 
   return (
@@ -41,14 +54,16 @@ export const WalletCard = () => {
           className="translate-y-0.5"
         />
         <div>
-          <h3 className="font-bold text-black text-[27px]">12,000</h3>
+          <h3 className="font-bold text-black text-[27px]">
+            {formatPrice(price?.firesAmount)}
+          </h3>
           <h5 className="text-[#CCCCCC] font-semibold text-[13px] -translate-y-1.5">
-            $ 0.05 {t("perItem")}
+            $ {price?.perItem} {t("perItem")}
           </h5>
         </div>
       </Flex>
       <div className="bg-gradient-to-b from-gradientPrimary to-gradientSecondary text-white h-[48px] rounded-[14px] w-[100px] flex items-center justify-center font-semibold text-[18px]">
-        $ 5,000
+        $ {price?.firesAmount * price?.perItem}
       </div>
     </Card>
   );

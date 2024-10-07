@@ -2,12 +2,23 @@
 
 import React from "react";
 import { WalletCard } from "./walletCard";
-import { getAuthorWalletApi } from "@/shared/api/paymentApi";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { usePayment } from "@/shared/store/usePayment";
+import { getAuthorWalletApi } from "@/shared/api/paymentApi";
+import { getFireProposalList } from "@/shared/api/firesApi";
+import { IFirePrice } from "@/shared/interfaces";
 
 export const WalletCardList = () => {
-  const { setAuthorWalletAddress } = usePayment();
+  const { setAuthorWalletAddress, firePriceList, setFirePriceList } =
+    usePayment();
+
+  const fireMutation = useMutation({
+    mutationFn: () => getFireProposalList(),
+    onSuccess: (data: IFirePrice[]) => {
+      setFirePriceList(data);
+    },
+  });
+
   const mutation = useMutation({
     mutationFn: () => getAuthorWalletApi("ton"),
     onSuccess: (data) => {
@@ -17,12 +28,17 @@ export const WalletCardList = () => {
 
   React.useEffect(() => {
     mutation.mutate();
+    if (!firePriceList?.length) {
+      fireMutation.mutate();
+    }
   }, []);
+
+  console.log(firePriceList);
 
   return (
     <div className="space-y-2">
-      {Array.from({ length: 5 }).map((_, index) => {
-        return <WalletCard key={index} />;
+      {firePriceList?.map((price, index) => {
+        return <WalletCard key={index} price={price} />;
       })}
     </div>
   );

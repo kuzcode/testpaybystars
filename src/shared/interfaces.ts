@@ -40,3 +40,8 @@ export interface IWorldCity {
   name: string;
   nameLocale: null;
 }
+
+export interface IFirePrice {
+  firesAmount: number;
+  perItem: number;
+}
