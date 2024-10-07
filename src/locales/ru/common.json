@@ -64,5 +64,6 @@
     "notEnoughFires": "Недостаточно огней",
     "removeImageConfirmation": "Вы точно хотите удалить это фото?",
     "yes": "Да",
-    "lowEnergy": "Низкий уровень энергии"
+    "lowEnergy": "Низкий уровень энергии",
+    "error": "Ошибка"
 }

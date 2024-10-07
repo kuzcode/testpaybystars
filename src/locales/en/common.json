@@ -64,5 +64,6 @@
     "notEnoughFires": "Not enough fires",
     "removeImageConfirmation": "Are you sure you want to delete this photo?",
     "yes": "Yes",
-    "lowEnergy": "Low energy"
+    "lowEnergy": "Low energy",
+    "error": "Error"
 }

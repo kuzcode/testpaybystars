@@ -109,6 +109,13 @@ export const fetchUsersWhoMatched = async () => {
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+export const buyEnergy = async () => {
+  const response = await instance.post(`/users/energy/buy`);
+  return response.data;
+};
+
+// -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
 export interface IUpdateUserProfileProps {
   searchGender?: string;
   gender?: string;

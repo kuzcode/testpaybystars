@@ -19,7 +19,7 @@ export const MiniImageCard: React.FC<Props> = ({
   const url = typeof imgUrl === "string" ? imgUrl : URL.createObjectURL(imgUrl);
 
   return (
-    <div className="w-full h-[18vw] relative">
+    <div className="w-full h-[18vw] relative bg-[#F5F5F5] rounded-xl">
       <Image
         src={url}
         fill

@@ -7,17 +7,41 @@ import { Button } from "@/shared/ui/Button";
 import { Vaul } from "@/shared/ui/modals/Vaul";
 import { useTranslation } from "react-i18next";
 import { useModal } from "@/shared/store/useModal";
-import { CustomLink } from "@/shared/ui/CustomLink";
 import { ModalTitle } from "@/shared/ui/modals/ModalTitle";
 import { GradientHotIcon } from "@/shared/ui/GradientHotIcon";
 import { ModalDescription } from "@/shared/ui/modals/ModalDescription";
 import { GradientRoundedWaves } from "@/shared/ui/GradientRoundedWaves";
+import { useProfile } from "@/shared/store/useProfile";
+import { useCustomToast } from "@/shared/hooks/useCustomToast";
+import { useMutation } from "@tanstack/react-query";
+import { buyEnergy } from "@/shared/api/usersApi";
 
 export const NotEnoughEnerguModal = () => {
   const { t } = useTranslation();
+  const { profile } = useProfile();
   const { isOpen, type, toggleModal, data } = useModal((state) => state);
+  const customToast = useCustomToast();
 
   const modal = isOpen && type === "not-enough-energy";
+
+  const mutation = useMutation({
+    mutationFn: () => buyEnergy(),
+    onSuccess: () => {
+      customToast({ type: "success", message: "success" });
+      toggleModal("not-enough-energy", data, false);
+    },
+    onError: () => {
+      customToast({ type: "error", message: "error" });
+    },
+  });
+
+  const pay = () => {
+    if (profile?.fires && profile.fires >= 100) {
+      mutation.mutate();
+    } else {
+      customToast({ type: "error", message: "notEnoughFires" });
+    }
+  };
 
   const onClose = async () => {
     if (isOpen) {
@@ -50,12 +74,12 @@ export const NotEnoughEnerguModal = () => {
       </div>
 
       <div className="space-y-2">
-        <CustomLink href="/wallet" onClick={onClose}>
-          <Button
-            text={t("pay")}
-            className="bg-gradient-to-b from-gradientPrimary to-gradientSecondary"
-          />
-        </CustomLink>
+        <Button
+          onClick={pay}
+          text={t("pay")}
+          loading={mutation.isPending}
+          className="bg-gradient-to-b from-gradientPrimary to-gradientSecondary"
+        />
         <Button
           onClick={onClose}
           text={t("cancel")}
