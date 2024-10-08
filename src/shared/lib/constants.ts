@@ -68,5 +68,5 @@ export const SELECT_LOCATION_TYPES = [
 ];
 
 export const LOCAL_STORAGE = {
-  AUTH_IMAGE_COUNT: "auth-image-count",
+  // AUTH_IMAGE_COUNT: "auth-image-count",
 };

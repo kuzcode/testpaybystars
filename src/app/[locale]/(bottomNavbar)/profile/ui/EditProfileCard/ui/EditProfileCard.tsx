@@ -64,41 +64,42 @@ export const EditProfileCard = () => {
   return (
     <Card>
       <Gallery />
-      <div className="space-y-2 mt-4">
-        <AboutYourselfInput
-          about={info}
-          setAbout={setInfo}
-          label={t("editYourProfileInfo")}
-        />
-        <Dropdown
-          label={t("status")}
-          options={STATUSES}
-          defultValue={
-            STATUSES.find((item) => item.value === status)?.label || ""
-          }
-          onChangeOption={onChangeStatusOption}
-        />
-        <Dropdown
-          label={t("gender")}
-          options={GENDER}
-          defultValue={
-            GENDER.find((item) => item.value === gender)?.label || ""
-          }
-          onChangeOption={onChangeGenderOption}
-        />
-        <Dropdown
-          label={t("isearch")}
-          options={SEARCH_GENDER}
-          defultValue={
-            SEARCH_GENDER.find((item) => item.value === searchGender)?.label ||
-            ""
-          }
-          onChangeOption={onChangeSearchGenderOption}
-        />
+      <div className="space-y-5 mt-4">
+        <div className="space-y-2">
+          <AboutYourselfInput
+            about={info}
+            setAbout={setInfo}
+            label={t("editYourProfileInfo")}
+          />
+          <Dropdown
+            label={t("status")}
+            options={STATUSES}
+            defultValue={
+              STATUSES.find((item) => item.value === status)?.label || ""
+            }
+            onChangeOption={onChangeStatusOption}
+          />
+          <Dropdown
+            label={t("gender")}
+            options={GENDER}
+            defultValue={
+              GENDER.find((item) => item.value === gender)?.label || ""
+            }
+            onChangeOption={onChangeGenderOption}
+          />
+          <Dropdown
+            label={t("isearch")}
+            options={SEARCH_GENDER}
+            defultValue={
+              SEARCH_GENDER.find((item) => item.value === searchGender)
+                ?.label || ""
+            }
+            onChangeOption={onChangeSearchGenderOption}
+          />
+        </div>
         <Button
           onClick={onSubmit}
           text={t("save")}
-          className="mt-4"
           loading={mutation.isPending}
         />
       </div>

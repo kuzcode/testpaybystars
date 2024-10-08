@@ -65,5 +65,6 @@
     "removeImageConfirmation": "Вы точно хотите удалить это фото?",
     "yes": "Да",
     "lowEnergy": "Низкий уровень энергии",
-    "error": "Ошибка"
+    "error": "Ошибка",
+    "myGender": "Мой пол"
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import { IUser } from "@/shared/api/usersApi";
 import Image from "next/image";
 import React from "react";

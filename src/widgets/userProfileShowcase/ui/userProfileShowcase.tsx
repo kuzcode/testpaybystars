@@ -2,13 +2,13 @@
 
 import React from "react";
 import TinderCard from "react-tinder-card";
+import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/ui/Container";
 import { TinderCardContent } from "./TinderCardContent";
 import { useSliderListener } from "@/shared/hooks/useSliderListener";
 import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { FilterModal } from "@/app/[locale]/(bottomNavbar)/search/ui/modals/filterModal";
-import { useTranslation } from "react-i18next";
 
 export const UserProfileShowcase = () => {
   const { t } = useTranslation();
@@ -53,6 +53,19 @@ export const UserProfileShowcase = () => {
     mutation.mutate("0");
   };
 
+  const formattedUsers = () => {
+    const formatted = users?.map((item) => {
+      return {
+        ...item,
+        images: [
+          { fileUrl: "/images/boy.png" },
+          { fileUrl: "/images/girl.png" },
+        ],
+      };
+    });
+    return formatted;
+  };
+
   return (
     <Container className="h-full">
       <div className="h-[calc(100vh-250px)] w-full relative bg-primary rounded-xl overflow-hidden">
@@ -66,7 +79,7 @@ export const UserProfileShowcase = () => {
             {t("cantFindUserNear")}
           </div>
         )}
-        {users?.map((character, index) => {
+        {formattedUsers()?.map((character, index) => {
           const isOdd = index % 2 === 0;
           return (
             <TinderCard
@@ -76,6 +89,7 @@ export const UserProfileShowcase = () => {
               preventSwipe={["up", "down", "right", "left"]}
               key={character.id}
             >
+              {/* @ts-ignore */}
               <TinderCardContent character={character} isOdd={isOdd} />
             </TinderCard>
           );

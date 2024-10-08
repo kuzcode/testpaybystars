@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import {
   GENDER,
-  LOCAL_STORAGE,
   SEARCH_GENDER,
   STATUSES,
   TG_INIT_DATA,
@@ -26,6 +25,8 @@ import { usePrefetchSearchPage } from "../hooks/usePrefetchSearchPage";
 import { AboutYourselfInput } from "@/shared/ui/Input/AboutYourselfInput";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
+import { useProfile } from "@/shared/store/useProfile";
+import toast from "react-hot-toast";
 
 export const AuthForm = () => {
   const { t } = useTranslation();
@@ -33,7 +34,9 @@ export const AuthForm = () => {
 
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
+
   const { toggleModal } = useModal();
+  const { setPendingProfileImages } = useProfile();
 
   const [images, setImages] = React.useState<IUploadImage[]>([]);
   const [about, setAbout] = React.useState("");
@@ -66,16 +69,13 @@ export const AuthForm = () => {
     images.forEach((image) => {
       formData.append("files", image.url);
     });
-    localStorage.setItem(
-      LOCAL_STORAGE.AUTH_IMAGE_COUNT,
-      images.length.toString()
-    );
     try {
       await uploadProfileImage(formData);
       queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
     } catch (error) {
+      toast.error("Uploading profile image error");
     } finally {
-      localStorage.removeItem(LOCAL_STORAGE.AUTH_IMAGE_COUNT);
+      setPendingProfileImages(0);
     }
   };
 
@@ -84,8 +84,8 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      tg: window.Telegram.WebApp.initData,
-      // tg: TG_INIT_DATA || "",
+      // tg: window.Telegram.WebApp.initData,
+      tg: TG_INIT_DATA || "",
       ...(gender && { gender }),
       ...(searchGender && { searchGender }),
       ...(status && { status }),
@@ -115,6 +115,10 @@ export const AuthForm = () => {
 
   usePrefetchSearchPage();
 
+  React.useEffect(() => {
+    setPendingProfileImages(images.length);
+  }, [images]);
+
   return (
     <div id="form">
       <Card className="!py-6">
@@ -143,7 +147,7 @@ export const AuthForm = () => {
             onChangeOption={onChangeStatusOption}
           />
           <Dropdown
-            label={t("gender")}
+            label={t("myGender")}
             options={GENDER}
             onChangeOption={onChangeGenderOption}
           />

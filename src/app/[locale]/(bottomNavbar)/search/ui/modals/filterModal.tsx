@@ -57,7 +57,7 @@ export const FilterModal: React.FC<Props> = ({ handleSubmit }) => {
             onChangeOption={(item) => onChangeStatusOption(item.value)}
           />
           <Dropdown
-            label={t("gender")}
+            label={t("isearch")}
             options={GENDER}
             defultValue={GENDER.find((item) => item.value === gender)?.label}
             onChangeOption={(item) => onChangeGenderOption(item.value)}
