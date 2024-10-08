@@ -60,6 +60,10 @@ export const UserProfileShowcase = () => {
         images: [
           { fileUrl: "/images/boy.png" },
           { fileUrl: "/images/girl.png" },
+          { fileUrl: "/images/boy.png" },
+          { fileUrl: "/images/girl.png" },
+          { fileUrl: "/images/boy.png" },
+          { fileUrl: "/images/girl.png" },
         ],
       };
     });
@@ -82,16 +86,18 @@ export const UserProfileShowcase = () => {
         {formattedUsers()?.map((character, index) => {
           const isOdd = index % 2 === 0;
           return (
-            <TinderCard
-              // @ts-ignore
-              ref={childRefs[index]}
-              className="absolute w-full h-full flex !pointer-events-none"
-              preventSwipe={["up", "down", "right", "left"]}
-              key={character.id}
-            >
-              {/* @ts-ignore */}
-              <TinderCardContent character={character} isOdd={isOdd} />
-            </TinderCard>
+            <>
+              <TinderCard
+                // @ts-ignore
+                ref={childRefs[index]}
+                className="absolute w-full h-full flex !pointer-events-none"
+                preventSwipe={["up", "down", "right", "left"]}
+                key={character.id}
+              >
+                {/* @ts-ignore */}
+                <TinderCardContent character={character} isOdd={isOdd} />
+              </TinderCard>
+            </>
           );
         })}
       </div>
