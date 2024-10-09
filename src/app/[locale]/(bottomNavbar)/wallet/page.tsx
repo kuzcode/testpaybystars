@@ -7,7 +7,13 @@ import { WalletCardList } from "./ui/walletCardList";
 const Wallet = () => {
   return (
     <Page>
-      <MainAppBar text="wallet" shadow enableScore className="relative" />
+      <MainAppBar
+        text="wallet"
+        shadow
+        enableScore
+        className="relative"
+        enableBackButton
+      />
       {/* <TimerBadge className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[60%]" /> */}
       <Container className="!mt-8">
         <WalletCardList />

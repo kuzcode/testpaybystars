@@ -1,24 +1,20 @@
 "use client";
 
 import React from "react";
-import TinderCard from "react-tinder-card";
 import { useTranslation } from "react-i18next";
 import { Container } from "@/shared/ui/Container";
-import { TinderCardContent } from "./TinderCardContent";
 import { useSliderListener } from "@/shared/hooks/useSliderListener";
 import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { FilterModal } from "@/app/[locale]/(bottomNavbar)/search/ui/modals/filterModal";
+import { useIsClient } from "@/shared/hooks/useIsClient";
+import { BaseTinderCard } from "./BaseTinderCard";
 
 export const UserProfileShowcase = () => {
   const { t } = useTranslation();
   const { users, currentIndex, removeLastUser, reset } = useShowcase();
 
-  const [init, setInit] = React.useState(false);
-
-  React.useEffect(() => {
-    setInit(true);
-  }, []);
+  const isClient = useIsClient();
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -78,25 +74,20 @@ export const UserProfileShowcase = () => {
             {t("loading")}
           </div>
         )}
-        {!mutation.isPending && !users?.length && init && (
+        {!mutation.isPending && !users?.length && isClient && (
           <div className="flex items-center justify-center h-full text-white">
             {t("cantFindUserNear")}
           </div>
         )}
         {formattedUsers()?.map((character, index) => {
-          const isOdd = index % 2 === 0;
           return (
             <>
-              <TinderCard
-                // @ts-ignore
-                ref={childRefs[index]}
-                className="absolute w-full h-full flex !pointer-events-none"
-                preventSwipe={["up", "down", "right", "left"]}
+              <BaseTinderCard
                 key={character.id}
-              >
-                {/* @ts-ignore */}
-                <TinderCardContent character={character} isOdd={isOdd} />
-              </TinderCard>
+                // @ts-ignore
+                character={character}
+                childRefsIndex={childRefs[index]}
+              />
             </>
           );
         })}

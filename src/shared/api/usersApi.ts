@@ -54,7 +54,7 @@ export const fetchFindUsersNear = async (pageNumberManual: string | null) => {
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-interface IImage {
+export interface IImage {
   fileName: string;
   fileUrl: string;
   id: string;

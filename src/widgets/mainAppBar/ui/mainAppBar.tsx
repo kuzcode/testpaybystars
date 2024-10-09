@@ -5,6 +5,9 @@ import { Container } from "@/shared/ui/Container";
 import { FireBalance } from "@/widgets/fireBalance";
 import { AppBarTitle } from "./appBarTitle";
 import { CustomLink } from "@/shared/ui/CustomLink";
+import Image from "next/image";
+import Link from "next/link";
+import { BackButton } from "./backButton";
 
 interface Props {
   text: string;
@@ -13,6 +16,7 @@ interface Props {
   shadow?: boolean;
   className?: string;
   enableScore?: boolean;
+  enableBackButton?: boolean;
 }
 
 export const MainAppBar: React.FC<Props> = ({
@@ -22,6 +26,7 @@ export const MainAppBar: React.FC<Props> = ({
   shadow = false,
   className,
   enableScore = false,
+  enableBackButton,
 }) => {
   return (
     <Flex
@@ -35,7 +40,8 @@ export const MainAppBar: React.FC<Props> = ({
     >
       <Container className="w-full">
         <Flex className="justify-between">
-          <Flex className="gap-x-4">
+          <Flex className="gap-x-3">
+            {enableBackButton && <BackButton />}
             <AppBarTitle text={text} extraText={extraText} />
           </Flex>
           <Flex className="gap-x-3">
