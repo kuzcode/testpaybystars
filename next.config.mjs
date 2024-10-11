@@ -2,9 +2,9 @@
 const nextConfig = {
   reactStrictMode: false,
   experimental: {
-    serverActions: {
-      allowedOrigins: ["localhost:4173"],
-    },
+    // serverActions: {
+    //   allowedOrigins: ["localhost:4173"],
+    // },
   },
   images: {
     remotePatterns: [
