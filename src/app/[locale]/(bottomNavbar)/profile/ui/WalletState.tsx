@@ -23,7 +23,7 @@ export const WalletState = () => {
 
   return (
     <>
-      <WalletConnectedCard /> <WalletNotConnectedCard />
+      {isWalletConnected ? <WalletConnectedCard /> : <WalletNotConnectedCard />}
     </>
   );
 };

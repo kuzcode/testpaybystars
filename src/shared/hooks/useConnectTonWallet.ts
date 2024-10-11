@@ -2,6 +2,7 @@
 
 import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { useTonConnectListener } from "./useTonConnectListener";
+import { useProfile } from "../store/useProfile";
 
 export const useConnectTonWallet = () => {
   const [tonConnectUI] = useTonConnectUI();

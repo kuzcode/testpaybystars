@@ -87,8 +87,8 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      // tg: window.Telegram.WebApp.initData,
-      tg: TG_INIT_DATA || "",
+      tg: window.Telegram.WebApp.initData,
+      // tg: TG_INIT_DATA || "",
       ...(gender && { gender }),
       ...(searchGender && { searchGender }),
       ...(status && { status }),
