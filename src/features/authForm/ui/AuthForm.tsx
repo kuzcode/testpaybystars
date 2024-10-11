@@ -52,8 +52,8 @@ export const AuthForm = () => {
   const [selectedCountryCode, setSelectedCountryCode] = React.useState("");
   const [selectedCityId, setSelectedCityId] = React.useState("");
 
-  const disabled = false;
-  // loading || !about || (selectedCityId === "" && coordinates.lat === 0);
+  const disabled =
+    loading || !about || (selectedCityId === "" && coordinates.lat === 0);
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -86,8 +86,8 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      // tg: window.Telegram.WebApp.initData,
-      tg: TG_INIT_DATA || "",
+      tg: window.Telegram.WebApp.initData,
+      // tg: TG_INIT_DATA || "",
       ...(gender && { gender }),
       ...(searchGender && { searchGender }),
       ...(status && { status }),
