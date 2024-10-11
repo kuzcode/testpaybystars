@@ -5,13 +5,14 @@ import { useTonConnectListener } from "./useTonConnectListener";
 
 export const useConnectTonWallet = () => {
   const [tonConnectUI] = useTonConnectUI();
+  const userLocalWallet = useTonAddress();
 
   const activateTonWalletListener = useTonConnectListener();
 
   const connectTonWallet = async () => {
-    // if (userLocalWallet && !userNetworkWallet.length) {
-    //   await tonConnectUI.disconnect();
-    // }
+    if (userLocalWallet) {
+      await tonConnectUI.disconnect();
+    }
     activateTonWalletListener();
     tonConnectUI.openModal();
   };
