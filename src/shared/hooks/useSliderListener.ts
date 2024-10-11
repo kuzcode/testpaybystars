@@ -52,7 +52,6 @@ export const useSliderListener = () => {
     // const currentDistance = searchParams.get(SEARCH_PARAMS.DISTANCE);
     const currentPageNumber = Number(currentPage) + 1;
 
-    console.log(currentIndex);
     if (currentIndex === 4) {
       setSearchParams(SEARCH_PARAMS.PAGE_NUMBER, currentPageNumber.toString());
 
