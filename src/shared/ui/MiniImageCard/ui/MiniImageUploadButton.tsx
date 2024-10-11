@@ -25,6 +25,7 @@ export const MiniImageUploadButton: React.FC<Props> = ({ onChangeImage }) => {
       <div className="bg-white w-8 h-8 rounded-xl flex items-center justify-center">
         <Image src="/icons/greyPlus.svg" width={14} height={14} alt="add" />
         <input
+          accept="image/*"
           onChange={onChangeImage}
           ref={inputRef}
           type="file"

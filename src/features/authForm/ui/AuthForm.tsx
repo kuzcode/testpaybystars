@@ -27,6 +27,7 @@ import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import { useProfile } from "@/shared/store/useProfile";
 import toast from "react-hot-toast";
+import { blobToFile } from "@/shared/lib/blobToFile";
 
 export const AuthForm = () => {
   const { t } = useTranslation();
@@ -51,8 +52,8 @@ export const AuthForm = () => {
   const [selectedCountryCode, setSelectedCountryCode] = React.useState("");
   const [selectedCityId, setSelectedCityId] = React.useState("");
 
-  const disabled =
-    loading || !about || (selectedCityId === "" && coordinates.lat === 0);
+  const disabled = false;
+  // loading || !about || (selectedCityId === "" && coordinates.lat === 0);
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -65,6 +66,7 @@ export const AuthForm = () => {
 
   const uploadImages = async () => {
     if (!images.length) return;
+
     const formData = new FormData();
     images.forEach((image) => {
       formData.append("files", image.url);
@@ -84,8 +86,8 @@ export const AuthForm = () => {
     const data: ILoginProps = {
       info: about,
       reference: "",
-      tg: window.Telegram.WebApp.initData,
-      // tg: TG_INIT_DATA || "",
+      // tg: window.Telegram.WebApp.initData,
+      tg: TG_INIT_DATA || "",
       ...(gender && { gender }),
       ...(searchGender && { searchGender }),
       ...(status && { status }),

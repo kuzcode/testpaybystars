@@ -3,6 +3,8 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { IUploadImage } from "@/shared/interfaces";
 import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
+import Compressor from "compressorjs";
+import toast from "react-hot-toast";
 
 interface Props {
   className?: string;
@@ -21,8 +23,19 @@ const ProfileImageShowcaseSection: React.FC<Props> = ({
     if (e.target.files) {
       const randomId = Math.floor(Math.random() * 1000);
       const file = e.target.files[0];
-      const newImage = { id: randomId, url: file };
-      setImages((prev) => [...prev, newImage]);
+      new Compressor(file, {
+        quality: 0.2,
+        success(result) {
+          const newImage = { id: randomId, url: result };
+          // @ts-ignore
+          setImages((prev) => [...prev, newImage]);
+        },
+        error(err) {
+          console.log(err.message);
+          toast.error("Compression error");
+        },
+      });
+      // const compressedFile =
     }
   };
 

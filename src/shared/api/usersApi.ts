@@ -216,6 +216,7 @@ export const uploadProfileImage = async (data: FormData) => {
     headers: {
       "Content-Type": "multipart/form-data",
     },
+    timeout: 600000,
   });
   return response.data;
 };

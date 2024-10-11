@@ -1,7 +1,6 @@
 import React from "react";
 import TinderCard from "react-tinder-card";
 import { IUser } from "@/shared/api/usersApi";
-import { TinderSwiperCard } from "./TinderSwiperCard";
 import { TinderCardContent } from "./TinderCardContent";
 import { TopImageNavigator } from "./TopImageNavigator";
 import { SideNavigators } from "./SideNavigators";

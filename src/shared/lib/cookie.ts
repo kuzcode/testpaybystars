@@ -1,15 +1,15 @@
 import Cookies from "js-cookie";
 
 export const getAccessTokenClient = () => {
-  const token = Cookies.get("accessTokenCookieMatchClient_v6");
+  const token = Cookies.get("accessTokenCookieMatchClient_v7");
   return token ? token : null;
 };
 
 export const setAccessTokenClient = (token: string) =>
-  Cookies.set("accessTokenCookieMatchClient_v6", token);
+  Cookies.set("accessTokenCookieMatchClient_v7", token);
 
 export const removeAccessTokenClient = () =>
-  Cookies.remove("accessTokenCookieMatchClient_v6");
+  Cookies.remove("accessTokenCookieMatchClient_v7");
 
 export const getRefreshTokenClient = () => {
   const token = Cookies.get("refreshTokenCookieMatchClient");
