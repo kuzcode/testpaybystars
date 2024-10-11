@@ -75,6 +75,7 @@ export const AuthForm = () => {
       await uploadProfileImage(formData);
       queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
     } catch (error) {
+      // toast.error("Uploading profile image error");
       toast.error("Uploading profile image error");
     } finally {
       setPendingProfileImages(0);
