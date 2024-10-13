@@ -11,12 +11,6 @@ export default function Home() {
     const WebAppLanguage =
       WebApp.initDataUnsafe.user?.language_code === "ru" ? "ru" : "en";
 
-    WebApp.disableVerticalSwipes();
-
-    WebApp.setHeaderColor("#9E4FE9"); // primary
-
-    WebApp.setBackgroundColor("#FFFFFF"); // dark
-
     WebApp.BackButton.hide();
 
     const token = getAccessTokenClient();

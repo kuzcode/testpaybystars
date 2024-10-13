@@ -13,6 +13,7 @@ import { TonConnectUIProvider } from "@tonconnect/ui-react";
 import { TonConnectUiProvider } from "./_providers/TonConnectUiProvider";
 import { ToasterProvider } from "./_providers/ToasterProvider";
 import { TonClientProvider } from "@/shared/context/tonClientContext";
+import { InitWebAppParams } from "@/shared/ui/InitWebAppParams";
 
 declare global {
   interface Window {
@@ -67,6 +68,7 @@ export default async function RootLayout({
           <TonConnectUiProvider>
             <ToasterProvider>
               <TonClientProvider>
+                <InitWebAppParams />
                 <ReactQueryProvider>{children}</ReactQueryProvider>
               </TonClientProvider>
             </ToasterProvider>
