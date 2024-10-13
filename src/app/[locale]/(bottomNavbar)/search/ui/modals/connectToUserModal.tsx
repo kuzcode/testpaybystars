@@ -15,6 +15,8 @@ import { ModalTitle } from "@/shared/ui/modals/ModalTitle";
 import { useProfile } from "@/shared/store/useProfile";
 import toast from "react-hot-toast";
 import { useCustomToast } from "@/shared/hooks/useCustomToast";
+import { LetterIcon } from "@/shared/ui/LetterIcon";
+import { Icon } from "@/shared/ui/Icon";
 
 export const ConnectToUserModal = () => {
   const queryClient = useQueryClient();
@@ -71,6 +73,14 @@ export const ConnectToUserModal = () => {
           <ModalTitle>
             {typedData?.firstName} {typedData?.lastName}
           </ModalTitle>
+          <Flex className="justify-center gap-x-1">
+            <Icon type="verified" />
+            <LetterIcon
+              deposit={typedData?.usdtBalance}
+              hideText
+              className="scale-[1.07]"
+            />
+          </Flex>
           <Flex className="justify-center gap-x-2"></Flex>
           <p className="mx-auto text-textPrimary max-w-[250px]">
             {t("connectConfirmation")}

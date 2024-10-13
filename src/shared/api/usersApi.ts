@@ -3,6 +3,7 @@ import { SEARCH_PARAMS } from "../lib/searchParams";
 import { instance } from "./instance";
 
 export interface IUser {
+  usdtBalance: null | number;
   dislikesAmount: number;
   distance: number;
   firstName: string;
