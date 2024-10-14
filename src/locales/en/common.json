@@ -66,5 +66,6 @@
     "yes": "Yes",
     "lowEnergy": "Low energy",
     "error": "Error",
-    "myGender": "My gender"
+    "myGender": "My gender",
+    "rateTooltip": "Rate - annual percentage yield"
 }

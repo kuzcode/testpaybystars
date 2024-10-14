@@ -26,12 +26,18 @@ export const Header = () => {
         <h3 className="text-[#857889]">{t("rate")}</h3>
         <Flex className="gap-x-2">
           <h3 className="font-bold text-[26px]">50%</h3>
-          <Image
-            src={"/icons/blackRoundedInfo.svg"}
-            width={25}
-            height={25}
-            alt="hot"
-          />
+          <div className="relative">
+            <Image
+              src={"/icons/blackRoundedInfo.svg"}
+              width={25}
+              height={25}
+              alt="hot"
+            />
+            <div className="bg-tooltip absolute top-0 left-0 translate-y-[75%] -translate-x-[78%] z-[99] text-white w-[180px] h-[50px] flex items-center text-center px-3 text-[12px] rounded-lg">
+              <h3 className="relative z-[10] bg-tooltip">{t("rateTooltip")}</h3>
+              <div className="absolute top-0 right-[17px] rounded-[2px] rotate-45 w-5 h-5 bg-tooltip z-[1] -translate-y-[4px]" />
+            </div>
+          </div>
         </Flex>
       </div>
     </Flex>

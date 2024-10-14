@@ -5,14 +5,11 @@ import { Header } from "./Header";
 import { Card } from "@/shared/ui/Card";
 import { Button } from "@/shared/ui/Button";
 import { useTranslation } from "react-i18next";
-import { PointBadge } from "@/shared/ui/PointBadge";
 import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
 import { useIsWalletConnected } from "@/shared/hooks/useIsWalletConnected";
 import { useCustomPush } from "@/shared/hooks/useCustomPush";
 import { letters } from "@/shared/ui/LetterIcon/lib/getLetterName";
 import { LetterIcon } from "@/shared/ui/LetterIcon";
-
-const COUNTRIES = ["Monkey", "Elephant", "Lion"];
 
 export const BalanceCard = () => {
   const { t } = useTranslation();

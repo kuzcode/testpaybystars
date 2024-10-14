@@ -18,6 +18,7 @@ const config: Config = {
         secondary: "#202020",
         textPrimary: "#827987",
         ton: "#4F8BBF",
+        tooltip: "#837888",
       },
     },
   },
