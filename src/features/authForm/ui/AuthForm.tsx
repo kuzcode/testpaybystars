@@ -85,7 +85,9 @@ export const AuthForm = () => {
   const onSubmit = async () => {
     setLoading(true);
     const telegramInitData: string =
-      process.env.NODE_ENV === "development" ? TG_INIT_DATA! : TG_INIT_DATA!;
+      process.env.NODE_ENV === "development"
+        ? TG_INIT_DATA!
+        : window.Telegram.WebApp.initData;
     const data: ILoginProps = {
       info: about,
       reference: "",

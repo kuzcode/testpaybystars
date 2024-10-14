@@ -3,8 +3,6 @@ import clsx from "clsx";
 import { useTranslation } from "react-i18next";
 import { IUploadImage } from "@/shared/interfaces";
 import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
-import Compressor from "compressorjs";
-import toast from "react-hot-toast";
 import { imageResizer } from "@/shared/lib/imageResizer";
 
 interface Props {

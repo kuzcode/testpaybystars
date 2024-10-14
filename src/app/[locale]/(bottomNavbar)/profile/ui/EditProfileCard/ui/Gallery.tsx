@@ -8,7 +8,6 @@ import { IProfileImage, uploadProfileImage } from "@/shared/api/usersApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
-import Compressor from "compressorjs";
 import { imageResizer } from "@/shared/lib/imageResizer";
 
 export const Gallery = () => {

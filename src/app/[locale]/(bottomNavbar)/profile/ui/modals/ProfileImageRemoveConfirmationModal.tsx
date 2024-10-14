@@ -27,7 +27,7 @@ export const ProfileImageRemoveConfirmationModal = () => {
     },
   });
 
-  const onClose = () => toggleModal(type, null, false);
+  const onClose = () => toggleModal(type, data, false);
 
   return (
     <Vaul isOpen={modal} onClose={onClose} height={380}>
