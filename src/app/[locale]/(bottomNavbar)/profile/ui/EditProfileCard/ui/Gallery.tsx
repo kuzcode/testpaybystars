@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 import Compressor from "compressorjs";
+import { imageResizer } from "@/shared/lib/imageResizer";
 
 export const Gallery = () => {
   const { t } = useTranslation();
@@ -25,38 +26,26 @@ export const Gallery = () => {
   const onChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files?.length) return;
+    const file = files[0];
+    const compressedImage: File = await imageResizer(file);
 
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-    new Compressor(files[0], {
-      quality: 0.2,
-      async success(result) {
-        // @ts-ignore
-        const formData = new FormData();
-        formData.append("files", result);
-        await toast.promise(
-          uploadProfileImage(formData),
-          {
-            loading: t("imageUploading"),
-            success: t("imageUploaded"),
-            error: t("error"),
-          },
-          {
-            position: "top-right",
-            style: {
-              fontWeight: 500,
-            },
-          }
-        );
-        queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
+    const formData = new FormData();
+    formData.append("files", compressedImage);
+    await toast.promise(
+      uploadProfileImage(formData),
+      {
+        loading: t("imageUploading"),
+        success: t("imageUploaded"),
+        error: t("error"),
       },
-      error(err) {
-        console.log(err.message);
-        toast.error("Compression error");
-      },
-    });
-    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
-
-    // setImages((prev) => [...prev, image]);
+      {
+        position: "top-right",
+        style: {
+          fontWeight: 500,
+        },
+      }
+    );
+    queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
   };
 
   const handleImageClick = () => {};

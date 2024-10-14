@@ -5,6 +5,7 @@ import { IUploadImage } from "@/shared/interfaces";
 import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
 import Compressor from "compressorjs";
 import toast from "react-hot-toast";
+import { imageResizer } from "@/shared/lib/imageResizer";
 
 interface Props {
   className?: string;
@@ -19,23 +20,14 @@ const ProfileImageShowcaseSection: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation();
 
-  const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const randomId = Math.floor(Math.random() * 1000);
       const file = e.target.files[0];
-      new Compressor(file, {
-        quality: 0.2,
-        success(result) {
-          const newImage = { id: randomId, url: result };
-          // @ts-ignore
-          setImages((prev) => [...prev, newImage]);
-        },
-        error(err) {
-          console.log(err.message);
-          toast.error("Compression error");
-        },
-      });
-      // const compressedFile =
+      const compressedImage: File = await imageResizer(file);
+      const newImage = { id: randomId, url: compressedImage };
+      // @ts-ignore
+      setImages((prev) => [...prev, newImage]);
     }
   };
 
