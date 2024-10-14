@@ -68,5 +68,10 @@ export const SELECT_LOCATION_TYPES = [
 ];
 
 export const LOCAL_STORAGE = {
+  ACCESS_TOKEN: "accessMatchV1",
   // AUTH_IMAGE_COUNT: "auth-image-count",
+};
+
+export const COOKIES = {
+  ACCESS_TOKEN: "accessMatchV1",
 };

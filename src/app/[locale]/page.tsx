@@ -8,8 +8,9 @@ export default function Home() {
   React.useEffect(() => {
     const WebApp = window.Telegram.WebApp;
 
+    const userLang = WebApp.initDataUnsafe.user?.language_code;
     const WebAppLanguage =
-      WebApp.initDataUnsafe.user?.language_code === "ru" ? "ru" : "en";
+      userLang === "ru" ? "ru" : userLang === "ua" ? "ru" : "en";
 
     WebApp.BackButton.hide();
 

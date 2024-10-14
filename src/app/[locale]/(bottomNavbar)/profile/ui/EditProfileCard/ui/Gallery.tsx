@@ -8,6 +8,7 @@ import { IProfileImage, uploadProfileImage } from "@/shared/api/usersApi";
 import { useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
+import Compressor from "compressorjs";
 
 export const Gallery = () => {
   const { t } = useTranslation();
@@ -24,29 +25,38 @@ export const Gallery = () => {
   const onChangeImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files?.length) return;
-    const image: IProfileImage = {
-      id: Date.now().toString(),
-      fileUrl: files[0],
-      fileName: "",
-    };
-    // setImages((prev) => [...prev, image]);
-    const formData = new FormData();
-    formData.append("files", files[0]);
-    await toast.promise(
-      uploadProfileImage(formData),
-      {
-        loading: t("imageUploading"),
-        success: t("imageUploaded"),
-        error: t("error"),
+
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    new Compressor(files[0], {
+      quality: 0.2,
+      async success(result) {
+        // @ts-ignore
+        const formData = new FormData();
+        formData.append("files", result);
+        await toast.promise(
+          uploadProfileImage(formData),
+          {
+            loading: t("imageUploading"),
+            success: t("imageUploaded"),
+            error: t("error"),
+          },
+          {
+            position: "top-right",
+            style: {
+              fontWeight: 500,
+            },
+          }
+        );
+        queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
       },
-      {
-        position: "top-right",
-        style: {
-          fontWeight: 500,
-        },
-      }
-    );
-    queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
+      error(err) {
+        console.log(err.message);
+        toast.error("Compression error");
+      },
+    });
+    // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+    // setImages((prev) => [...prev, image]);
   };
 
   const handleImageClick = () => {};

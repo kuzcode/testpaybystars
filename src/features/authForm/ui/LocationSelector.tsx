@@ -125,9 +125,7 @@ export const LocationSelector: React.FC<Props> = ({
     document.body.style.paddingBottom = "200px"; // Adjust this value as needed
   };
 
-  const handleBlur = () => {
-    document.body.style.paddingBottom = "0"; // Reset padding
-  };
+  const handleBlur = () => (document.body.style.paddingBottom = "0"); // Reset padding
 
   React.useEffect(() => {
     // Attach event listeners
