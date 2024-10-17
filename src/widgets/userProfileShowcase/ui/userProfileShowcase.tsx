@@ -27,8 +27,8 @@ export const UserProfileShowcase = () => {
     removeLastUser();
 
     // @ts-ignore
-    await childRefs[currentIndex].current.swipe(dir);
     // use it for animation when swipe
+    await childRefs[currentIndex].current.swipe(dir);
   };
 
   // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --     SWIPING LOGICS     -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --

@@ -55,7 +55,7 @@
     "selectManual": "Select manually",
     "success": "Success",
     "energyEndTitle": "You have run out of energy",
-    "energyEndDescription": "You will be able to continue in {{ time }} minutes. Or right now, if you pay",
+    "energyEndDescription": "You will be able to continue tomorrow. Or right now, if you pay",
     "pay": "Pay",
     "close": "Close",
     "cantFindUserNear": "Can't find a user near you",

@@ -10,8 +10,7 @@ import clsx from "clsx";
 // Import css files
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Flex } from "@/shared/ui/Flex";
-import { LetterIcon } from "@/shared/ui/LetterIcon";
+import { UserDescription } from "./UserDescription";
 
 interface Props {
   className?: string;
@@ -59,23 +58,11 @@ export const TinderCardContent = React.forwardRef(
             );
           })}
         </Slider>
-        <div className="absolute bottom-0 pb-10 pt-2 left-0 px-4 w-full bg-gradient-to-t from-white/60 via-white/40 to-transparent backdrop-blur-sm">
-          {/* <h2 className="text-white font-bold text-[20px] mb-2">{firstName}</h2> */}
-          <Flex className="gap-x-2">
-            <h2 className="text-white font-bold text-[20px] mb-2">
-              {firstName}
-            </h2>
-            <LetterIcon
-              deposit={usdtBalance}
-              hideText
-              className="-translate-y-1"
-            />
-          </Flex>
-          <h4 className="text-white">
-            {info ||
-              "Who I’m looking for: I’m looking for is a man in his early 30s..."}
-          </h4>
-        </div>
+        <UserDescription
+          firstName={firstName}
+          usdtBalance={usdtBalance}
+          info={info}
+        />
       </div>
     );
   }

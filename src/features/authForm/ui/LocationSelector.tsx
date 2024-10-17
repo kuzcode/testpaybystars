@@ -121,15 +121,15 @@ export const LocationSelector: React.FC<Props> = ({
   };
 
   const handleFocus = () => {
-    if (!isIOS) return;
-    document.body.style.paddingBottom = "200px"; // Adjust this value as needed
+    if (!isIOS()) return;
+    document.body.style.paddingBottom = "200px";
   };
 
-  const handleBlur = () => (document.body.style.paddingBottom = "0"); // Reset padding
+  const handleBlur = () => (document.body.style.paddingBottom = "0");
 
   React.useEffect(() => {
     // Attach event listeners
-    const inputs = document.querySelectorAll("input, textarea"); // Target input fields
+    const inputs = document.querySelectorAll("input, textarea");
     inputs.forEach((input) => {
       input.addEventListener("focus", handleFocus);
       input.addEventListener("blur", handleBlur);
