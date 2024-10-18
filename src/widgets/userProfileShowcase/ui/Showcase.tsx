@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { BaseTinderCard } from "./BaseTinderCard";
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { useIsClient } from "@/shared/hooks/useIsClient";
+import clsx from "clsx";
 
 interface Props {
   childRefs: React.RefObject<unknown>[];
@@ -32,18 +33,28 @@ export const Showcase: React.FC<Props> = ({ childRefs, isPending }) => {
   };
 
   return (
-    <div className="h-[calc(100vh-250px)] w-full relative bg-primary rounded-xl overflow-hidden">
+    <div className="h-[calc(100vh-250px)] w-full relative bg-white/60 rounded-xl overflow-hidden">
       {isPending && !users?.length && (
-        <div className="flex items-center justify-center h-full text-white">
+        <div className="flex items-center justify-center h-full text-primary">
           {t("loading")}
         </div>
       )}
       {!isPending && !users?.length && isClient && (
-        <div className="flex items-center justify-center h-full text-white">
+        <div className="flex items-center justify-center h-full text-primary">
           {t("cantFindUserNear")}
         </div>
       )}
-      {!!users?.length && renderUsers()}
+      <div
+        className={clsx(
+          "transition-opacity opacity-1 duration-500 delay-700 ease-in-out",
+          {
+            // "opacity-0": isPending && users?.length === 0,
+            // "!opacity-1": users?.length !== 0, //
+          }
+        )}
+      >
+        {!!users?.length && renderUsers()}
+      </div>
     </div>
   );
 };
