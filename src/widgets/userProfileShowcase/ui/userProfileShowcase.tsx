@@ -46,7 +46,7 @@ export const UserProfileShowcase = () => {
 
   return (
     <Container className="h-full">
-      <Showcase childRefs={childRefs} mutation={mutation} />
+      <Showcase childRefs={childRefs} isPending={mutation.isPending} />
 
       <ReactionButtonsGroup
         isLoading={false}

@@ -54,7 +54,7 @@ export const ReactionButtonsGroup: React.FC<Props> = ({
           className="-translate-x-[3px]"
         />
         <HotScoreBadge
-          count={`-${currentUser?.contactPrice || 0}`}
+          count={`${currentUser?.contactPrice || 0}`}
           className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[12px] w-full scale-[0.75]"
         />
       </div>

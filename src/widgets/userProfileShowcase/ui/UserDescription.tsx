@@ -1,6 +1,6 @@
+import React from "react";
 import { Flex } from "@/shared/ui/Flex";
 import { LetterIcon } from "@/shared/ui/LetterIcon";
-import React from "react";
 
 interface Props {
   firstName: string;
@@ -15,7 +15,6 @@ export const UserDescription: React.FC<Props> = ({
 }) => {
   return (
     <div className="absolute bottom-0 pb-10 pt-2 left-0 px-4 w-full bg-gradient-to-t from-white/60 via-white/40 to-transparent backdrop-blur-sm">
-      {/* <h2 className="text-white font-bold text-[20px] mb-2">{firstName}</h2> */}
       <Flex className="gap-x-2">
         <h2 className="text-white font-bold text-[20px] mb-2">{firstName}</h2>
         <LetterIcon deposit={usdtBalance} hideText className="-translate-y-1" />

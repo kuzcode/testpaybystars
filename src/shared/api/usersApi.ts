@@ -1,6 +1,6 @@
 import { ILatLng } from "../interfaces";
-import { SEARCH_PARAMS } from "../lib/searchParams";
 import { instance } from "./instance";
+import { SEARCH_PARAMS } from "../lib/searchParams";
 
 export interface IUser {
   usdtBalance: null | number;

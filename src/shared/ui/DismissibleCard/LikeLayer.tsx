@@ -129,8 +129,8 @@ export const LikeLayer: React.FC<Props> = ({ user }) => {
           alt="telegram"
         />
         <HotScoreBadge
-          count={"-" + user?.contactPrice || 0}
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[70%] scale-[0.6] !px-1.5"
+          count={user?.contactPrice || 0}
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[70%] scale-[0.6] !px-1.5 !pl-2.5"
         />
       </div>
     </Card>

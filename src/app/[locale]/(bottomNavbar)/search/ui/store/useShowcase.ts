@@ -34,8 +34,21 @@ export const useShowcase = create<State & Action>((set) => ({
   setCurrentIndex: (index) =>
     set((state) => ({ currentIndex: state.currentIndex + index })),
 
-  setUsers: (users: IUser[]) =>
-    set((state) => ({ users: [...users, ...state.users] })),
+  setUsers: (users: IUser[]) => {
+    const formattedUsers = users?.map((item) => ({
+      ...item,
+      images: [
+        { fileUrl: "/images/boy.png" },
+        { fileUrl: "/images/girl.png" },
+        { fileUrl: "/images/boy.png" },
+        { fileUrl: "/images/girl.png" },
+        { fileUrl: "/images/boy.png" },
+        { fileUrl: "/images/girl.png" },
+      ],
+    }));
+    // @ts-ignore
+    set((state) => ({ users: [...formattedUsers, ...state.users] }));
+  },
 
   reset: () => set({ currentUser: null, currentIndex: 0, users: [] }),
 

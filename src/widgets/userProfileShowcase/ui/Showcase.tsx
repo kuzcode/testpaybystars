@@ -8,56 +8,42 @@ import { useIsClient } from "@/shared/hooks/useIsClient";
 
 interface Props {
   childRefs: React.RefObject<unknown>[];
-  mutation: any;
+  isPending: boolean;
 }
 
-export const Showcase: React.FC<Props> = ({ childRefs, mutation }) => {
+export const Showcase: React.FC<Props> = ({ childRefs, isPending }) => {
   const { t } = useTranslation();
   const { users } = useShowcase();
-
   const isClient = useIsClient();
 
-  const formattedUsers = () => {
-    const formatted = users?.map((item) => {
-      return {
-        ...item,
-        images: [
-          { fileUrl: "/images/boy.png" },
-          { fileUrl: "/images/girl.png" },
-          { fileUrl: "/images/boy.png" },
-          { fileUrl: "/images/girl.png" },
-          { fileUrl: "/images/boy.png" },
-          { fileUrl: "/images/girl.png" },
-        ],
-      };
-    });
-    return formatted;
+  // Memoize the users array to avoid recalculating on every render
+  const memoizedUsers = React.useMemo(() => users, [users]);
+
+  // Move the map function outside of the JSX to avoid creating new function instances on every render
+  const renderUsers = () => {
+    return memoizedUsers?.map((character, index) => (
+      <BaseTinderCard
+        key={`${character.id}${character.firstName}`}
+        // @ts-ignore
+        character={character}
+        childRefsIndex={childRefs[index]}
+      />
+    ));
   };
 
   return (
     <div className="h-[calc(100vh-250px)] w-full relative bg-primary rounded-xl overflow-hidden">
-      {mutation.isPending && !users?.length && (
+      {isPending && !users?.length && (
         <div className="flex items-center justify-center h-full text-white">
           {t("loading")}
         </div>
       )}
-      {!mutation.isPending && !users?.length && isClient && (
+      {!isPending && !users?.length && isClient && (
         <div className="flex items-center justify-center h-full text-white">
           {t("cantFindUserNear")}
         </div>
       )}
-      {formattedUsers()?.map((character, index) => {
-        return (
-          <>
-            <BaseTinderCard
-              key={character.id}
-              // @ts-ignore
-              character={character}
-              childRefsIndex={childRefs[index]}
-            />
-          </>
-        );
-      })}
+      {!!users?.length && renderUsers()}
     </div>
   );
 };

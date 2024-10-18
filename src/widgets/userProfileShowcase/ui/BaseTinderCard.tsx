@@ -20,13 +20,11 @@ export const BaseTinderCard: React.FC<Props> = ({
   return (
     <>
       <TinderCard
-        // @ts-ignore
         ref={childRefsIndex}
         className="absolute w-full h-full flex !pointer-events-none"
         preventSwipe={["up", "down", "right", "left"]}
         key={character.id}
       >
-        {/* @ts-ignore */}
         <TinderCardContent character={character} ref={swiperRef} />
         <TopImageNavigator
           images={character.images}
