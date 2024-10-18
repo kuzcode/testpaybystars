@@ -44,7 +44,7 @@ body {
 }
 
 .userDescription {
-  height: 60%;
+  height: 40%;
   width: 100%;
   position: absolute;
   bottom: 0;
@@ -61,6 +61,21 @@ body {
 .userDescription::after {
   content: '';
   position: absolute;
+  background: rgba(255, 255, 255, 0.2);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  mask: linear-gradient(transparent, black 55%);
+  transition: 1s;
+}
+
+/* .userDescription::after {
+  content: '';
+  position: absolute;
   background: rgba(255, 255, 255, 0.3);
   top: 0;
   left: 0;
@@ -69,6 +84,6 @@ body {
   opacity: 1;
   backdrop-filter: blur(15px);
   -webkit-backdrop-filter: blur(15px);
-  mask: linear-gradient(transparent, black 70%);
+  mask: linear-gradient(transparent, black 50%);
   transition: 1s;
-}
+} */
