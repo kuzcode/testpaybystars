@@ -68,6 +68,7 @@ body {
   bottom: 0;
   opacity: 1;
   backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   mask: linear-gradient(transparent, black 70%);
   transition: 1s;
 }
