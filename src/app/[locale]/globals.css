@@ -42,34 +42,3 @@ body {
   overflow: hidden;
   white-space: nowrap;
 }
-
-.userDescription {
-  height: 120px;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  padding-left: 16px;
-  padding-right: 16px;
-  padding-top: 8px;
-  padding-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-}
-
-.userDescription::after {
-  content: '';
-  position: absolute;
-  background: rgba(255, 255, 255, 0.3);
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 1;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  /* mask: linear-gradient(transparent, black 40%); */
-  mask: linear-gradient(transparent, black 30%), linear-gradient(transparent, black 60%), linear-gradient(transparent, black 80%);
-  transition: 1s;
-}

@@ -1,6 +1,15 @@
 import { IUser } from "@/shared/api/usersApi";
 import { create } from "zustand";
 
+const randomImages = [
+  { fileUrl: "/images/boy.png" },
+  { fileUrl: "/images/girl.png" },
+  { fileUrl: "/images/boy.png" },
+  { fileUrl: "/images/girl.png" },
+  { fileUrl: "/images/boy.png" },
+  { fileUrl: "/images/girl.png" },
+];
+
 interface State {
   currentUser: IUser | null;
   currentIndex: number;
@@ -35,17 +44,13 @@ export const useShowcase = create<State & Action>((set) => ({
     set((state) => ({ currentIndex: state.currentIndex + index })),
 
   setUsers: (users: IUser[]) => {
-    const formattedUsers = users?.map((item) => ({
-      ...item,
-      images: [
-        { fileUrl: "/images/boy.png" },
-        { fileUrl: "/images/girl.png" },
-        { fileUrl: "/images/boy.png" },
-        { fileUrl: "/images/girl.png" },
-        { fileUrl: "/images/boy.png" },
-        { fileUrl: "/images/girl.png" },
-      ],
-    }));
+    const formattedUsers = users?.map((item) => {
+      const images = item?.images?.length ? item.images : randomImages;
+      return {
+        ...item,
+        images,
+      };
+    });
     // @ts-ignore
     set((state) => ({ users: [...formattedUsers, ...state.users] }));
   },
