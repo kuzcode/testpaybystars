@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import {
   getAccessTokenClient,
   setAccessTokenClient,
@@ -9,6 +9,7 @@ import {
 import { CLOUD_STORAGE } from "@/shared/lib/constants";
 
 export default function Home() {
+  const router = useRouter();
   React.useEffect(() => {
     const WebApp = window.Telegram.WebApp;
     WebApp.BackButton.hide();
@@ -29,9 +30,8 @@ export default function Home() {
       } else {
         console.log("here 2," + token);
         console.log(WebAppLanguage);
-
-        redirect(`${WebAppLanguage}/createProfile`);
-        console.log("red");
+        router.push(`${WebAppLanguage}/createProfile`);
+        console.log("123");
       }
     };
 
