@@ -7,6 +7,7 @@ import { ILoginProps, login } from "../api/login";
 import { useRouter } from "next/navigation";
 import { Dropdown } from "@/shared/ui/Dropdown";
 import {
+  CLOUD_STORAGE,
   GENDER,
   SEARCH_GENDER,
   STATUSES,
@@ -108,6 +109,21 @@ export const AuthForm = () => {
         toggleModal("request-geo", null, false);
         clearTimeout(timer);
       }, 3000);
+
+      const isForTesters =
+        window.Telegram.WebApp.initDataUnsafe?.start_param?.includes("env");
+
+      if (isForTesters) {
+        window.Telegram.WebApp.CloudStorage.setItem(
+          CLOUD_STORAGE.TOKEN,
+          response.accessToken,
+          (err) => {
+            if (err) {
+              toast.error("Error setting token");
+            }
+          }
+        );
+      }
       setAccessTokenClient(response.accessToken);
       setRefreshTokenClient(response.refreshToken);
       uploadImages();

@@ -72,6 +72,10 @@ export const LOCAL_STORAGE = {
   // AUTH_IMAGE_COUNT: "auth-image-count",
 };
 
+export const CLOUD_STORAGE = {
+  TOKEN: "token",
+};
+
 export const COOKIES = {
   ACCESS_TOKEN: "accessMatchV3",
 };

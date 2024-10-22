@@ -6,6 +6,7 @@ import {
   getAccessTokenClient,
   setAccessTokenClient,
 } from "@/shared/lib/cookie";
+import { CLOUD_STORAGE } from "@/shared/lib/constants";
 
 export default function Home() {
   React.useEffect(() => {
@@ -29,15 +30,18 @@ export default function Home() {
 
     if (isForTesters) {
       console.log("for test");
-      window.Telegram.WebApp.CloudStorage.getItem("token", (error, result) => {
-        if (error) {
-          console.log("err, ", error);
-          tokenChecker("");
-        } else {
-          console.log("result, ", result);
-          tokenChecker(result || "");
+      window.Telegram.WebApp.CloudStorage.getItem(
+        CLOUD_STORAGE.TOKEN,
+        (error, result) => {
+          if (error) {
+            console.log("err, ", error);
+            tokenChecker("");
+          } else {
+            console.log("result, ", result);
+            tokenChecker(result || "");
+          }
         }
-      });
+      );
     } else {
       console.log("for prod");
       tokenChecker(accessToken);
