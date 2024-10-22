@@ -23,9 +23,14 @@ export default function Home() {
 
     const tokenChecker = (token: string) => {
       if (token) {
+        console.log("here");
+
         setAccessTokenClient(token);
         redirect(`${WebAppLanguage}/search`);
-      } else redirect(`${WebAppLanguage}/createProfile`);
+      } else {
+        console.log("here 2");
+        redirect(`${WebAppLanguage}/createProfile`);
+      }
     };
 
     if (isForTesters) {
