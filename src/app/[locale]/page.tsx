@@ -24,12 +24,14 @@ export default function Home() {
     const tokenChecker = (token: string) => {
       if (token) {
         console.log("here");
-
         setAccessTokenClient(token);
         redirect(`${WebAppLanguage}/search`);
       } else {
-        console.log("here 2");
+        console.log("here 2," + token);
+        console.log(WebAppLanguage);
+
         redirect(`${WebAppLanguage}/createProfile`);
+        console.log("red");
       }
     };
 
