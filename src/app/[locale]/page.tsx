@@ -26,7 +26,7 @@ export default function Home() {
       if (token) {
         console.log("here");
         setAccessTokenClient(token);
-        redirect(`${WebAppLanguage}/search`);
+        router.push(`${WebAppLanguage}/search`);
       } else {
         console.log("here 2," + token);
         console.log(WebAppLanguage);
