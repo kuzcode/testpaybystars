@@ -69,13 +69,15 @@ export const SELECT_LOCATION_TYPES = [
 
 export const LOCAL_STORAGE = {
   ACCESS_TOKEN: "accessMatchV3",
-  // AUTH_IMAGE_COUNT: "auth-image-count",
+  REFRESH_TOKEN: "refreshMatchV3",
 };
 
 export const CLOUD_STORAGE = {
   TOKEN: "token",
+  REFRESH_TOKEN: "refreshToken",
 };
 
 export const COOKIES = {
   ACCESS_TOKEN: "accessMatchV3",
+  REFRESH_TOKEN: "refreshMatchV3",
 };

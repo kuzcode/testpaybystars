@@ -119,7 +119,18 @@ export const AuthForm = () => {
           response.accessToken,
           (err) => {
             if (err) {
-              toast.error("Error setting token");
+              toast.error("Error setting access token");
+            }
+          }
+        );
+      }
+      if (isForTesters) {
+        window.Telegram.WebApp.CloudStorage.setItem(
+          CLOUD_STORAGE.REFRESH_TOKEN,
+          response.refreshToken,
+          (err) => {
+            if (err) {
+              toast.error("Error setting refresh token");
             }
           }
         );

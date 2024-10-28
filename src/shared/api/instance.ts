@@ -4,6 +4,7 @@ import {
   getAccessTokenClient,
   getRefreshTokenClient,
   removeAccessTokenClient,
+  removeRefreshTokenClient,
   setAccessTokenClient,
   setRefreshTokenClient,
 } from "../lib/cookie";
@@ -61,7 +62,7 @@ const refreshToken = async () => {
     return data;
   } catch (error) {
     removeAccessTokenClient();
-    removeAccessTokenClient();
+    removeRefreshTokenClient();
     window.location.href = "/createProfile";
   }
 };

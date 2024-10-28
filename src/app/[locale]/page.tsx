@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   getAccessTokenClient,
   setAccessTokenClient,
+  setRefreshTokenClient,
 } from "@/shared/lib/cookie";
 import { CLOUD_STORAGE } from "@/shared/lib/constants";
 
@@ -22,36 +23,38 @@ export default function Home() {
     const isForTesters = WebApp.initDataUnsafe?.start_param?.includes("env");
     const accessToken = getAccessTokenClient() || "";
 
-    const tokenChecker = (token: string) => {
+    const accessTokenChecker = (token: string) => {
       if (token) {
-        console.log("here");
         setAccessTokenClient(token);
         router.push(`${WebAppLanguage}/search`);
       } else {
-        console.log("here 2," + token);
-        console.log(WebAppLanguage);
         router.push(`${WebAppLanguage}/createProfile`);
-        console.log("123");
       }
     };
 
     if (isForTesters) {
-      console.log("for test");
       window.Telegram.WebApp.CloudStorage.getItem(
         CLOUD_STORAGE.TOKEN,
         (error, result) => {
           if (error) {
-            console.log("err, ", error);
-            tokenChecker("");
+            router.push(`${WebAppLanguage}/createProfile`);
           } else {
-            console.log("result, ", result);
-            tokenChecker(result || "");
+            accessTokenChecker(result || "");
+          }
+        }
+      );
+      window.Telegram.WebApp.CloudStorage.getItem(
+        CLOUD_STORAGE.REFRESH_TOKEN,
+        (error, result) => {
+          if (error) {
+            // router.push(`${WebAppLanguage}/createProfile`);
+          } else {
+            setRefreshTokenClient(result || "");
           }
         }
       );
     } else {
-      console.log("for prod");
-      tokenChecker(accessToken);
+      accessTokenChecker(accessToken);
     }
   }, []);
 

@@ -18,12 +18,17 @@ export const removeAccessTokenClient = () => {
 };
 
 export const getRefreshTokenClient = () => {
-  const token = Cookies.get("refreshTokenCookieMatchClient");
+  const tokenLS = Cookies.get(COOKIES.REFRESH_TOKEN);
+  const token = Cookies.get(COOKIES.REFRESH_TOKEN) || tokenLS;
   return token ? token : null;
 };
 
-export const setRefreshTokenClient = (token: string) =>
-  Cookies.set("refreshTokenCookieMatchClient", token);
+export const setRefreshTokenClient = (token: string) => {
+  Cookies.set(COOKIES.REFRESH_TOKEN, token);
+  localStorage.setItem(LOCAL_STORAGE.REFRESH_TOKEN, token);
+};
 
-export const removeRefreshTokenClient = () =>
-  Cookies.remove("refreshTokenCookieMatchClient");
+export const removeRefreshTokenClient = () => {
+  Cookies.remove(COOKIES.REFRESH_TOKEN);
+  localStorage.removeItem(LOCAL_STORAGE.REFRESH_TOKEN);
+};
