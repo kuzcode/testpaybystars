@@ -119,22 +119,21 @@ export const AuthForm = () => {
           response.accessToken,
           (err) => {
             if (err) {
-              toast.error("Error setting access token");
+              toast.error("Error setting AT");
             }
           }
         );
       }
-      if (isForTesters) {
-        window.Telegram.WebApp.CloudStorage.setItem(
-          CLOUD_STORAGE.REFRESH_TOKEN,
-          response.refreshToken,
-          (err) => {
-            if (err) {
-              toast.error("Error setting refresh token");
-            }
+      // not only for testers, it maybe will useful in future
+      window.Telegram.WebApp.CloudStorage.setItem(
+        CLOUD_STORAGE.REFRESH_TOKEN,
+        response.refreshToken,
+        (err) => {
+          if (err) {
+            toast.error("Error setting RT");
           }
-        );
-      }
+        }
+      );
       setAccessTokenClient(response.accessToken);
       setRefreshTokenClient(response.refreshToken);
       uploadImages();
