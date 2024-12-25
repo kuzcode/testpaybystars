@@ -1,4 +1,5 @@
 import Cookies from "js-cookie";
+
 import { COOKIES, LOCAL_STORAGE } from "./constants";
 
 export const getAccessTokenClient = () => {

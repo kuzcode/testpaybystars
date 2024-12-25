@@ -1,34 +1,31 @@
 "use client";
 
-import React from "react";
-import { Button } from "@/shared/ui/Button";
-import { Card } from "@/shared/ui/Card";
-import { ILoginProps, login } from "../api/login";
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { Dropdown } from "@/shared/ui/Dropdown";
-import {
-  CLOUD_STORAGE,
-  GENDER,
-  SEARCH_GENDER,
-  STATUSES,
-  TG_INIT_DATA,
-} from "@/shared/lib/constants";
+import React from "react";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+
+import { updateUserLocation, uploadProfileImage } from "@/shared/api/usersApi";
 import { ILatLng, IOption, IUploadImage } from "@/shared/interfaces";
+import { GENDER, SEARCH_GENDER, STATUSES } from "@/shared/lib/constants";
 import {
   setAccessTokenClient,
   setRefreshTokenClient,
 } from "@/shared/lib/cookie";
+import { getTelegramInitData } from "@/shared/lib/getTelegramInitData";
 import { useModal } from "@/shared/store/useModal";
-import ProfileImageShowcaseSection from "./ProfileImageShowcaseSection";
-import { LocationSelector } from "./LocationSelector";
-import { updateUserLocation, uploadProfileImage } from "@/shared/api/usersApi";
-import { usePrefetchSearchPage } from "../hooks/usePrefetchSearchPage";
-import { AboutYourselfInput } from "@/shared/ui/Input/AboutYourselfInput";
-import { useTranslation } from "react-i18next";
-import { useQueryClient } from "@tanstack/react-query";
 import { useProfile } from "@/shared/store/useProfile";
-import toast from "react-hot-toast";
-import { blobToFile } from "@/shared/lib/blobToFile";
+import { Button } from "@/shared/ui/Button";
+import { Card } from "@/shared/ui/Card";
+import { Dropdown } from "@/shared/ui/Dropdown";
+import { AboutYourselfInput } from "@/shared/ui/Input/AboutYourselfInput";
+
+import { LocationSelector } from "./LocationSelector";
+import ProfileImageShowcaseSection from "./ProfileImageShowcaseSection";
+import { ILoginProps, login } from "../api/login";
+import { usePrefetchSearchPage } from "../hooks/usePrefetchSearchPage";
+import { useTokenSetter } from "../hooks/useTokenSetter";
 
 export const AuthForm = () => {
   const { t } = useTranslation();
@@ -39,6 +36,7 @@ export const AuthForm = () => {
 
   const { toggleModal } = useModal();
   const { setPendingProfileImages } = useProfile();
+  const tokenSetter = useTokenSetter();
 
   const [images, setImages] = React.useState<IUploadImage[]>([]);
   const [about, setAbout] = React.useState("");
@@ -83,12 +81,8 @@ export const AuthForm = () => {
     }
   };
 
-  const onSubmit = async () => {
-    setLoading(true);
-    const telegramInitData: string =
-      process.env.NODE_ENV === "development"
-        ? TG_INIT_DATA!
-        : window.Telegram.WebApp.initData;
+  const createLoginData = () => {
+    const telegramInitData = getTelegramInitData();
     const data: ILoginProps = {
       info: about,
       reference: "",
@@ -101,55 +95,49 @@ export const AuthForm = () => {
         countryCode: selectedCountryCode,
       }),
     };
-
-    const response = await login(data);
-
-    if (response.accessToken) {
-      const timer = setTimeout(() => {
-        toggleModal("request-geo", null, false);
-        clearTimeout(timer);
-      }, 3000);
-
-      const isForTesters =
-        window.Telegram.WebApp.initDataUnsafe?.start_param?.includes("env");
-
-      if (isForTesters) {
-        window.Telegram.WebApp.CloudStorage.setItem(
-          CLOUD_STORAGE.TOKEN,
-          response.accessToken,
-          (err) => {
-            if (err) {
-              toast.error("Error setting AT");
-            }
-          }
-        );
-      }
-      // not only for testers, it maybe will useful in future
-      window.Telegram.WebApp.CloudStorage.setItem(
-        CLOUD_STORAGE.REFRESH_TOKEN,
-        response.refreshToken,
-        (err) => {
-          if (err) {
-            toast.error("Error setting RT");
-          }
-        }
-      );
-      setAccessTokenClient(response.accessToken);
-      setRefreshTokenClient(response.refreshToken);
-      uploadImages();
-      await updateUserLocation({ lat: coordinates.lat, lng: coordinates.lng });
-
-      router.push("/search");
-    }
-
-    setLoading(false);
+    return data;
   };
 
-  usePrefetchSearchPage();
+  const handleSuccessLogin = async (
+    accessToken: string,
+    refreshToken: string,
+  ) => {
+    const timer = setTimeout(() => {
+      toggleModal("request-geo", null, false);
+      clearTimeout(timer);
+    }, 3000);
+
+    tokenSetter({
+      accessToken,
+      refreshToken,
+    });
+
+    setAccessTokenClient(accessToken);
+    setRefreshTokenClient(refreshToken);
+
+    uploadImages();
+
+    await updateUserLocation({ lat: coordinates.lat, lng: coordinates.lng });
+
+    router.push("/search");
+  };
+
+  const onSubmit = async () => {
+    setLoading(true);
+    const data = createLoginData();
+    const response = await login(data);
+    if (response.accessToken) {
+      const { accessToken, refreshToken } = response;
+      await handleSuccessLogin(accessToken, refreshToken);
+    }
+    setLoading(false);
+  };
 
   React.useEffect(() => {
     setPendingProfileImages(images.length);
   }, [images]);
+
+  usePrefetchSearchPage();
 
   return (
     <div id="form">
@@ -163,6 +151,7 @@ export const AuthForm = () => {
           about={about}
           setAbout={setAbout}
           label={t("aboutYourSoulmate")}
+          required
         />
 
         {/* <AuthTags /> */}

@@ -1,22 +1,24 @@
 "use client";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
-import { Card } from "@/shared/ui/Card";
-import { Gallery } from "./Gallery";
-import { AboutYourselfInput } from "@/shared/ui/Input/AboutYourselfInput";
-import { Button } from "@/shared/ui/Button";
-import { Dropdown } from "@/shared/ui/Dropdown";
-import { GENDER, SEARCH_GENDER, STATUSES } from "@/shared/lib/constants";
-import { IOption } from "@/shared/interfaces";
-import { useProfile } from "@/shared/store/useProfile";
-import { isObjectEmpty } from "@/shared/lib/isObjectEmpty";
 import { useTranslation } from "react-i18next";
+
 import {
   IUpdateUserProfileProps,
   updateUserProfile,
 } from "@/shared/api/usersApi";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSuccessToast } from "@/shared/hooks/useSuccessToast";
+import { IOption } from "@/shared/interfaces";
+import { GENDER, SEARCH_GENDER, STATUSES } from "@/shared/lib/constants";
+import { isObjectEmpty } from "@/shared/lib/isObjectEmpty";
+import { useProfile } from "@/shared/store/useProfile";
+import { Button } from "@/shared/ui/Button";
+import { Card } from "@/shared/ui/Card";
+import { Dropdown } from "@/shared/ui/Dropdown";
+import { AboutYourselfInput } from "@/shared/ui/Input/AboutYourselfInput";
+
+import { Gallery } from "./Gallery";
 
 export const EditProfileCard = () => {
   const queryClient = useQueryClient();
@@ -45,10 +47,10 @@ export const EditProfileCard = () => {
 
   const onSubmit = () => {
     const data: IUpdateUserProfileProps = {
-      ...(gender && { gender }),
-      ...(info && { info }),
-      ...(searchGender && { searchGender }),
-      ...(status && { status }),
+      gender,
+      info,
+      searchGender,
+      status,
     };
     mutation.mutate(data);
   };
@@ -70,6 +72,7 @@ export const EditProfileCard = () => {
             about={info}
             setAbout={setInfo}
             label={t("editYourProfileInfo")}
+            required
           />
           <Dropdown
             label={t("status")}
@@ -101,6 +104,7 @@ export const EditProfileCard = () => {
           onClick={onSubmit}
           text={t("save")}
           loading={mutation.isPending}
+          disabled={!info}
         />
       </div>
     </Card>

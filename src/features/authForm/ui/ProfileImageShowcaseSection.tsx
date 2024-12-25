@@ -1,9 +1,10 @@
-import React from "react";
 import clsx from "clsx";
+import React from "react";
 import { useTranslation } from "react-i18next";
+
 import { IUploadImage } from "@/shared/interfaces";
-import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
 import { imageResizer } from "@/shared/lib/imageResizer";
+import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
 
 interface Props {
   className?: string;
@@ -26,6 +27,7 @@ const ProfileImageShowcaseSection: React.FC<Props> = ({
       const newImage = { id: randomId, url: compressedImage };
       // @ts-ignore
       setImages((prev) => [...prev, newImage]);
+      e.target.value = "";
     }
   };
 

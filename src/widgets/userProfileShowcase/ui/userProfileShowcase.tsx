@@ -1,11 +1,13 @@
 "use client";
 
 import React from "react";
-import { Container } from "@/shared/ui/Container";
-import { useSliderListener } from "@/shared/hooks/useSliderListener";
-import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
-import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
+
 import { FilterModal } from "@/app/[locale]/(bottomNavbar)/search/ui/modals/filterModal";
+import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
+import { useSliderListener } from "@/shared/hooks/useSliderListener";
+import { Container } from "@/shared/ui/Container";
+import { ReactionButtonsGroup } from "@/widgets/reactionButtonsGroup";
+
 import { Showcase } from "./Showcase";
 
 export const UserProfileShowcase = () => {
@@ -19,7 +21,7 @@ export const UserProfileShowcase = () => {
       Array(users?.length)
         .fill(0)
         .map(() => React.createRef()),
-    [users]
+    [users],
   );
 
   const swipe = async (dir: string) => {

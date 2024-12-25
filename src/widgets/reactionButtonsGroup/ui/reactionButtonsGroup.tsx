@@ -1,11 +1,12 @@
+import clsx from "clsx";
+import Image from "next/image";
+import React from "react";
+
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { DislikeButton } from "@/features/dislikeButton";
 import { LikeButton } from "@/features/likeButton";
 import { useModal } from "@/shared/store/useModal";
 import { HotScoreBadge } from "@/shared/ui/HotScoreBadge";
-import clsx from "clsx";
-import Image from "next/image";
-import React from "react";
 
 interface Props {
   className?: string;
@@ -28,7 +29,10 @@ export const ReactionButtonsGroup: React.FC<Props> = ({
 
   const onChangeInDislike = () => onChangeDislike();
 
-  const onContact = () => toggleModal("connect-to-user", currentUser, true);
+  const onContact = () => {
+    if (!currentUser) return;
+    toggleModal("connect-to-user", currentUser, true);
+  };
 
   return (
     <div
@@ -37,7 +41,7 @@ export const ReactionButtonsGroup: React.FC<Props> = ({
         {
           "opacity-[75%] pointer-events-none": isLoading,
           className,
-        }
+        },
       )}
     >
       <DislikeButton userId={currentUser?.id!} onChange={onChangeInDislike} />

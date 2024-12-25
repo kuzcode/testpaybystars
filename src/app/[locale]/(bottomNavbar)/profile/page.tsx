@@ -1,12 +1,14 @@
 import React from "react";
-import { Page } from "@/shared/ui/Page";
-import { WalletState } from "./ui/WalletState";
-import { BalanceCard } from "./ui/BalanceCard";
+
 import { Container } from "@/shared/ui/Container";
+import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
+
+import { BalanceCard } from "./ui/BalanceCard";
 import { EditProfileCard } from "./ui/EditProfileCard/ui/EditProfileCard";
 import { PaymentNetworkTypesModal } from "./ui/modals/PaymentNetworkTypesModal";
 import { ProfileImageRemoveConfirmationModal } from "./ui/modals/ProfileImageRemoveConfirmationModal";
+import { WalletState } from "./ui/WalletState";
 
 const Profile = () => {
   return (

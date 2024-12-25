@@ -1,8 +1,9 @@
 import React from "react";
+
 import { AuthForm } from "@/features/authForm";
 import { Container } from "@/shared/ui/Container";
-import { MainAppBar } from "@/widgets/mainAppBar";
 import { Page } from "@/shared/ui/Page";
+import { MainAppBar } from "@/widgets/mainAppBar";
 
 const CreateProfile = async () => {
   return (

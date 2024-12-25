@@ -1,9 +1,11 @@
 import React from "react";
+
+import { SearchFilterButton } from "@/features/searchFilterButton";
 import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
 import { UserProfileShowcase } from "@/widgets/userProfileShowcase";
+
 import { ConnectToUserModal } from "./ui/modals/connectToUserModal";
-import { SearchFilterButton } from "@/features/searchFilterButton";
 import { NotEnoughEnerguModal } from "./ui/modals/notEnoughEnergyModal";
 
 const Search = () => {

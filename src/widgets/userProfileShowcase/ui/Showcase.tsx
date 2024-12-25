@@ -1,11 +1,13 @@
 "use client";
 
+import clsx from "clsx";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { BaseTinderCard } from "./BaseTinderCard";
+
 import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { useIsClient } from "@/shared/hooks/useIsClient";
-import clsx from "clsx";
+
+import { BaseTinderCard } from "./BaseTinderCard";
 
 interface Props {
   childRefs: React.RefObject<unknown>[];
@@ -40,7 +42,7 @@ export const Showcase: React.FC<Props> = ({ childRefs, isPending }) => {
         </div>
       )}
       {!isPending && !users?.length && isClient && (
-        <div className="flex items-center justify-center h-full text-primary">
+        <div className="flex items-center text-center justify-center h-full text-primary whitespace-pre-line">
           {t("cantFindUserNear")}
         </div>
       )}
@@ -50,7 +52,7 @@ export const Showcase: React.FC<Props> = ({ childRefs, isPending }) => {
           {
             // "opacity-0": isPending && users?.length === 0,
             // "!opacity-1": users?.length !== 0, //
-          }
+          },
         )}
       >
         {!!users?.length && renderUsers()}
