@@ -47,7 +47,7 @@ export const fetchFindUsersNear = async (pageNumberManual: string | null) => {
 
   const resposne = await instance.post(
     `/users/find?distance=${distance}&size=${size}&page_number=${pageNumber}`,
-    data
+    data,
   );
 
   return resposne.data as { profiles: IUser[]; total: number };
@@ -79,7 +79,7 @@ export const fetchOutcomeLikes = async () => {
   const pageNumber = 0;
   const size = 100;
   const response = await instance.get(
-    `/users/out/likes?page_number=${pageNumber}&size=${size}`
+    `/users/out/likes?page_number=${pageNumber}&size=${size}`,
   );
   return response.data as IMyLikedUser[];
 };
@@ -118,9 +118,9 @@ export const buyEnergy = async () => {
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 export interface IUpdateUserProfileProps {
-  searchGender?: string;
-  gender?: string;
-  status?: string;
+  searchGender?: string | null;
+  gender?: string | null;
+  status?: string | null;
   info?: string;
 }
 

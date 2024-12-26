@@ -1,10 +1,11 @@
 "use client";
 
-import React from "react";
-import { Flex } from "./Flex";
-import Image from "next/image";
 import clsx from "clsx";
+import Image from "next/image";
+import React from "react";
 import { useTranslation } from "react-i18next";
+
+import { Flex } from "./Flex";
 
 interface Props {
   className?: string;
@@ -16,7 +17,7 @@ export const TimerBadge: React.FC<Props> = ({ className }) => {
     <Flex
       className={clsx(
         "bg-gradient-to-b from-gradientSecondary to-gradientPrimary w-fit py-1 px-3 gap-x-2 rounded-full",
-        className
+        className,
       )}
     >
       <Image src={"/icons/clock.svg"} width={24} height={24} alt="clock" />

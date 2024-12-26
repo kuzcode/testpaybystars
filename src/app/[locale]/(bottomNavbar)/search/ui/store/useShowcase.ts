@@ -1,5 +1,7 @@
-import { IUser } from "@/shared/api/usersApi";
+/* eslint-disable no-unused-vars */
 import { create } from "zustand";
+
+import { IUser } from "@/shared/api/usersApi";
 
 const randomImages = [
   { fileUrl: "/images/boy.png" },

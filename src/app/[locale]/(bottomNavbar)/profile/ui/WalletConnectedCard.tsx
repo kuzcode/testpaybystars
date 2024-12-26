@@ -1,17 +1,18 @@
 "use client";
 
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import React from "react";
-import { Card } from "@/shared/ui/Card";
-import { Flex } from "@/shared/ui/Flex";
-import { Button } from "@/shared/ui/Button";
 import { useTranslation } from "react-i18next";
+
 import {
   disconnectWalletApi,
   refreshBalanceApi,
 } from "@/shared/api/paymentApi";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 import { useProfile } from "@/shared/store/useProfile";
+import { Button } from "@/shared/ui/Button";
+import { Card } from "@/shared/ui/Card";
+import { Flex } from "@/shared/ui/Flex";
 
 export const WalletConnectedCard = () => {
   const { t } = useTranslation();

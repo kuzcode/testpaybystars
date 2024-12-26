@@ -1,13 +1,15 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+
 import { fetchUsersWhoMatched, IMyMatchedUser } from "@/shared/api/usersApi";
 import { Container } from "@/shared/ui/Container";
 import { DismissibleCard } from "@/shared/ui/DismissibleCard";
 import { Page } from "@/shared/ui/Page";
-import { useQuery } from "@tanstack/react-query";
-import { Skeleton } from "./ui/Skeleton";
 import { MainAppBar } from "@/widgets/mainAppBar";
+
+import { Skeleton } from "./ui/Skeleton";
 
 const MatchesPage = () => {
   const { data, isLoading } = useQuery({

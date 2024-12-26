@@ -1,12 +1,12 @@
 "use client";
 
 import clsx from "clsx";
-import React from "react";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { Flex } from "@/shared/ui/Flex";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+import React from "react";
+
 import { CustomLink } from "@/shared/ui/CustomLink";
+import { Flex } from "@/shared/ui/Flex";
 
 interface Props {
   className?: string;
@@ -58,7 +58,7 @@ export const BottomNavigationBar: React.FC<Props> = ({ className }) => {
     <Flex
       className={clsx(
         "fixed bottom-0 bg-white justify-around border border-[#DFDFDF] h-[85px] w-full rounded-t-[54px] z-[999]",
-        className
+        className,
       )}
     >
       {navLinks.map((link, index) => {

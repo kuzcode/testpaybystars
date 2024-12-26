@@ -1,14 +1,15 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import React from "react";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+
+import { IProfileImage, uploadProfileImage } from "@/shared/api/usersApi";
+import { imageResizer } from "@/shared/lib/imageResizer";
+import { useModal } from "@/shared/store/useModal";
 import { useProfile } from "@/shared/store/useProfile";
 import { MiniImageCard, MiniImageCardWrapper } from "@/shared/ui/MiniImageCard";
-import { useModal } from "@/shared/store/useModal";
-import { IProfileImage, uploadProfileImage } from "@/shared/api/usersApi";
-import { useQueryClient } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
-import toast from "react-hot-toast";
-import { imageResizer } from "@/shared/lib/imageResizer";
 
 export const Gallery = () => {
   const { t } = useTranslation();
@@ -42,7 +43,7 @@ export const Gallery = () => {
         style: {
           fontWeight: 500,
         },
-      }
+      },
     );
     queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
   };

@@ -1,7 +1,9 @@
 import React from "react";
+
+import { Container } from "@/shared/ui/Container";
 import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
-import { Container } from "@/shared/ui/Container";
+
 import { WalletCardList } from "./ui/walletCardList";
 
 const Wallet = () => {

@@ -1,12 +1,14 @@
-import React from "react";
-import Image from "next/image";
-import { dislike } from "../api/dislikeApi";
-import { useModal } from "@/shared/store/useModal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
-import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
+import Image from "next/image";
+import React from "react";
+
 import { useToggleReactionsActivated } from "@/app/[locale]/(bottomNavbar)/search/ui/hooks/useToggleReactionsActivated";
+import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { useIsEnergyLow } from "@/shared/hooks/useIsEnergyLow";
+import { useModal } from "@/shared/store/useModal";
+import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
+
+import { dislike } from "../api/dislikeApi";
 
 interface Props {
   userId: string | undefined;

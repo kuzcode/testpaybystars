@@ -1,18 +1,13 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
+import React from "react";
+
 import { useModal } from "@/shared/store/useModal";
 import { Button } from "@/shared/ui/Button";
 import { Vaul } from "@/shared/ui/modals/Vaul";
 
-interface IGEO {
-  latitude: number;
-  longitude: number;
-}
-
 export const PeopleNearbyModal = () => {
-  const [geo, setGeo] = React.useState<IGEO | null>(null);
   const { isOpen, type, toggleModal } = useModal((state) => state);
 
   const modal = isOpen && type === "request-geo";

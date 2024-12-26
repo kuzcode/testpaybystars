@@ -1,10 +1,12 @@
-import React from "react";
-import { Flex } from "../Flex";
-import { Card } from "../Card";
 import Image from "next/image";
-import { HotScoreBadge } from "../HotScoreBadge";
-import { useModal } from "@/shared/store/useModal";
+import React from "react";
+
 import { IMyLikedUser, IMyMatchedUser } from "@/shared/api/usersApi";
+import { useModal } from "@/shared/store/useModal";
+
+import { Card } from "../Card";
+import { Flex } from "../Flex";
+import { HotScoreBadge } from "../HotScoreBadge";
 
 interface Props {
   user?: IMyLikedUser | IMyMatchedUser;

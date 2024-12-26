@@ -12,7 +12,7 @@ export const Card: React.FC<Props> = ({ className, children, ...props }) => {
       {...props}
       className={clsx(
         "p-4 border border-[#000000] bg-white border-opacity-[18%] rounded-2xl",
-        className
+        className,
       )}
     >
       {children}

@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
 import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import React from "react";
+
 import { TON_CONNECT_UI_MANIFEST_URL } from "@/shared/lib/constants";
 
 export const TonConnectUiProvider = ({

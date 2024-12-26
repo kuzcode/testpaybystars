@@ -1,8 +1,9 @@
 "use client";
 
+import React from "react";
+
 import { useProfile } from "@/shared/store/useProfile";
 import { HotScoreBadge } from "@/shared/ui/HotScoreBadge";
-import React from "react";
 
 export const FireBalance = () => {
   const { profile } = useProfile();

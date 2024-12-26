@@ -1,5 +1,5 @@
-import React from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import React from "react";
 
 export const useSetSearchParams = () => {
   const router = useRouter();
@@ -13,7 +13,7 @@ export const useSetSearchParams = () => {
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const setSearchParams = (key: string, value: string) => {

@@ -1,5 +1,5 @@
-import React from "react";
 import clsx from "clsx";
+import React from "react";
 
 interface Props {
   className?: string;
@@ -14,7 +14,7 @@ export const GradientRoundedWaves: React.FC<Props> = ({
     <div
       className={clsx(
         "w-[180px] h-[180px] border border-primary/40 rounded-full flex items-center justify-center mx-auto",
-        className
+        className,
       )}
     >
       <div className="w-[155px] h-[155px] border border-primary rounded-full flex items-center justify-center">

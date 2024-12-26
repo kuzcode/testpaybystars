@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export const formatPrice = (price: number) => {
   let formattedPrice: string;
   if (price >= 1000000) {

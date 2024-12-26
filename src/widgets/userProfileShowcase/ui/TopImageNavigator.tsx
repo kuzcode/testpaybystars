@@ -1,6 +1,7 @@
 /* eslint-disable react/display-name */
-import React from "react";
 import clsx from "clsx";
+import React from "react";
+
 import { IImage } from "@/shared/api/usersApi";
 
 interface Props {
@@ -20,7 +21,7 @@ export const TopImageNavigator = React.forwardRef(
       hide,
       disableTouch,
     }: Props,
-    ref
+    ref,
   ) => {
     const onChangeImage = (index: number) => {
       setCurrentImageIndex(index);
@@ -35,7 +36,7 @@ export const TopImageNavigator = React.forwardRef(
           {
             "!pointer-events-none": disableTouch,
             "opacity-0": hide,
-          }
+          },
         )}
       >
         {images.map((_, index) => {
@@ -46,7 +47,7 @@ export const TopImageNavigator = React.forwardRef(
                 "h-[6px] rounded-full w-[16%] bg-white !pointer-events-auto",
                 {
                   "opacity-50": currentImageIndex !== index,
-                }
+                },
               )}
               key={index}
             />
@@ -54,5 +55,5 @@ export const TopImageNavigator = React.forwardRef(
         })}
       </div>
     );
-  }
+  },
 );

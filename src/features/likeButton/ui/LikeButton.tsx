@@ -1,13 +1,15 @@
-import clsx from "clsx";
-import React from "react";
-import Image from "next/image";
-import { like } from "../api/likeApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
-import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
+import clsx from "clsx";
+import Image from "next/image";
+import React from "react";
+
 import { useToggleReactionsActivated } from "@/app/[locale]/(bottomNavbar)/search/ui/hooks/useToggleReactionsActivated";
-import { useModal } from "@/shared/store/useModal";
+import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
 import { useIsEnergyLow } from "@/shared/hooks/useIsEnergyLow";
+import { useModal } from "@/shared/store/useModal";
+import { AnimatedButtonWrapper } from "@/shared/ui/wrappers/AnimatedButtonWrapper";
+
+import { like } from "../api/likeApi";
 
 interface Props {
   userId: string | undefined;
@@ -46,7 +48,7 @@ export const LikeButton: React.FC<Props> = ({ userId, onChange }) => {
       <button
         onClick={onLike}
         className={clsx(
-          "w-[70px] h-[70px] rounded-full bg-white flex items-center justify-center shadow-sm"
+          "w-[70px] h-[70px] rounded-full bg-white flex items-center justify-center shadow-sm",
         )}
       >
         <Image

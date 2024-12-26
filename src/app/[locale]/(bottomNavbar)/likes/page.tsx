@@ -1,13 +1,15 @@
 "use client";
 
-import React from "react";
-import { Page } from "@/shared/ui/Page";
-import { Skeleton } from "./ui/Skeleton";
 import { useQuery } from "@tanstack/react-query";
-import { MainAppBar } from "@/widgets/mainAppBar";
+import React from "react";
+
+import { fetchOutcomeLikes, IMyLikedUser } from "@/shared/api/usersApi";
 import { Container } from "@/shared/ui/Container";
 import { DismissibleCard } from "@/shared/ui/DismissibleCard";
-import { fetchOutcomeLikes, IMyLikedUser } from "@/shared/api/usersApi";
+import { Page } from "@/shared/ui/Page";
+import { MainAppBar } from "@/widgets/mainAppBar";
+
+import { Skeleton } from "./ui/Skeleton";
 import { ConnectToUserModal } from "../search/ui/modals/connectToUserModal";
 
 const Likes = () => {

@@ -1,12 +1,12 @@
-import React from "react";
 import clsx from "clsx";
-import { Flex } from "@/shared/ui/Flex";
+import React from "react";
+
 import { Container } from "@/shared/ui/Container";
-import { FireBalance } from "@/widgets/fireBalance";
-import { AppBarTitle } from "./appBarTitle";
 import { CustomLink } from "@/shared/ui/CustomLink";
-import Image from "next/image";
-import Link from "next/link";
+import { Flex } from "@/shared/ui/Flex";
+import { FireBalance } from "@/widgets/fireBalance";
+
+import { AppBarTitle } from "./appBarTitle";
 import { BackButton } from "./backButton";
 
 interface Props {
@@ -35,7 +35,7 @@ export const MainAppBar: React.FC<Props> = ({
         {
           "shadow-sm": shadow,
         },
-        className
+        className,
       )}
     >
       <Container className="w-full">

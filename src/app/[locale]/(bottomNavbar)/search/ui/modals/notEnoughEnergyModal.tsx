@@ -1,20 +1,21 @@
 "use client";
 
-import React from "react";
-import Image from "next/image";
-import { Flex } from "@/shared/ui/Flex";
-import { Button } from "@/shared/ui/Button";
-import { Vaul } from "@/shared/ui/modals/Vaul";
-import { useTranslation } from "react-i18next";
-import { useModal } from "@/shared/store/useModal";
-import { ModalTitle } from "@/shared/ui/modals/ModalTitle";
-import { GradientHotIcon } from "@/shared/ui/GradientHotIcon";
-import { ModalDescription } from "@/shared/ui/modals/ModalDescription";
-import { GradientRoundedWaves } from "@/shared/ui/GradientRoundedWaves";
-import { useProfile } from "@/shared/store/useProfile";
-import { useCustomToast } from "@/shared/hooks/useCustomToast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { buyEnergy } from "@/shared/api/usersApi";
+import { useCustomToast } from "@/shared/hooks/useCustomToast";
+import { useModal } from "@/shared/store/useModal";
+import { useProfile } from "@/shared/store/useProfile";
+import { Button } from "@/shared/ui/Button";
+import { Flex } from "@/shared/ui/Flex";
+import { GradientHotIcon } from "@/shared/ui/GradientHotIcon";
+import { GradientRoundedWaves } from "@/shared/ui/GradientRoundedWaves";
+import { ModalDescription } from "@/shared/ui/modals/ModalDescription";
+import { ModalTitle } from "@/shared/ui/modals/ModalTitle";
+import { Vaul } from "@/shared/ui/modals/Vaul";
 
 export const NotEnoughEnerguModal = () => {
   const queryClient = useQueryClient();

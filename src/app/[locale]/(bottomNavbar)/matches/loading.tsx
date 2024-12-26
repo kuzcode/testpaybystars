@@ -1,9 +1,10 @@
 import React from "react";
-import { Page } from "@/shared/ui/Page";
-import { Skeleton } from "./ui/Skeleton";
-import { MainAppBar } from "@/widgets/mainAppBar";
+
 import { Container } from "@/shared/ui/Container";
-import { useTranslation } from "react-i18next";
+import { Page } from "@/shared/ui/Page";
+import { MainAppBar } from "@/widgets/mainAppBar";
+
+import { Skeleton } from "./ui/Skeleton";
 
 const Loading = () => {
   return (

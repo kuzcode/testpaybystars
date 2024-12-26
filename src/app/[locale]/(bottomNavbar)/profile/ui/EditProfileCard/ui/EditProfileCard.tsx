@@ -24,11 +24,11 @@ export const EditProfileCard = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation();
   const { profile } = useProfile();
-  const callSuccessToast = useSuccessToast();
   const [info, setInfo] = React.useState("");
   const [status, setStatus] = React.useState("");
   const [gender, setGender] = React.useState("");
   const [searchGender, setSearchGender] = React.useState("");
+  const callSuccessToast = useSuccessToast();
 
   const mutation = useMutation({
     mutationFn: (data: IUpdateUserProfileProps) => updateUserProfile(data),
@@ -47,10 +47,10 @@ export const EditProfileCard = () => {
 
   const onSubmit = () => {
     const data: IUpdateUserProfileProps = {
-      gender,
+      gender: gender || null,
       info,
-      searchGender,
-      status,
+      searchGender: searchGender || null,
+      status: status || null,
     };
     mutation.mutate(data);
   };

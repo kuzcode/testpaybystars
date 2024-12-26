@@ -9,7 +9,7 @@ export const calculateUsdFromUsdt = (usdtAmount: bigint) =>
 
 export const isUUID = (uuid: string): boolean =>
   uuid.match(
-    "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$"
+    "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
   ) !== null;
 
 export async function wait(timeout: number) {
@@ -18,7 +18,7 @@ export async function wait(timeout: number) {
 
 export async function retry<T>(
   fn: () => Promise<T>,
-  options: { retries: number; delay: number }
+  options: { retries: number; delay: number },
 ): Promise<T> {
   let lastError: Error | undefined;
   for (let i = 0; i < options.retries; i++) {

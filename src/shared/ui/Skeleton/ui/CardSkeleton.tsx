@@ -1,6 +1,7 @@
-import React from "react";
-import { Card } from "../../Card";
 import clsx from "clsx";
+import React from "react";
+
+import { Card } from "../../Card";
 
 interface Props {
   className?: string;

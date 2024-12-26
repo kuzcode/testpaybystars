@@ -1,8 +1,10 @@
 import React from "react";
+
+import { Container } from "@/shared/ui/Container";
 import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
+
 import { Skeleton } from "./ui/Skeleton";
-import { Container } from "@/shared/ui/Container";
 
 const Loading = () => {
   return (

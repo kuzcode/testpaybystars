@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
 import clsx from "clsx";
 import Link from "next/link";
+import React from "react";
+
 import { useCustomHref } from "../hooks/useCustomHref";
 
 interface Props extends React.HTMLAttributes<HTMLAnchorElement> {

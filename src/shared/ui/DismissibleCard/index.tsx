@@ -1,7 +1,9 @@
 import React from "react";
+
 import { IMyLikedUser, IMyMatchedUser } from "@/shared/api/usersApi";
-import { RevokeLikeLayer } from "./RevokeLikeLayer";
+
 import { LikeLayer } from "./LikeLayer";
+import { RevokeLikeLayer } from "./RevokeLikeLayer";
 
 interface Props {
   className?: string;

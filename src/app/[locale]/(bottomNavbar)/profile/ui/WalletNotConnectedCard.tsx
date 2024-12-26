@@ -1,11 +1,12 @@
 "use client";
 
 import React from "react";
+import { useTranslation } from "react-i18next";
+
+import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
+import { Button } from "@/shared/ui/Button";
 import { Card } from "@/shared/ui/Card";
 import { Step } from "@/shared/ui/Step";
-import { Button } from "@/shared/ui/Button";
-import { useTranslation } from "react-i18next";
-import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
 
 export const WalletNotConnectedCard = () => {
   const { t } = useTranslation();

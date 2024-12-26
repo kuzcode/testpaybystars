@@ -1,22 +1,22 @@
 "use client";
 
-import React from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { buyContact, IUser } from "@/shared/api/usersApi";
+import { useCustomToast } from "@/shared/hooks/useCustomToast";
 import { useModal } from "@/shared/store/useModal";
+import { useProfile } from "@/shared/store/useProfile";
 import { Button } from "@/shared/ui/Button";
 import { Flex } from "@/shared/ui/Flex";
 import { GradientHotIcon } from "@/shared/ui/GradientHotIcon";
-import { Vaul } from "@/shared/ui/modals/Vaul";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useTranslation } from "react-i18next";
 import { GradientRoundedWaves } from "@/shared/ui/GradientRoundedWaves";
-import { ModalTitle } from "@/shared/ui/modals/ModalTitle";
-import { useProfile } from "@/shared/store/useProfile";
-import toast from "react-hot-toast";
-import { useCustomToast } from "@/shared/hooks/useCustomToast";
-import { LetterIcon } from "@/shared/ui/LetterIcon";
 import { Icon } from "@/shared/ui/Icon";
+import { LetterIcon } from "@/shared/ui/LetterIcon";
+import { ModalTitle } from "@/shared/ui/modals/ModalTitle";
+import { Vaul } from "@/shared/ui/modals/Vaul";
 
 export const ConnectToUserModal = () => {
   const queryClient = useQueryClient();

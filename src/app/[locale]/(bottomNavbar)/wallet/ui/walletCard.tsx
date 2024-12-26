@@ -1,17 +1,19 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
+import React from "react";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+
+import { useSendUSDTTransaction } from "@/shared/hooks/payment/useSendUSDTTransaction";
+import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
+import { IFirePrice } from "@/shared/interfaces";
+import { usePayment } from "@/shared/store/usePayment";
+import { useProfile } from "@/shared/store/useProfile";
 import { Card } from "@/shared/ui/Card";
 import { Flex } from "@/shared/ui/Flex";
-import { useTranslation } from "react-i18next";
-import { IFirePrice } from "@/shared/interfaces";
-import { useProfile } from "@/shared/store/useProfile";
-import { usePayment } from "@/shared/store/usePayment";
-import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
-import { useSendUSDTTransaction } from "@/shared/hooks/payment/useSendUSDTTransaction";
+
 import { formatPrice } from "../lib/formatPrice";
-import toast from "react-hot-toast";
 
 interface Props {
   price: IFirePrice;

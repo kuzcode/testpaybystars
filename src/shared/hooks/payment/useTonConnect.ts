@@ -1,10 +1,11 @@
 "use client";
 
-import { useContext } from "react";
-import { TonClient } from "@ton/ton";
-import { CHAIN, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
 import { Address, Sender, SenderArguments } from "@ton/core";
+import { TonClient } from "@ton/ton";
 import { TonConnectUI } from "@tonconnect/ui";
+import { CHAIN, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+import { useContext } from "react";
+
 import { TonClientContext } from "@/shared/context/tonClientContext";
 
 export const useTonConnect = (): {

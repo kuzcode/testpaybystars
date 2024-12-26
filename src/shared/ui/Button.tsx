@@ -31,7 +31,7 @@ export const Button: React.FC<Props> = ({
         {
           "!bg-[#D2D2D2]": disabled,
           "bg-secondary": !disabled,
-        }
+        },
       )}
       {...props}
     >

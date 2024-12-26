@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
-import { Vaul } from "@/shared/ui/modals/Vaul";
-import { useModal } from "@/shared/store/useModal";
-import { Card } from "@/shared/ui/Card";
 import { ReactSVG } from "react-svg";
-import { Flex } from "@/shared/ui/Flex";
-import { TNetworkType } from "@/shared/types";
+
 import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
+import { useModal } from "@/shared/store/useModal";
+import { TNetworkType } from "@/shared/types";
+import { Card } from "@/shared/ui/Card";
+import { Flex } from "@/shared/ui/Flex";
+import { Vaul } from "@/shared/ui/modals/Vaul";
 
 export const PaymentNetworkTypesModal = () => {
   const connectTonWallet = useConnectTonWallet();

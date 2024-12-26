@@ -1,6 +1,7 @@
+import React from "react";
+
 import { TAGS } from "@/shared/lib/constants";
 import { Flex } from "@/shared/ui/Flex";
-import React from "react";
 
 export const AuthTags = () => {
   return (

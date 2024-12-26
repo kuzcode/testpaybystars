@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Flex } from "@/shared/ui/Flex";
 import { LetterIcon } from "@/shared/ui/LetterIcon";
 

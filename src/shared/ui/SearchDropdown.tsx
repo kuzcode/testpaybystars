@@ -1,13 +1,14 @@
 "use client";
 
 import clsx from "clsx";
-import React from "react";
 import Image from "next/image";
-import { ReactSVG } from "react-svg";
-import { IOption } from "../interfaces";
+import React from "react";
 import { useTranslation } from "react-i18next";
+import { ReactSVG } from "react-svg";
+
 import { useDebounce } from "../hooks/useDebounce";
 import { useOutsideClick } from "../hooks/useOutsideClick";
+import { IOption } from "../interfaces";
 
 interface Props {
   label?: string;
@@ -64,7 +65,7 @@ export const SearchDropdown: React.FC<Props> = ({
           "relative flex items-center justify-between border border-black/40 p-3 rounded-xl h-[50px]",
           {
             "pointer-events-none": isOpen,
-          }
+          },
         )}
       >
         <input
@@ -101,7 +102,7 @@ export const SearchDropdown: React.FC<Props> = ({
                   {
                     "pointer-events-none": isActive,
                     "text-secondary": !isActive,
-                  }
+                  },
                 )}
               >
                 <h4 className="font-medium">{t(option.label)}</h4>

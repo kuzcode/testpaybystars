@@ -1,10 +1,12 @@
 "use client";
 
+import { useTonAddress } from "@tonconnect/ui-react";
 import React from "react";
+
+import { useProfile } from "@/shared/store/useProfile";
+
 import { WalletConnectedCard } from "./WalletConnectedCard";
 import { WalletNotConnectedCard } from "./WalletNotConnectedCard";
-import { useTonAddress } from "@tonconnect/ui-react";
-import { useProfile } from "@/shared/store/useProfile";
 
 export const WalletState = () => {
   const tonAddress = useTonAddress();

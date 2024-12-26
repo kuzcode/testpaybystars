@@ -1,4 +1,6 @@
 import axios from "axios";
+
+import { ILoginResponse } from "../interfaces";
 import { BASE_URL } from "../lib/constants";
 import {
   getAccessTokenClient,
@@ -8,7 +10,6 @@ import {
   setAccessTokenClient,
   setRefreshTokenClient,
 } from "../lib/cookie";
-import { ILoginResponse } from "../interfaces";
 
 export const instance = axios.create({
   baseURL: BASE_URL,
@@ -28,7 +29,7 @@ instance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 instance.interceptors.response.use(
@@ -39,15 +40,14 @@ instance.interceptors.response.use(
     if (error.response.status === 401) {
       try {
         const newToken = await refreshToken();
-        error.config.headers[
-          "x-auth-token"
-        ] = `Bearer ${newToken?.accessToken}`;
+        error.config.headers["x-auth-token"] =
+          `Bearer ${newToken?.accessToken}`;
         return instance(error.config);
       } catch (error) {
         // window.location.href = "/createProfile";
       }
     }
-  }
+  },
 );
 
 const refreshToken = async () => {

@@ -1,13 +1,14 @@
 "use client";
 
+import clsx from "clsx";
 import React from "react";
 import { useTranslation } from "react-i18next";
+
 import { useOutsideClick } from "../hooks/useOutsideClick";
-import clsx from "clsx";
 
 interface Props {
   className?: string;
-  button: JSX.Element;
+  button: React.JSX.Element;
 }
 
 export const TooltipButton: React.FC<Props> = ({ button }) => {

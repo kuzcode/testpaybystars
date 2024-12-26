@@ -1,7 +1,8 @@
-import React from "react";
-import { Flex } from "./Flex";
 import clsx from "clsx";
 import Image from "next/image";
+import React from "react";
+
+import { Flex } from "./Flex";
 
 interface Props {
   className?: string;
@@ -13,7 +14,7 @@ export const HotScoreBadge: React.FC<Props> = ({ className, count }) => {
     <Flex
       className={clsx(
         "bg-gradient-to-tr from-gradientSecondary to-gradientPrimary h-[34px] pl-3 pr-1.5 gap-x-0.5 rounded-full justify-center",
-        className
+        className,
       )}
     >
       <h3 className="text-white font-semibold text-[20px]">{count}</h3>

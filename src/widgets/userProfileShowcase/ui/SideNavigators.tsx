@@ -1,7 +1,8 @@
 /* eslint-disable react/display-name */
 import React from "react";
-import { Flex } from "@/shared/ui/Flex";
+
 import { IImage } from "@/shared/api/usersApi";
+import { Flex } from "@/shared/ui/Flex";
 
 interface Props {
   images: IImage[];
@@ -37,5 +38,5 @@ export const SideNavigators = React.forwardRef(
         />
       </Flex>
     );
-  }
+  },
 );

@@ -18,7 +18,7 @@ export const connectWalletApi = async (data: IConnectWalletApiProps) => {
 
   const response = await instance.post(
     `${PREFIX}/${blockchainType}/connect`,
-    body
+    body,
   );
   return response.data;
 };
@@ -31,7 +31,7 @@ export const disconnectWalletApi = async (data: IDisconnectWalletApiProps) => {
 
   const response = await instance.post(
     `${PREFIX}/${blockchainType}/disconnect`,
-    body
+    body,
   );
   return response.data;
 };
@@ -43,7 +43,7 @@ export const refreshBalanceApi = async (blockchainType: TBlockchainType) => {
 
 export const getAuthorWalletApi = async (blockchainType: TBlockchainType) => {
   const response = await instance.get(
-    `/public/author/wallet/${blockchainType}`
+    `/public/author/wallet/${blockchainType}`,
   );
   return response.data;
 };

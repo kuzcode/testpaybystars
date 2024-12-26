@@ -1,13 +1,14 @@
 "use client";
 
-import { deleteUserImage, IProfileImage } from "@/shared/api/usersApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useModal } from "@/shared/store/useModal";
-import { Vaul } from "@/shared/ui/modals/Vaul";
-import { useTranslation } from "react-i18next";
-import { Button } from "@/shared/ui/Button";
 import Image from "next/image";
 import React from "react";
+import { useTranslation } from "react-i18next";
+
+import { deleteUserImage, IProfileImage } from "@/shared/api/usersApi";
+import { useModal } from "@/shared/store/useModal";
+import { Button } from "@/shared/ui/Button";
+import { Vaul } from "@/shared/ui/modals/Vaul";
 
 export const ProfileImageRemoveConfirmationModal = () => {
   const { t } = useTranslation();

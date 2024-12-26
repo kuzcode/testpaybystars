@@ -1,7 +1,4 @@
-import { GENDER, SEARCH_GENDER, STATUSES } from "@/shared/lib/constants";
-import { Dropdown } from "@/shared/ui/Dropdown";
 import React from "react";
-import { LocationSelector } from "./LocationSelector";
 
 export const DropdownsSection = () => {
   return (

@@ -1,8 +1,9 @@
-import { revokeLike } from "@/shared/api/usersApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import React from "react";
 import { useTranslation } from "react-i18next";
+
+import { revokeLike } from "@/shared/api/usersApi";
 
 interface Props {
   id: string;

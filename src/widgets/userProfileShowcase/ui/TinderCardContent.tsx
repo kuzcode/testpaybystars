@@ -1,11 +1,12 @@
 /* eslint-disable react/display-name */
 // "use client";
 
-import { IUser } from "@/shared/api/usersApi";
-import Slider from "react-slick";
+import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
-import clsx from "clsx";
+import Slider from "react-slick";
+
+import { IUser } from "@/shared/api/usersApi";
 
 // Import css files
 import "slick-carousel/slick/slick.css";
@@ -65,5 +66,5 @@ export const TinderCardContent = React.forwardRef(
         />
       </div>
     );
-  }
+  },
 );

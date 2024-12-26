@@ -1,6 +1,7 @@
+import React from "react";
+
 import { CardSkeleton } from "@/shared/ui/Skeleton";
 import { SkeletonWrapper } from "@/shared/ui/Skeleton/ui/SkeletonWrapper";
-import React from "react";
 
 export const Skeleton = () => {
   return (

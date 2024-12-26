@@ -1,19 +1,25 @@
-import { dir } from "i18next";
-import Script from "next/script";
-import { Inter } from "next/font/google";
-import { i18nConfig } from "@/i18nConfig";
-import { notFound } from "next/navigation";
-import type { Metadata, Viewport } from "next";
-import { ReactQueryProvider } from "./_providers/ReactQueryProvider";
-import TranslationsProvider from "./_providers/TranslationProvider";
+/* eslint-disable no-unused-vars */
+/* eslint-disable import/order */
 import { Telegram } from "@twa-dev/types";
-import initTranslations from "../i18n";
-import "./globals.css";
-import { TonConnectUIProvider } from "@tonconnect/ui-react";
-import { TonConnectUiProvider } from "./_providers/TonConnectUiProvider";
-import { ToasterProvider } from "./_providers/ToasterProvider";
+import { dir } from "i18next";
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
+import { notFound } from "next/navigation";
+import Script from "next/script";
+import React from "react";
+
+import { i18nConfig } from "@/i18nConfig";
 import { TonClientProvider } from "@/shared/context/tonClientContext";
 import { InitWebAppParams } from "@/shared/ui/InitWebAppParams";
+
+import initTranslations from "../i18n";
+import { ReactQueryProvider } from "./_providers/ReactQueryProvider";
+import TranslationsProvider from "./_providers/TranslationProvider";
+
+import "./globals.css";
+
+import { TonConnectUiProvider } from "./_providers/TonConnectUiProvider";
+import { ToasterProvider } from "./_providers/ToasterProvider";
 
 declare global {
   interface Window {

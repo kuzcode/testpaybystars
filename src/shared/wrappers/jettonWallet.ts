@@ -39,7 +39,7 @@ export class JettonWallet implements Contract {
       | {
           comment: string;
         }
-    )
+    ),
   ) {
     // constructing payload for jetton transfer
     const builder = beginCell()

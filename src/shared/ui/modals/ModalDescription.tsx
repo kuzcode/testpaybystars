@@ -3,8 +3,8 @@ import React from "react";
 
 interface Props {
   className?: string;
-  main: JSX.Element;
-  span: JSX.Element;
+  main: React.JSX.Element;
+  span: React.JSX.Element;
   children: React.ReactNode;
 }
 

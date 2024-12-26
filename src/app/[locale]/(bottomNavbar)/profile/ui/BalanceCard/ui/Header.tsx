@@ -1,12 +1,13 @@
 "use client";
 
+import Image from "next/image";
+import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { useProfile } from "@/shared/store/useProfile";
 import { Flex } from "@/shared/ui/Flex";
 import { GradientHotIcon } from "@/shared/ui/GradientHotIcon";
 import { TooltipButton } from "@/shared/ui/TooltipButton";
-import Image from "next/image";
-import React from "react";
-import { useTranslation } from "react-i18next";
 
 export const Header = () => {
   const { t } = useTranslation();

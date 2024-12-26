@@ -1,10 +1,11 @@
 "use client";
 
-import { useTonConnectUI } from "@tonconnect/ui-react";
-import { usePayment } from "../store/usePayment";
-import { connectWalletApi } from "../api/paymentApi";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTonConnectUI } from "@tonconnect/ui-react";
+
 import { useSuccessToast } from "./useSuccessToast";
+import { connectWalletApi } from "../api/paymentApi";
+import { usePayment } from "../store/usePayment";
 
 export const useTonConnectListener = () => {
   const queryClient = useQueryClient();

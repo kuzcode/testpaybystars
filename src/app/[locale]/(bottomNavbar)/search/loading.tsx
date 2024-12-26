@@ -1,6 +1,7 @@
+import React from "react";
+
 import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
-import React from "react";
 
 const Loading = () => {
   return (

@@ -20,7 +20,7 @@ export const Page: React.FC<Props> = ({
         {
           "h-screen": !disableHeightLimit,
           "!pb-8": disableHeightLimit,
-        }
+        },
       )}
     >
       {children}

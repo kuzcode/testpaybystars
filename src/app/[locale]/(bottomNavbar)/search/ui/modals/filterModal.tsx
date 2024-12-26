@@ -1,18 +1,19 @@
 "use client";
 
-import React from "react";
-import { Card } from "@/shared/ui/Card";
-import { Button } from "@/shared/ui/Button";
-import { Vaul } from "@/shared/ui/modals/Vaul";
-import { Dropdown } from "@/shared/ui/Dropdown";
 import { useSearchParams } from "next/navigation";
-import { useModal } from "@/shared/store/useModal";
-import { SEARCH_PARAMS } from "@/shared/lib/searchParams";
-import { GENDER, STATUSES } from "@/shared/lib/constants";
-import { useSetSearchParams } from "@/shared/hooks/useSetSearchParams";
+import React from "react";
 import { useTranslation } from "react-i18next";
+
+import { useSetSearchParams } from "@/shared/hooks/useSetSearchParams";
+import { GENDER, STATUSES } from "@/shared/lib/constants";
+import { SEARCH_PARAMS } from "@/shared/lib/searchParams";
+import { useModal } from "@/shared/store/useModal";
+import { Button } from "@/shared/ui/Button";
+import { Card } from "@/shared/ui/Card";
+import { Dropdown } from "@/shared/ui/Dropdown";
+import { Vaul } from "@/shared/ui/modals/Vaul";
+
 import { useShowcase } from "../store/useShowcase";
-import { useQueryClient } from "@tanstack/react-query";
 
 interface Props {
   handleSubmit?: () => void;
@@ -20,7 +21,6 @@ interface Props {
 
 export const FilterModal: React.FC<Props> = ({ handleSubmit }) => {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const setSearchParams = useSetSearchParams();
   const { isOpen, type, toggleModal } = useModal();

@@ -1,9 +1,11 @@
-import React from "react";
 import { useMutation } from "@tanstack/react-query";
-import { fetchFindUsersNear } from "../api/usersApi";
-import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
-import { useSetSearchParams } from "./useSetSearchParams";
 import { useSearchParams } from "next/navigation";
+import React from "react";
+
+import { useShowcase } from "@/app/[locale]/(bottomNavbar)/search/ui/store/useShowcase";
+
+import { useSetSearchParams } from "./useSetSearchParams";
+import { fetchFindUsersNear } from "../api/usersApi";
 import { SEARCH_PARAMS } from "../lib/searchParams";
 
 export const useSliderListener = () => {

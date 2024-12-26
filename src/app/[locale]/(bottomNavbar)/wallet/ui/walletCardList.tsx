@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
-import { WalletCard } from "./walletCard";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { usePayment } from "@/shared/store/usePayment";
-import { getAuthorWalletApi } from "@/shared/api/paymentApi";
+import React from "react";
+
 import { getFireProposalList } from "@/shared/api/firesApi";
+import { getAuthorWalletApi } from "@/shared/api/paymentApi";
 import { IFirePrice } from "@/shared/interfaces";
+import { usePayment } from "@/shared/store/usePayment";
+
+import { WalletCard } from "./walletCard";
 
 export const WalletCardList = () => {
   const { setAuthorWalletAddress, firePriceList, setFirePriceList } =

@@ -1,4 +1,5 @@
 import { create } from "zustand";
+
 import { IFirePrice } from "../interfaces";
 
 interface State {

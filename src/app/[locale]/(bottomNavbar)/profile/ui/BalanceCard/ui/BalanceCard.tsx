@@ -1,15 +1,17 @@
 "use client";
 
 import React from "react";
-import { Header } from "./Header";
-import { Card } from "@/shared/ui/Card";
-import { Button } from "@/shared/ui/Button";
 import { useTranslation } from "react-i18next";
+
 import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
-import { useIsWalletConnected } from "@/shared/hooks/useIsWalletConnected";
 import { useCustomPush } from "@/shared/hooks/useCustomPush";
-import { letters } from "@/shared/ui/LetterIcon/lib/getLetterName";
+import { useIsWalletConnected } from "@/shared/hooks/useIsWalletConnected";
+import { Button } from "@/shared/ui/Button";
+import { Card } from "@/shared/ui/Card";
 import { LetterIcon } from "@/shared/ui/LetterIcon";
+import { letters } from "@/shared/ui/LetterIcon/lib/getLetterName";
+
+import { Header } from "./Header";
 
 export const BalanceCard = () => {
   const { t } = useTranslation();

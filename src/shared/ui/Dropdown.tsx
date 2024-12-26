@@ -3,9 +3,10 @@
 import clsx from "clsx";
 import Image from "next/image";
 import React from "react";
+import { useTranslation } from "react-i18next";
+
 import { useOutsideClick } from "../hooks/useOutsideClick";
 import { IOption } from "../interfaces";
-import { useTranslation } from "react-i18next";
 
 interface Props {
   label?: string;
@@ -45,7 +46,7 @@ export const Dropdown: React.FC<Props> = ({
           "flex items-center justify-between border border-black/40 p-3 rounded-xl",
           {
             "pointer-events-none": isOpen,
-          }
+          },
         )}
       >
         <h4 className="font-medium">
@@ -80,7 +81,7 @@ export const Dropdown: React.FC<Props> = ({
                   {
                     "pointer-events-none": isActive,
                     "text-secondary": !isActive,
-                  }
+                  },
                 )}
               >
                 <h4 className="font-medium">{t(option.label)}</h4>
