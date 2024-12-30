@@ -10,6 +10,7 @@ import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
 
 import { Skeleton } from "./ui/Skeleton";
+import { ConnectToUserModal } from "../search/ui/modals/connectToUserModal";
 
 const MatchesPage = () => {
   const { data, isLoading } = useQuery({
@@ -18,25 +19,32 @@ const MatchesPage = () => {
   });
 
   return (
-    <Page disableHeightLimit className="!to-[#DDD7F7] !pb-[100px] min-h-screen">
-      <MainAppBar
-        text="yourMatches"
-        extraText={`(${data?.length || 0})`}
-        shadow
-      />
-      <Container className="!mt-4">
-        {/* LOADING STATE */}
-        {isLoading && <Skeleton />}
-        {/* DATA STATE */}
-        {!isLoading && (
-          <div className="space-y-2">
-            {data?.map((user: IMyMatchedUser) => {
-              return <DismissibleCard key={user.id} user={user} />;
-            })}
-          </div>
-        )}
-      </Container>
-    </Page>
+    <>
+      <Page
+        disableHeightLimit
+        className="!to-[#DDD7F7] !pb-[100px] min-h-screen"
+      >
+        <MainAppBar
+          text="yourMatches"
+          extraText={`(${data?.length || 0})`}
+          shadow
+        />
+        <Container className="!mt-4">
+          {/* LOADING STATE */}
+          {isLoading && <Skeleton />}
+          {/* DATA STATE */}
+          {!isLoading && (
+            <div className="space-y-2">
+              {data?.map((user: IMyMatchedUser) => {
+                return <DismissibleCard key={user.id} user={user} />;
+              })}
+            </div>
+          )}
+        </Container>
+      </Page>
+      {/*  */}
+      <ConnectToUserModal />
+    </>
   );
 };
 

@@ -27,7 +27,7 @@ export const RevokeLikeLayer: React.FC<Props> = ({ id }) => {
       onClick={handleDislike}
       className="absolute top-0 left-0 bg-[#EC686D] w-full h-full rounded-[25px] flex justify-end items-center pr-5"
     >
-      <div className="flex flex-col items-center space-y-2 translate-y-1">
+      <div className="flex flex-col items-center space-y-2 translate-y-1 translate-x-4">
         <Image
           src={"/icons/whiteClose.svg"}
           width={24}
@@ -35,7 +35,7 @@ export const RevokeLikeLayer: React.FC<Props> = ({ id }) => {
           alt="close"
           className=""
         />
-        <h5 className="text-white font-normal text-[13px]">
+        <h5 className="text-white font-normal text-[13px] w-[80px] text-center">
           {mutation.isPending || mutation.isSuccess
             ? `${t("removing")}`
             : t("remove")}
