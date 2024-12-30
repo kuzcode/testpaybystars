@@ -46,6 +46,7 @@ export const Gallery = () => {
       },
     );
     queryClient.refetchQueries({ queryKey: ["fetchMyProfile"] });
+    e.target.value = "";
   };
 
   const handleImageClick = () => {};
