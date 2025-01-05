@@ -12,8 +12,10 @@ interface Props {
   label?: string;
   className?: string;
   options: IOption[];
+  // eslint-disable-next-line no-unused-vars
   onChangeOption: (option: IOption) => void;
   defultValue?: string;
+  required?: boolean;
 }
 
 export const Dropdown: React.FC<Props> = ({
@@ -22,6 +24,7 @@ export const Dropdown: React.FC<Props> = ({
   onChangeOption,
   options,
   defultValue,
+  required,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = React.useState(false);
@@ -35,6 +38,15 @@ export const Dropdown: React.FC<Props> = ({
     setIsOpen(false);
   };
 
+  React.useEffect(() => {
+    if (defultValue) {
+      const option = options.find((option) => option.label === defultValue);
+      if (option) {
+        onChange(option);
+      }
+    }
+  }, [defultValue]);
+
   return (
     <div className={clsx("", className)}>
       {label && (
@@ -43,12 +55,17 @@ export const Dropdown: React.FC<Props> = ({
       <div
         onClick={() => setIsOpen(true)}
         className={clsx(
-          "flex items-center justify-between border border-black/40 p-3 rounded-xl",
+          "relative flex items-center justify-between border border-black/40 p-3 rounded-xl",
           {
             "pointer-events-none": isOpen,
           },
         )}
       >
+        {required && (
+          <h3 className="text-red-600 absolute top-[2px] right-[5px] text-base">
+            *
+          </h3>
+        )}
         <h4 className="font-medium">
           {defultValue && selectedOption.value === ""
             ? t(defultValue)

@@ -92,6 +92,7 @@ export const LocationSelector: React.FC<Props> = ({
         label={dropdownLabel}
         options={SELECT_LOCATION_TYPES}
         onChangeOption={onChangeLocationTypeSelector}
+        required
       />
 
       {selectManuallyEnabled && (
