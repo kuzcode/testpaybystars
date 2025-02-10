@@ -7,16 +7,20 @@ export const TON_CONNECT_UI_MANIFEST_URL =
 
 export const STATUSES = [
   {
-    label: "noMatter",
-    value: "",
+    label: "communication",
+    value: "anything",
   },
   {
-    label: "insearch",
-    value: "insearch",
+    label: "dating",
+    value: "dating",
   },
   {
-    label: "inlove",
-    value: "inlove",
+    label: "love",
+    value: "love",
+  },
+  {
+    label: "friendship",
+    value: "friendship",
   },
 ];
 

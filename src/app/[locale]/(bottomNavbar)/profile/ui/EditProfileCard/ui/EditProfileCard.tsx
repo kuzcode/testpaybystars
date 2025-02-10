@@ -75,7 +75,7 @@ export const EditProfileCard = () => {
             required
           />
           <Dropdown
-            label={t("status")}
+            label={t("whyAreYouHere")}
             options={STATUSES}
             defultValue={
               STATUSES.find((item) => item.value === status)?.label || ""

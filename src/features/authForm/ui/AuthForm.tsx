@@ -163,7 +163,7 @@ export const AuthForm = () => {
             setSelectedCountryCode={setSelectedCountryCode}
           />
           <Dropdown
-            label={t("status")}
+            label={t("whyAreYouHere")}
             options={STATUSES}
             onChangeOption={onChangeStatusOption}
           />

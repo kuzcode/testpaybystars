@@ -67,5 +67,10 @@
     "lowEnergy": "Low energy",
     "error": "Error",
     "myGender": "My gender",
-    "rateTooltip": "Rate - annual percentage yield"
+    "rateTooltip": "Rate - annual percentage yield",
+    "whyAreYouHere": "Why are you here?",
+    "dating": "Dating",
+    "love": "Love",
+    "friendship": "Friendship",
+    "communication": "Communication"
 }
