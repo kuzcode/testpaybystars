@@ -45,15 +45,12 @@ export const fetchFindUsersNear = async (pageNumberManual: string | null) => {
     ...(status && { status }),
   };
 
-  try {
-    const resposne = await instance.post(
-      `/users/find?distance=${distance}&size=${size}&page_number=${pageNumber}`,
-      data,
-    );
-    return resposne.data as { profiles: IUser[]; total: number };
-  } catch (e) {
-    return { profiles: [], total: 0 };
-  }
+  const resposne = await instance.post(
+    `/users/find?distance=${distance}&size=${size}&page_number=${pageNumber}`,
+    data,
+  );
+
+  return resposne.data as { profiles: IUser[]; total: number };
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -81,14 +78,10 @@ export interface IMyLikedUser {
 export const fetchOutcomeLikes = async () => {
   const pageNumber = 0;
   const size = 100;
-  try {
-    const response = await instance.get(
-      `/users/out/likes?page_number=${pageNumber}&size=${size}`,
-    );
-    return response.data as IMyLikedUser[];
-  } catch (e) {
-    return [];
-  }
+  const response = await instance.get(
+    `/users/out/likes?page_number=${pageNumber}&size=${size}`,
+  );
+  return response.data as IMyLikedUser[];
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -111,23 +104,15 @@ export interface IMyMatchedUser {
 }
 
 export const fetchUsersWhoMatched = async () => {
-  try {
-    const response = await instance.get(`/users/matches`);
-    return response.data as IMyMatchedUser[];
-  } catch (e) {
-    return [];
-  }
+  const response = await instance.get(`/users/matches`);
+  return response.data as IMyMatchedUser[];
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 export const buyEnergy = async () => {
-  try {
-    const response = await instance.post(`/users/energy/buy`);
-    return response.data;
-  } catch (e) {
-    return { ok: true } as any;
-  }
+  const response = await instance.post(`/users/energy/buy`);
+  return response.data;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -140,32 +125,20 @@ export interface IUpdateUserProfileProps {
 }
 
 export const updateUserProfile = async (data: IUpdateUserProfileProps) => {
-  try {
-    const response = await instance.post("/users", data);
-    return response.data;
-  } catch (e) {
-    return { ok: true } as any;
-  }
+  const response = await instance.post("/users", data);
+  return response.data;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 export const getUserInLikes = async () => {
-  try {
-    const response = await instance.get("/users/in/likes");
-    return response.data;
-  } catch (e) {
-    return [] as any;
-  }
+  const response = await instance.get("/users/in/likes");
+  return response.data;
 };
 
 export const getUserOutLikes = async () => {
-  try {
-    const response = await instance.get("/users/out/likes");
-    return response.data;
-  } catch (e) {
-    return [] as any;
-  }
+  const response = await instance.get("/users/out/likes");
+  return response.data;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -197,42 +170,15 @@ export interface IProfile {
 }
 
 export const fetchMyProfile = async () => {
-  try {
-    const response = await instance.get(`/users`);
-    return response.data as IProfile;
-  } catch (e) {
-    const mock: IProfile = {
-      id: "test-user-id",
-      firstName: "Test",
-      lastName: "User",
-      gender: null,
-      status: null,
-      info: null,
-      latitude: 0,
-      longitude: 0,
-      images: [],
-      dislikesAmount: 0,
-      likesAmount: 0,
-      energy: 100,
-      fires: 0,
-      rating: 0,
-      searchGender: null,
-      wallets: [],
-      usdtBalance: 0,
-    };
-    return mock;
-  }
+  const response = await instance.get(`/users`);
+  return response.data as IProfile;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 export const buyContact = async (userId: string) => {
-  try {
-    const response = await instance.post(`/users/${userId}/contact`);
-    return response.data;
-  } catch (e) {
-    return { ok: true } as any;
-  }
+  const response = await instance.post(`/users/${userId}/contact`);
+  return response.data;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
@@ -251,52 +197,36 @@ export const updateUserLocation = async ({
     ...(accessToken && { "x-auth-token": `Bearer ${accessToken}` }),
   };
 
-  try {
-    const response = await instance.post(`/users/location`, data, {
-      headers: headersConfig,
-    });
-    return response.data;
-  } catch (e) {
-    return { ok: true } as any;
-  }
+  const response = await instance.post(`/users/location`, data, {
+    headers: headersConfig,
+  });
+  return response.data;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 export const revokeLike = async (id: string) => {
-  try {
-    const response = await instance.delete(`/users/${id}/like`);
-    return response.data;
-  } catch (e) {
-    return { ok: true } as any;
-  }
+  const response = await instance.delete(`/users/${id}/like`);
+  return response.data;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 export const uploadProfileImage = async (data: FormData) => {
-  try {
-    const response = await instance.post(`/users/images`, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      timeout: 600000,
-    });
-    return response.data;
-  } catch (e) {
-    return { ok: true } as any;
-  }
+  const response = await instance.post(`/users/images`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    timeout: 600000,
+  });
+  return response.data;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 export const deleteUserImage = async (id: string) => {
-  try {
-    const response = await instance.delete(`/users/images/${id}`);
-    return response.status;
-  } catch (e) {
-    return 200;
-  }
+  const response = await instance.delete(`/users/images/${id}`);
+  return response.status;
 };
 
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
