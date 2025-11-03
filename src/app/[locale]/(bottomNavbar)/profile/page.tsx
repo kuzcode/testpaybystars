@@ -6,9 +6,9 @@ import { MainAppBar } from "@/widgets/mainAppBar";
 
 import { BalanceCard } from "./ui/BalanceCard";
 import { EditProfileCard } from "./ui/EditProfileCard/ui/EditProfileCard";
-import { PaymentNetworkTypesModal } from "./ui/modals/PaymentNetworkTypesModal";
+// TON modal removed
 import { ProfileImageRemoveConfirmationModal } from "./ui/modals/ProfileImageRemoveConfirmationModal";
-import { WalletState } from "./ui/WalletState";
+// TON wallet state removed
 
 const Profile = () => {
   return (
@@ -17,14 +17,12 @@ const Profile = () => {
       <Container>
         <div className="space-y-3">
           <BalanceCard />
-          <WalletState />
           <EditProfileCard />
         </div>
       </Container>
 
       {/* MODALS */}
       <ProfileImageRemoveConfirmationModal />
-      <PaymentNetworkTypesModal />
     </Page>
   );
 };

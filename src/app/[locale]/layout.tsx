@@ -9,7 +9,6 @@ import Script from "next/script";
 import React from "react";
 
 import { i18nConfig } from "@/i18nConfig";
-import { TonClientProvider } from "@/shared/context/tonClientContext";
 import { InitWebAppParams } from "@/shared/ui/InitWebAppParams";
 
 import initTranslations from "../i18n";
@@ -18,7 +17,6 @@ import TranslationsProvider from "./_providers/TranslationProvider";
 
 import "./globals.css";
 
-import { TonConnectUiProvider } from "./_providers/TonConnectUiProvider";
 import { ToasterProvider } from "./_providers/ToasterProvider";
 
 declare global {
@@ -71,14 +69,10 @@ export default async function RootLayout({
           locale={locale}
           resources={resources}
         >
-          <TonConnectUiProvider>
-            <ToasterProvider>
-              <TonClientProvider>
-                <InitWebAppParams />
-                <ReactQueryProvider>{children}</ReactQueryProvider>
-              </TonClientProvider>
-            </ToasterProvider>
-          </TonConnectUiProvider>
+          <ToasterProvider>
+            <InitWebAppParams />
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+          </ToasterProvider>
         </TranslationsProvider>
       </body>
     </html>
