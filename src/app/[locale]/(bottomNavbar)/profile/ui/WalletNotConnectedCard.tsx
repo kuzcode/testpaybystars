@@ -10,9 +10,6 @@ import { Step } from "@/shared/ui/Step";
 export const WalletNotConnectedCard = () => {
   const { t } = useTranslation();
 
-  const onWalletConnect = () => connectTonWallet();
-  // toggleModal("payment-network-types", null, true);
-
   return (
     <Card>
       <Step
