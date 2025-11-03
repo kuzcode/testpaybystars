@@ -3,8 +3,7 @@ export const BASE_URL = ((PUBLIC_BASE && PUBLIC_BASE !== "undefined") ? PUBLIC_B
 
 export const TG_INIT_DATA = process.env.NEXT_PUBLIC_TG_INIT_DATA;
 
-export const TON_CONNECT_UI_MANIFEST_URL =
-  "https://peoplenearby.ru/manifest/tonconnect-manifest.json";
+// TON removed: no manifest required
 
 export const STATUSES = [
   {

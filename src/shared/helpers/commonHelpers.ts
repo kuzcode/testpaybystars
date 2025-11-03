@@ -1,11 +1,4 @@
-export const separateTonAddress = (address: string) =>
-  `${address.slice(0, 4)}...${address.slice(-4)}`;
-
-export const calculateUsdtAmount = (usdCents: number) =>
-  BigInt(usdCents * 10000);
-
-export const calculateUsdFromUsdt = (usdtAmount: bigint) =>
-  Math.round((Number(usdtAmount) / 1000000) * 100) / 100;
+// TON-related helpers removed
 
 export const isUUID = (uuid: string): boolean =>
   uuid.match(

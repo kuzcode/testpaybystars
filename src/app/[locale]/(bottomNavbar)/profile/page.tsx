@@ -8,7 +8,6 @@ import { BalanceCard } from "./ui/BalanceCard";
 import { EditProfileCard } from "./ui/EditProfileCard/ui/EditProfileCard";
 // TON modal removed
 import { ProfileImageRemoveConfirmationModal } from "./ui/modals/ProfileImageRemoveConfirmationModal";
-// TON wallet state removed
 
 const Profile = () => {
   return (

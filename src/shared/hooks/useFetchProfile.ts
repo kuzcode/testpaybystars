@@ -9,14 +9,20 @@ import { useProfile } from "../store/useProfile";
 export const useFetchProfile = () => {
   const { setProfile } = useProfile();
 
-  const { data, isSuccess, isRefetching } = useQuery({
+  const { data, isSuccess, isError, isRefetching } = useQuery({
     queryKey: ["fetchMyProfile"],
     queryFn: fetchMyProfile,
     retry: false,
-    onSuccess: (profile) => {
-      setProfile(profile);
-    },
-    onError: () => {
+  });
+
+  React.useEffect(() => {
+    if (isSuccess && !isRefetching && data) {
+      setProfile(data);
+    }
+  }, [isRefetching, isSuccess, data, setProfile]);
+
+  React.useEffect(() => {
+    if (isError && !isRefetching) {
       const testProfile: IProfile = {
         id: "test-user-id",
         firstName: "Test",
@@ -37,12 +43,6 @@ export const useFetchProfile = () => {
         usdtBalance: 0,
       };
       setProfile(testProfile);
-    },
-  });
-
-  React.useEffect(() => {
-    if (isSuccess && !isRefetching && data) {
-      setProfile(data);
     }
-  }, [isRefetching, isSuccess, data, setProfile]);
+  }, [isError, isRefetching, setProfile]);
 };

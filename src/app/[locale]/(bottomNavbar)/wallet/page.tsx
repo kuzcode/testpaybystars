@@ -4,7 +4,6 @@ import { Container } from "@/shared/ui/Container";
 import { Page } from "@/shared/ui/Page";
 import { MainAppBar } from "@/widgets/mainAppBar";
 
-import { WalletCardList } from "./ui/walletCardList";
 
 const Wallet = () => {
   return (
@@ -16,10 +15,6 @@ const Wallet = () => {
         className="relative"
         enableBackButton
       />
-      {/* <TimerBadge className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[60%]" /> */}
-      <Container className="!mt-8">
-        <WalletCardList />
-      </Container>
     </Page>
   );
 };
