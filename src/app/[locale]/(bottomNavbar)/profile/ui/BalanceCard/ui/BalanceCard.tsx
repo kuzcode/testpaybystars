@@ -3,9 +3,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-import { useConnectTonWallet } from "@/shared/hooks/useConnectTonWallet";
-import { useCustomPush } from "@/shared/hooks/useCustomPush";
-import { useIsWalletConnected } from "@/shared/hooks/useIsWalletConnected";
+import { useOpenStarsInvoice } from "@/shared/hooks/useOpenStarsInvoice";
 import { Button } from "@/shared/ui/Button";
 import { Card } from "@/shared/ui/Card";
 import { LetterIcon } from "@/shared/ui/LetterIcon";
@@ -15,16 +13,10 @@ import { Header } from "./Header";
 
 export const BalanceCard = () => {
   const { t } = useTranslation();
-  const isWalletConnected = useIsWalletConnected();
-  const connectTonWallet = useConnectTonWallet();
-  const push = useCustomPush();
+  const openInvoice = useOpenStarsInvoice();
 
   const deposit = () => {
-    if (isWalletConnected) {
-      push("/wallet");
-      return;
-    }
-    connectTonWallet();
+    openInvoice();
   };
 
   return (

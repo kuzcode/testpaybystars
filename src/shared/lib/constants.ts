@@ -1,4 +1,5 @@
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL + "/api";
+const PUBLIC_BASE = process.env.NEXT_PUBLIC_BASE_URL;
+export const BASE_URL = ((PUBLIC_BASE && PUBLIC_BASE !== "undefined") ? PUBLIC_BASE : "") + "/api";
 
 export const TG_INIT_DATA = process.env.NEXT_PUBLIC_TG_INIT_DATA;
 

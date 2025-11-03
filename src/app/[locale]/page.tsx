@@ -22,43 +22,12 @@ export default function Home() {
 
     // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --          -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-    const isForTesters = WebApp.initDataUnsafe?.start_param?.includes("env");
-    const accessToken = getAccessTokenClient() || "";
-
-    const accessTokenChecker = (token: string) => {
-      if (token) {
-        setAccessTokenClient(token); // for testers
-        router.push(`${WebAppLanguage}/search`);
-      } else {
-        router.push(`${WebAppLanguage}/createProfile`);
-      }
-    };
-
-    if (isForTesters) {
-      window.Telegram.WebApp.CloudStorage.getItem(
-        CLOUD_STORAGE.TOKEN,
-        (error, result) => {
-          if (error) {
-            router.push(`${WebAppLanguage}/createProfile`);
-          } else {
-            accessTokenChecker(result || "");
-          }
-        },
-      );
-
-      window.Telegram.WebApp.CloudStorage.getItem(
-        CLOUD_STORAGE.REFRESH_TOKEN,
-        (error, result) => {
-          if (error) {
-            // router.push(`${WebAppLanguage}/createProfile`);
-          } else {
-            setRefreshTokenClient(result || "");
-          }
-        },
-      );
-    } else {
-      accessTokenChecker(accessToken);
-    }
+    // Always start as a test user without registration
+    const dummyAccessToken = "test-access-token";
+    const dummyRefreshToken = "test-refresh-token";
+    setAccessTokenClient(dummyAccessToken);
+    setRefreshTokenClient(dummyRefreshToken);
+    router.push(`${WebAppLanguage}/search`);
   }, []);
 
   return null;
